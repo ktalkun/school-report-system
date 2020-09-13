@@ -1,4 +1,4 @@
-package config;
+package by.tolkun.timetable.config;
 
 public final class StudentTimetableConfig {
     public static final int QTY_LESSONS_PER_FIRST_SHIFT = 6;
