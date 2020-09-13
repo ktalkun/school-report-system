@@ -35,6 +35,12 @@ public class TimetableExcelWorkbook {
         return maxNumCells;
     }
 
+    public void autoSizeAllColumns(int numSheet) {
+        for (int i = 0; i < getPhysicalNumberOfColumns(numSheet); i++) {
+            workbook.getSheetAt(numSheet).autoSizeColumn(i);
+        }
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
