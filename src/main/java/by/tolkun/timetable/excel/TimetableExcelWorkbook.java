@@ -1,5 +1,7 @@
 package by.tolkun.timetable.excel;
 
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
 import java.util.Objects;
@@ -17,6 +19,20 @@ public class TimetableExcelWorkbook {
 
     public void setWorkbook(Workbook workbook) {
         this.workbook = workbook;
+    }
+
+    public int getPhysicalNumberOfRows(int numSheet) {
+        return workbook.getSheetAt(numSheet).getPhysicalNumberOfRows();
+    }
+
+    public int getPhysicalNumberOfColumns(int numSheet) {
+        int maxNumCells = 0;
+        for (Row row : workbook.getSheetAt(numSheet)) {
+            if (maxNumCells < row.getLastCellNum()) {
+                maxNumCells = row.getLastCellNum();
+            }
+        }
+        return maxNumCells;
     }
 
     @Override
