@@ -114,7 +114,7 @@ public class TimetableExcelWorkbook {
                         .getStringCellValue()
                         .trim();
                 if (!lesson.isEmpty()) {
-                    lessons.add(lesson);
+                    lessons.add("!" + lesson);
                 }
             }
         }
