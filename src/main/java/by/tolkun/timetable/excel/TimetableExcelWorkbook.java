@@ -1,6 +1,6 @@
 package by.tolkun.timetable.excel;
 
-import config.StudentTimetableConfig;
+import by.tolkun.timetable.config.StudentTimetableConfig;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Workbook;
 
