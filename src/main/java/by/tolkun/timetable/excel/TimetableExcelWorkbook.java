@@ -154,6 +154,12 @@ public class TimetableExcelWorkbook {
         }
     }
 
+    public void clearAll(int numSheet) {
+        workbook.getSheetAt(numSheet).shiftRows(getPhysicalNumberOfRows(numSheet),
+                getPhysicalNumberOfRows(numSheet) * 2,
+                -(getPhysicalNumberOfRows(numSheet)));
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
