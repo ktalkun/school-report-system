@@ -38,15 +38,6 @@ public class TimetableExcelWorkbook {
         return maxNumCells;
     }
 
-    public int getShiftByDayAndClass(int numSheet, int schoolDay, int schoolClass) {
-        if (getQtyLessonsByShiftAndDayAndClass(numSheet, 1, schoolDay,
-                schoolClass) > getQtyLessonsByShiftAndDayAndClass(numSheet,
-                2, schoolDay, schoolClass)) {
-            return 1;
-        }
-        return 2;
-    }
-
     public int getQtyLessonsByShiftAndDayAndClass(int numSheet, int shift,
                                                   int schoolDay, int schoolClass) {
         int currentShiftBeginRow = StudentTimetableConfig.NUM_OF_FIRST_ROW_WITH_LESSON
@@ -72,6 +63,15 @@ public class TimetableExcelWorkbook {
         }
 
         return qtyLessonPerCurrentShift;
+    }
+
+    public int getShiftByDayAndClass(int numSheet, int schoolDay, int schoolClass) {
+        if (getQtyLessonsByShiftAndDayAndClass(numSheet, 1, schoolDay,
+                schoolClass) > getQtyLessonsByShiftAndDayAndClass(numSheet,
+                2, schoolDay, schoolClass)) {
+            return 1;
+        }
+        return 2;
     }
 
     public List<String> getLessonsByDayAndClass(int numSheet, int schoolDay,
