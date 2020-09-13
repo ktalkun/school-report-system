@@ -1,6 +1,8 @@
 package by.tolkun.timetable.excel;
 
 import by.tolkun.timetable.config.StudentTimetableConfig;
+import by.tolkun.timetable.entity.SchoolClass;
+import by.tolkun.timetable.entity.SchoolDay;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Workbook;
 
@@ -118,6 +120,32 @@ public class TimetableExcelWorkbook {
         }
 
         return lessons;
+    }
+
+    public List<SchoolClass> getSchoolClasses(int numSheet) {
+        List<SchoolClass> schoolClasses = new ArrayList<>();
+        for (int numOfCurrentClass = StudentTimetableConfig.NUM_OF_FIRST_COLUMN_WITH_LESSON;
+             numOfCurrentClass < getPhysicalNumberOfColumns(numSheet);
+             numOfCurrentClass++) {
+
+            List<SchoolDay> schoolDays = new ArrayList<>();
+            for (int numOfCurrentDay = 0;
+                 numOfCurrentDay < StudentTimetableConfig.QTY_SCHOOL_DAYS_PER_WEEK;
+                 numOfCurrentDay++) {
+
+                int shift = getShiftByDayAndClass(numSheet, numOfCurrentDay,
+                        numOfCurrentClass);
+                schoolDays.add(new SchoolDay(getLessonsByDayAndClass(numSheet,
+                        numOfCurrentDay, numOfCurrentClass), shift));
+            }
+
+            schoolClasses.add(new SchoolClass(workbook.getSheetAt(numSheet)
+                    .getRow(StudentTimetableConfig.NUM_OF_FIRST_ROW_WITH_LESSON - 1)
+                    .getCell(numOfCurrentClass)
+                    .getStringCellValue(), schoolDays)
+            );
+        }
+        return schoolClasses;
     }
 
     public void autoSizeAllColumns(int numSheet) {
