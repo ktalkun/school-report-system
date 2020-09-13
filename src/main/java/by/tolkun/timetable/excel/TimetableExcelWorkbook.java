@@ -4,6 +4,8 @@ import by.tolkun.timetable.config.StudentTimetableConfig;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Workbook;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class TimetableExcelWorkbook {
@@ -70,6 +72,52 @@ public class TimetableExcelWorkbook {
         }
 
         return qtyLessonPerCurrentShift;
+    }
+
+    public List<String> getLessonsByDayAndClass(int numSheet, int schoolDay,
+                                                int schoolClass) {
+        int shift = getShiftByDayAndClass(numSheet, schoolDay, schoolClass);
+        int qtyLessonsPerCurrentShift
+                = StudentTimetableConfig.QTY_LESSONS_PER_FIRST_SHIFT;
+        if (shift == 2) {
+            qtyLessonsPerCurrentShift
+                    = StudentTimetableConfig.QTY_LESSONS_PER_SECOND_SHIFT;
+        }
+        int numOfFirstLessonForCurrentDayAndShift
+                = StudentTimetableConfig.NUM_OF_FIRST_ROW_WITH_LESSON
+                + schoolDay * StudentTimetableConfig.LESSONS_PER_DAY
+                + (shift - 1) * StudentTimetableConfig.QTY_LESSONS_PER_FIRST_SHIFT;
+
+        List<String> lessons = new ArrayList<>();
+        for (int i = numOfFirstLessonForCurrentDayAndShift;
+             i < numOfFirstLessonForCurrentDayAndShift
+                     + qtyLessonsPerCurrentShift; i++) {
+            lessons.add(workbook.getSheetAt(numSheet)
+                    .getRow(i)
+                    .getCell(schoolClass)
+                    .getStringCellValue()
+                    .trim()
+            );
+        }
+
+//        Add lessons that are before begin of second shift.
+        if (shift == 2) {
+            for (int i = numOfFirstLessonForCurrentDayAndShift - 1;
+                 i > numOfFirstLessonForCurrentDayAndShift - 1
+                         - StudentTimetableConfig.QTY_LESSONS_PER_FIRST_SHIFT;
+                 i--) {
+                String lesson = workbook.getSheetAt(numSheet)
+                        .getRow(i)
+                        .getCell(schoolClass)
+                        .getStringCellValue()
+                        .trim();
+                if (!lesson.isEmpty()) {
+                    lessons.add(lesson);
+                }
+            }
+        }
+
+        return lessons;
     }
 
     public void autoSizeAllColumns(int numSheet) {
