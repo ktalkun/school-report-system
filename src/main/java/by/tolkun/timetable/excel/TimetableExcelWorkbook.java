@@ -37,40 +37,39 @@ public class TimetableExcelWorkbook {
     }
 
     public int getShiftByDayAndClass(int numSheet, int schoolDay, int schoolClass) {
-        int firstShiftBeginRow = StudentTimetableConfig.NUM_OF_FIRST_ROW_WITH_LESSON
+        if (getQtyLessonsByShiftAndDayAndClass(numSheet, 1, schoolDay,
+                schoolClass) > getQtyLessonsByShiftAndDayAndClass(numSheet,
+                2, schoolDay, schoolClass)) {
+            return 1;
+        }
+        return 2;
+    }
+
+    public int getQtyLessonsByShiftAndDayAndClass(int numSheet, int shift,
+                                                  int schoolDay, int schoolClass) {
+        int currentShiftBeginRow = StudentTimetableConfig.NUM_OF_FIRST_ROW_WITH_LESSON
                 + schoolDay * StudentTimetableConfig.LESSONS_PER_DAY;
-        int firstShiftEndRow = firstShiftBeginRow
+        int currentShiftEndRow = currentShiftBeginRow
                 + StudentTimetableConfig.QTY_LESSONS_PER_FIRST_SHIFT;
-        int numLessonsInFirstShift = 0;
-        for (int i = firstShiftBeginRow; i < firstShiftEndRow; i++) {
-            if (!workbook
-                    .getSheetAt(numSheet)
-                    .getRow(i)
-                    .getCell(schoolClass)
-                    .getStringCellValue()
-                    .isEmpty()) {
-                numLessonsInFirstShift++;
-            }
+
+        if (shift == 2) {
+            currentShiftBeginRow = currentShiftEndRow;
+            currentShiftEndRow = currentShiftBeginRow
+                    + StudentTimetableConfig.QTY_LESSONS_PER_SECOND_SHIFT;
         }
 
-        int secondShiftBeginRow = firstShiftEndRow;
-        int secondShiftEndRow = secondShiftBeginRow
-                + StudentTimetableConfig.QTY_LESSONS_PER_SECOND_SHIFT;
-        int numLessonsInSecondShift = 0;
-        for (int i = secondShiftBeginRow; i < secondShiftEndRow; i++) {
+        int qtyLessonPerCurrentShift = 0;
+        for (int i = currentShiftBeginRow; i < currentShiftEndRow; i++) {
             if (!workbook.getSheetAt(numSheet)
                     .getRow(i)
                     .getCell(schoolClass)
                     .getStringCellValue()
                     .isEmpty()) {
-                numLessonsInSecondShift++;
+                qtyLessonPerCurrentShift++;
             }
         }
 
-        if (numLessonsInFirstShift > numLessonsInSecondShift) {
-            return 1;
-        }
-        return 2;
+        return qtyLessonPerCurrentShift;
     }
 
     public void autoSizeAllColumns(int numSheet) {
