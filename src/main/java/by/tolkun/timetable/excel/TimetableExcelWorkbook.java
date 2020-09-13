@@ -101,6 +101,11 @@ public class TimetableExcelWorkbook {
                     .trim()
             );
         }
+        int currentLesson = lessons.size() - 1;
+        while (currentLesson >= 0 && lessons.get(currentLesson).isEmpty()) {
+            currentLesson--;
+        }
+        lessons = lessons.subList(0, currentLesson + 1);
 
 //        Add lessons that are before begin of second shift.
         if (shift == 2) {
