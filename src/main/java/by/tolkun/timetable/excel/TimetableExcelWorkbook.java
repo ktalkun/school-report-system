@@ -1,13 +1,14 @@
 package by.tolkun.timetable.excel;
 
+import config.StudentTimetableConfig;
 import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
 import java.util.Objects;
 
 public class TimetableExcelWorkbook {
     private Workbook workbook;
+
 
     public TimetableExcelWorkbook(Workbook workbook) {
         this.workbook = workbook;
@@ -33,6 +34,43 @@ public class TimetableExcelWorkbook {
             }
         }
         return maxNumCells;
+    }
+
+    public int getShiftByDayAndClass(int numSheet, int schoolDay, int schoolClass) {
+        int firstShiftBeginRow = StudentTimetableConfig.NUM_OF_FIRST_ROW_WITH_LESSON
+                + schoolDay * StudentTimetableConfig.LESSONS_PER_DAY;
+        int firstShiftEndRow = firstShiftBeginRow
+                + StudentTimetableConfig.QTY_LESSONS_PER_FIRST_SHIFT;
+        int numLessonsInFirstShift = 0;
+        for (int i = firstShiftBeginRow; i < firstShiftEndRow; i++) {
+            if (!workbook
+                    .getSheetAt(numSheet)
+                    .getRow(i)
+                    .getCell(schoolClass)
+                    .getStringCellValue()
+                    .isEmpty()) {
+                numLessonsInFirstShift++;
+            }
+        }
+
+        int secondShiftBeginRow = firstShiftEndRow;
+        int secondShiftEndRow = secondShiftBeginRow
+                + StudentTimetableConfig.QTY_LESSONS_PER_SECOND_SHIFT;
+        int numLessonsInSecondShift = 0;
+        for (int i = secondShiftBeginRow; i < secondShiftEndRow; i++) {
+            if (!workbook.getSheetAt(numSheet)
+                    .getRow(i)
+                    .getCell(schoolClass)
+                    .getStringCellValue()
+                    .isEmpty()) {
+                numLessonsInSecondShift++;
+            }
+        }
+
+        if (numLessonsInFirstShift > numLessonsInSecondShift) {
+            return 1;
+        }
+        return 2;
     }
 
     public void autoSizeAllColumns(int numSheet) {
