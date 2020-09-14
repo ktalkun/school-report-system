@@ -101,9 +101,15 @@ public class StudentTimetableSheet {
         return 2;
     }
 
-    public List<String> getLessonsByDayAndClass(int numSheet, int schoolDay,
-                                                int schoolClass) {
-        int shift = getShiftByDayAndClass(numSheet, schoolDay, schoolClass);
+    /**
+     * Get list of the lessons by day and class.
+     *
+     * @param schoolDay the school day
+     * @param schoolClass the school class
+     * @return list of the lessons according to day and class
+     */
+    public List<String> getLessonsByDayAndClass(int schoolDay, int schoolClass) {
+        int shift = getShiftByDayAndClass(schoolDay, schoolClass);
         int qtyLessonsPerCurrentShift
                 = StudentTimetableConfig.QTY_LESSONS_PER_FIRST_SHIFT;
         if (shift == 2) {
@@ -116,16 +122,21 @@ public class StudentTimetableSheet {
                 + (shift - 1) * StudentTimetableConfig.QTY_LESSONS_PER_FIRST_SHIFT;
 
         List<String> lessons = new ArrayList<>();
+
+//        Read all lessons with tilings the window.
         for (int i = numOfFirstLessonForCurrentDayAndShift;
              i < numOfFirstLessonForCurrentDayAndShift
                      + qtyLessonsPerCurrentShift; i++) {
-            lessons.add(workbook.getSheetAt(numSheet)
+            lessons.add(sheet
                     .getRow(i)
                     .getCell(schoolClass)
                     .getStringCellValue()
                     .trim()
             );
         }
+
+//        Remove empty string from the end of the list
+//        tilings the windows will remain.
         int currentLesson = lessons.size() - 1;
         while (currentLesson >= 0 && lessons.get(currentLesson).isEmpty()) {
             currentLesson--;
@@ -138,7 +149,7 @@ public class StudentTimetableSheet {
                  i > numOfFirstLessonForCurrentDayAndShift - 1
                          - StudentTimetableConfig.QTY_LESSONS_PER_FIRST_SHIFT;
                  i--) {
-                String lesson = workbook.getSheetAt(numSheet)
+                String lesson = sheet
                         .getRow(i)
                         .getCell(schoolClass)
                         .getStringCellValue()
