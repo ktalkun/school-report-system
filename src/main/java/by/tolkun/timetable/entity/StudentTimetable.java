@@ -20,6 +20,16 @@ public class StudentTimetable {
     }
 
     /**
+     * Get {@code SchoolClass} by the number.
+     *
+     * @param schoolClassNum the number for school class
+     * @return {@code SchooClass} by the number
+     */
+    public SchoolClass getSchoolClass(int schoolClassNum) {
+        return schoolClasses.get(schoolClassNum);
+    }
+
+    /**
      * Get max quantity lessons per day among all classes.
      *
      * @param numDay the number of day
