@@ -4,26 +4,25 @@ import by.tolkun.timetable.config.StudentTimetableConfig;
 import by.tolkun.timetable.entity.SchoolClass;
 import by.tolkun.timetable.entity.SchoolDay;
 import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.Sheet;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class TimetableExcelWorkbook {
-    private Workbook workbook;
+public class StudentTimetableSheet {
+    private Sheet sheet;
 
-
-    public TimetableExcelWorkbook(Workbook workbook) {
-        this.workbook = workbook;
+    public StudentTimetableSheet(Sheet sheet) {
+        this.sheet = sheet;
     }
 
-    public Workbook getWorkbook() {
-        return workbook;
+    public Sheet getSheet() {
+        return sheet;
     }
 
-    public void setWorkbook(Workbook workbook) {
-        this.workbook = workbook;
+    public void setSheet(Sheet sheet) {
+        this.sheet = sheet;
     }
 
     public int getPhysicalNumberOfRows(int numSheet) {
@@ -170,20 +169,20 @@ public class TimetableExcelWorkbook {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof TimetableExcelWorkbook)) return false;
-        TimetableExcelWorkbook that = (TimetableExcelWorkbook) o;
-        return workbook.equals(that.workbook);
+        if (!(o instanceof StudentTimetableSheet)) return false;
+        StudentTimetableSheet that = (StudentTimetableSheet) o;
+        return Objects.equals(sheet, that.sheet);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(workbook);
+        return Objects.hash(sheet);
     }
 
     @Override
     public String toString() {
         return "TimetableExcelWorkbook{" +
-                "workbook=" + workbook +
+                "sheet=" + sheet +
                 '}';
     }
 }
