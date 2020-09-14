@@ -1,6 +1,8 @@
 package by.tolkun.timetable.excel;
 
 import by.tolkun.timetable.config.StudentTimetableConfig;
+import by.tolkun.timetable.entity.SchoolClass;
+import by.tolkun.timetable.entity.SchoolDay;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Workbook;
 
@@ -99,6 +101,11 @@ public class TimetableExcelWorkbook {
                     .trim()
             );
         }
+        int currentLesson = lessons.size() - 1;
+        while (currentLesson >= 0 && lessons.get(currentLesson).isEmpty()) {
+            currentLesson--;
+        }
+        lessons = lessons.subList(0, currentLesson + 1);
 
 //        Add lessons that are before begin of second shift.
         if (shift == 2) {
@@ -112,7 +119,7 @@ public class TimetableExcelWorkbook {
                         .getStringCellValue()
                         .trim();
                 if (!lesson.isEmpty()) {
-                    lessons.add(lesson);
+                    lessons.add("!" + lesson);
                 }
             }
         }
@@ -120,10 +127,44 @@ public class TimetableExcelWorkbook {
         return lessons;
     }
 
+    public List<SchoolClass> getSchoolClasses(int numSheet) {
+        List<SchoolClass> schoolClasses = new ArrayList<>();
+//        Loop by classes.
+        for (int numOfCurrentClass = StudentTimetableConfig.NUM_OF_FIRST_COLUMN_WITH_LESSON;
+             numOfCurrentClass < getPhysicalNumberOfColumns(numSheet);
+             numOfCurrentClass++) {
+
+            List<SchoolDay> schoolDays = new ArrayList<>();
+//            Loop by days.
+            for (int numOfCurrentDay = 0;
+                 numOfCurrentDay < StudentTimetableConfig.QTY_SCHOOL_DAYS_PER_WEEK;
+                 numOfCurrentDay++) {
+
+                int shift = getShiftByDayAndClass(numSheet, numOfCurrentDay,
+                        numOfCurrentClass);
+                schoolDays.add(new SchoolDay(getLessonsByDayAndClass(numSheet,
+                        numOfCurrentDay, numOfCurrentClass), shift));
+            }
+
+            schoolClasses.add(new SchoolClass(workbook.getSheetAt(numSheet)
+                    .getRow(StudentTimetableConfig.NUM_OF_FIRST_ROW_WITH_LESSON - 1)
+                    .getCell(numOfCurrentClass)
+                    .getStringCellValue(), schoolDays)
+            );
+        }
+        return schoolClasses;
+    }
+
     public void autoSizeAllColumns(int numSheet) {
         for (int i = 0; i < getPhysicalNumberOfColumns(numSheet); i++) {
             workbook.getSheetAt(numSheet).autoSizeColumn(i);
         }
+    }
+
+    public void clearAll(int numSheet) {
+        workbook.getSheetAt(numSheet).shiftRows(getPhysicalNumberOfRows(numSheet),
+                getPhysicalNumberOfRows(numSheet) * 2,
+                -(getPhysicalNumberOfRows(numSheet)));
     }
 
     @Override
