@@ -49,9 +49,18 @@ public class StudentTimetableSheet {
         return maxNumCells;
     }
 
-    public int getQtyLessonsByShiftAndDayAndClass(int numSheet, int shift,
-                                                  int schoolDay, int schoolClass) {
-        int currentShiftBeginRow = StudentTimetableConfig.NUM_OF_FIRST_ROW_WITH_LESSON
+    /**
+     * Get quantity of the lessons per day according to shift and class.
+     *
+     * @param shift of the day of a class
+     * @param schoolDay the school day
+     * @param schoolClass the school class
+     * @return quantity of the lessons per day according to shift and class
+     */
+    public int getQtyLessonsByShiftAndDayAndClass(int shift, int schoolDay,
+                                                  int schoolClass) {
+        int currentShiftBeginRow
+                = StudentTimetableConfig.NUM_OF_FIRST_ROW_WITH_LESSON
                 + schoolDay * StudentTimetableConfig.LESSONS_PER_DAY;
         int currentShiftEndRow = currentShiftBeginRow
                 + StudentTimetableConfig.QTY_LESSONS_PER_FIRST_SHIFT;
@@ -64,7 +73,7 @@ public class StudentTimetableSheet {
 
         int qtyLessonPerCurrentShift = 0;
         for (int i = currentShiftBeginRow; i < currentShiftEndRow; i++) {
-            if (!workbook.getSheetAt(numSheet)
+            if (!sheet
                     .getRow(i)
                     .getCell(schoolClass)
                     .getStringCellValue()
@@ -76,10 +85,17 @@ public class StudentTimetableSheet {
         return qtyLessonPerCurrentShift;
     }
 
-    public int getShiftByDayAndClass(int numSheet, int schoolDay, int schoolClass) {
-        if (getQtyLessonsByShiftAndDayAndClass(numSheet, 1, schoolDay,
-                schoolClass) > getQtyLessonsByShiftAndDayAndClass(numSheet,
-                2, schoolDay, schoolClass)) {
+    /**
+     * Get shift by day and class.
+     *
+     * @param schoolDay the school day
+     * @param schoolClass the school class
+     * @return shift according to day and class
+     */
+    public int getShiftByDayAndClass(int schoolDay, int schoolClass) {
+        if (getQtyLessonsByShiftAndDayAndClass(1, schoolDay, schoolClass)
+                > getQtyLessonsByShiftAndDayAndClass(2, schoolDay,
+                schoolClass)) {
             return 1;
         }
         return 2;
