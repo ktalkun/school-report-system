@@ -202,16 +202,21 @@ public class StudentTimetableSheet {
         return schoolClasses;
     }
 
-    public void autoSizeAllColumns(int numSheet) {
-        for (int i = 0; i < getPhysicalNumberOfColumns(numSheet); i++) {
-            workbook.getSheetAt(numSheet).autoSizeColumn(i);
+    /**
+     * Set autosize of all columns.
+     */
+    public void autoSizeAllColumns() {
+        for (int i = 0; i < getPhysicalNumberOfColumns(); i++) {
+            sheet.autoSizeColumn(i);
         }
     }
 
-    public void clearAll(int numSheet) {
-        workbook.getSheetAt(numSheet).shiftRows(getPhysicalNumberOfRows(numSheet),
-                getPhysicalNumberOfRows(numSheet) * 2,
-                -(getPhysicalNumberOfRows(numSheet)));
+    /**
+     * Clear all rows.
+     */
+    public void clearAll() {
+        sheet.shiftRows(getPhysicalNumberOfRows(), getPhysicalNumberOfRows() * 2,
+                -(getPhysicalNumberOfRows()));
     }
 
     @Override
