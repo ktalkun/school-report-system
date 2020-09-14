@@ -10,17 +10,35 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Class to represent student timetable like a excel sheet.
+ */
 public class StudentTimetableSheet {
     private Sheet sheet;
 
+    /**
+     * Constructor with parameters.
+     *
+     * @param sheet of the student timetable
+     */
     public StudentTimetableSheet(Sheet sheet) {
         this.sheet = sheet;
     }
 
+    /**
+     * Get sheet of student timetable.
+     *
+     * @return sheet of the student timetable
+     */
     public Sheet getSheet() {
         return sheet;
     }
 
+    /**
+     * Set sheet of student timetable.
+     *
+     * @param sheet of the student timetable in the excel workbook
+     */
     public void setSheet(Sheet sheet) {
         this.sheet = sheet;
     }
@@ -219,6 +237,15 @@ public class StudentTimetableSheet {
                 -(getPhysicalNumberOfRows()));
     }
 
+    /**
+     * Compares this StudentTimeTableSheet to the specified object. The result
+     * is true if and only if the argument is not null and is a String object
+     * that represents the same sequence of characters as this object.
+     *
+     * @param o the object to compare this String against
+     * @return true if the given object represents a String equivalent to this
+     * string, false otherwise
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -227,11 +254,21 @@ public class StudentTimetableSheet {
         return Objects.equals(sheet, that.sheet);
     }
 
+    /**
+     * Returns a hash code for this StudentTimetableSheet.
+     *
+     * @return a hash code value for this object
+     */
     @Override
     public int hashCode() {
         return Objects.hash(sheet);
     }
 
+    /**
+     * Returns the string representation of the StudentTimetableSheet.
+     *
+     * @return the string representation of the StudentTimetableSheet
+     */
     @Override
     public String toString() {
         return "TimetableExcelWorkbook{" +
