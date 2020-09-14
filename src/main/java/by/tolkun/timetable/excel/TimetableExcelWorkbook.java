@@ -129,11 +129,13 @@ public class TimetableExcelWorkbook {
 
     public List<SchoolClass> getSchoolClasses(int numSheet) {
         List<SchoolClass> schoolClasses = new ArrayList<>();
+//        Loop by classes.
         for (int numOfCurrentClass = StudentTimetableConfig.NUM_OF_FIRST_COLUMN_WITH_LESSON;
              numOfCurrentClass < getPhysicalNumberOfColumns(numSheet);
              numOfCurrentClass++) {
 
             List<SchoolDay> schoolDays = new ArrayList<>();
+//            Loop by days.
             for (int numOfCurrentDay = 0;
                  numOfCurrentDay < StudentTimetableConfig.QTY_SCHOOL_DAYS_PER_WEEK;
                  numOfCurrentDay++) {
