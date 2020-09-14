@@ -25,13 +25,23 @@ public class StudentTimetableSheet {
         this.sheet = sheet;
     }
 
-    public int getPhysicalNumberOfRows(int numSheet) {
-        return workbook.getSheetAt(numSheet).getPhysicalNumberOfRows();
+    /**
+     * Get physical number of the rows in a sheet.
+     *
+     * @return physical number of the rows in a sheet
+     */
+    public int getPhysicalNumberOfRows() {
+        return sheet.getPhysicalNumberOfRows();
     }
 
-    public int getPhysicalNumberOfColumns(int numSheet) {
+    /**
+     * Get physical number of the columns in a sheet.
+     *
+     * @return physical number of the columns in a sheet
+     */
+    public int getPhysicalNumberOfColumns() {
         int maxNumCells = 0;
-        for (Row row : workbook.getSheetAt(numSheet)) {
+        for (Row row : sheet) {
             if (maxNumCells < row.getLastCellNum()) {
                 maxNumCells = row.getLastCellNum();
             }
