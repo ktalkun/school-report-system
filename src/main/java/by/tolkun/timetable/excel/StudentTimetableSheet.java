@@ -52,8 +52,8 @@ public class StudentTimetableSheet {
     /**
      * Get quantity of the lessons per day according to shift and class.
      *
-     * @param shift of the day of a class
-     * @param schoolDay the school day
+     * @param shift       of the day of a class
+     * @param schoolDay   the school day
      * @param schoolClass the school class
      * @return quantity of the lessons per day according to shift and class
      */
@@ -88,7 +88,7 @@ public class StudentTimetableSheet {
     /**
      * Get shift by day and class.
      *
-     * @param schoolDay the school day
+     * @param schoolDay   the school day
      * @param schoolClass the school class
      * @return shift according to day and class
      */
@@ -104,7 +104,7 @@ public class StudentTimetableSheet {
     /**
      * Get list of the lessons by day and class.
      *
-     * @param schoolDay the school day
+     * @param schoolDay   the school day
      * @param schoolClass the school class
      * @return list of the lessons according to day and class
      */
@@ -163,31 +163,42 @@ public class StudentTimetableSheet {
         return lessons;
     }
 
-    public List<SchoolClass> getSchoolClasses(int numSheet) {
+    /**
+     * Get the list of a school classes.
+     *
+     * @return get the list of a school classes
+     */
+    public List<SchoolClass> getSchoolClasses() {
         List<SchoolClass> schoolClasses = new ArrayList<>();
-//        Loop by classes.
-        for (int numOfCurrentClass = StudentTimetableConfig.NUM_OF_FIRST_COLUMN_WITH_LESSON;
-             numOfCurrentClass < getPhysicalNumberOfColumns(numSheet);
+
+//        Loop by classes to get list of SchoolClasses.
+        for (int numOfCurrentClass = StudentTimetableConfig
+                .NUM_OF_FIRST_COLUMN_WITH_LESSON;
+             numOfCurrentClass < getPhysicalNumberOfColumns();
              numOfCurrentClass++) {
 
             List<SchoolDay> schoolDays = new ArrayList<>();
-//            Loop by days.
+
+//            Loop by days to get list of SchoolDays.
             for (int numOfCurrentDay = 0;
                  numOfCurrentDay < StudentTimetableConfig.QTY_SCHOOL_DAYS_PER_WEEK;
                  numOfCurrentDay++) {
 
-                int shift = getShiftByDayAndClass(numSheet, numOfCurrentDay,
+                int shift = getShiftByDayAndClass(numOfCurrentDay,
                         numOfCurrentClass);
-                schoolDays.add(new SchoolDay(getLessonsByDayAndClass(numSheet,
-                        numOfCurrentDay, numOfCurrentClass), shift));
+                schoolDays.add(new SchoolDay(getLessonsByDayAndClass(
+                        numOfCurrentDay, numOfCurrentClass), shift)
+                );
             }
 
-            schoolClasses.add(new SchoolClass(workbook.getSheetAt(numSheet)
-                    .getRow(StudentTimetableConfig.NUM_OF_FIRST_ROW_WITH_LESSON - 1)
+            schoolClasses.add(new SchoolClass(sheet
+                    .getRow(StudentTimetableConfig
+                            .NUM_OF_FIRST_ROW_WITH_LESSON - 1)
                     .getCell(numOfCurrentClass)
                     .getStringCellValue(), schoolDays)
             );
         }
+
         return schoolClasses;
     }
 
