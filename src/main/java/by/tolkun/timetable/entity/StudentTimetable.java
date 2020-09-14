@@ -32,15 +32,15 @@ public class StudentTimetable {
     /**
      * Get max quantity lessons per day among all classes.
      *
-     * @param numDay the number of day
+     * @param dayNum the number of day
      * @return max quantity lessons per {@code numDay} or -1 if timetable is empty
      */
-    public int getQtyMaxLessonsPerDay(int numDay) {
+    public int getQtyMaxLessonsPerDay(int dayNum) {
         return schoolClasses
                 .stream()
-                .max(Comparator.comparingInt(o -> o.getWeek().get(numDay)
+                .max(Comparator.comparingInt(o -> o.getWeek().get(dayNum)
                         .getLessons().size()))
-                .map(schoolClass -> schoolClass.getWeek().get(numDay)
+                .map(schoolClass -> schoolClass.getWeek().get(dayNum)
                         .getLessons().size())
                 .orElse(-1);
     }
