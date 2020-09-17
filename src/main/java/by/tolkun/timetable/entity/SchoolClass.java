@@ -28,6 +28,10 @@ public class SchoolClass {
         this.week = week;
     }
 
+    public SchoolDay getSchoolDay(int i) {
+        return week.get(i);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
