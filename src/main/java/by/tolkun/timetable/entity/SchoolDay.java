@@ -20,6 +20,10 @@ public class SchoolDay {
         this.lessons = lessons;
     }
 
+    public String getLesson(int i) {
+        return lessons.get(i);
+    }
+
     public int getShift() {
         return shift;
     }
