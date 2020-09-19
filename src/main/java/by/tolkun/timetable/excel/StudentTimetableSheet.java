@@ -68,6 +68,19 @@ public class StudentTimetableSheet {
     }
 
     /**
+     * Get row by number. Return existing row, create new and return otherwise.
+     *
+     * @param rowNum the row number
+     * @return row of {@code rowNum} number
+     */
+    public Row getRow(int rowNum) {
+        if (sheet.getRow(rowNum) == null) {
+            return sheet.createRow(rowNum);
+        }
+        return sheet.getRow(rowNum);
+    }
+
+    /**
      * Get quantity of the lessons per day according to shift and class.
      *
      * @param shift       of the day of a class
