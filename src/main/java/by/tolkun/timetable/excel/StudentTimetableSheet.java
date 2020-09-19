@@ -3,6 +3,7 @@ package by.tolkun.timetable.excel;
 import by.tolkun.timetable.config.StudentTimetableConfig;
 import by.tolkun.timetable.entity.SchoolClass;
 import by.tolkun.timetable.entity.SchoolDay;
+import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 
@@ -78,6 +79,19 @@ public class StudentTimetableSheet {
             return sheet.createRow(rowNum);
         }
         return sheet.getRow(rowNum);
+    }
+
+    /**
+     * Get cell by row and column number. Return existing cell, create new and
+     * return otherwise.
+     *
+     * @param rowNum the row number
+     * @param colNum the column number
+     * @return cell of from {@code rowNum} row and {@code colNum} column
+     */
+    public Cell getCell(int rowNum, int colNum) {
+        Row row = getRow(rowNum);
+        return row.getCell(colNum, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
     }
 
     /**
