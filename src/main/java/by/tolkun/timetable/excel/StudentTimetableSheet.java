@@ -134,18 +134,31 @@ public class StudentTimetableSheet {
     }
 
     /**
-     * Get shift by day and class.
+     * Get shift by day and class if can determine by quantities of lessons
+     * by the shifts, otherwise return first shift.
      *
      * @param schoolDay   the school day
      * @param schoolClass the school class
      * @return shift according to day and class
      */
     public int getShiftByDayAndClass(int schoolDay, int schoolClass) {
-        if (getQtyLessonsByShiftAndDayAndClass(1, schoolDay, schoolClass)
-                > getQtyLessonsByShiftAndDayAndClass(2, schoolDay,
-                schoolClass)) {
+        int qtyLessonsFirstShift = getQtyLessonsByShiftAndDayAndClass(1,
+                schoolDay, schoolClass);
+        int qtyLessonsSecondShift = getQtyLessonsByShiftAndDayAndClass(2,
+                schoolDay, schoolClass);
+        if (schoolDay < 0) {
             return 1;
         }
+
+//        If cannot determine shift by quantity of lessons by the shifts.
+        if (qtyLessonsFirstShift == qtyLessonsSecondShift) {
+            return getShiftByDayAndClass(schoolDay - 1, schoolClass);
+        }
+
+        if (qtyLessonsFirstShift > qtyLessonsSecondShift) {
+            return 1;
+        }
+
         return 2;
     }
 
