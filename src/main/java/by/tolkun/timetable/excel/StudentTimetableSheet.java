@@ -106,14 +106,17 @@ public class StudentTimetableSheet {
                                                   int schoolClass) {
         int currentShiftBeginRow
                 = StudentTimetableConfig.NUM_OF_FIRST_ROW_WITH_LESSON
-                + schoolDay * StudentTimetableConfig.LESSONS_PER_DAY;
+                + schoolDay * StudentTimetableConfig.QTY_LESSONS_PER_DAY;
         int currentShiftEndRow = currentShiftBeginRow
-                + StudentTimetableConfig.QTY_LESSONS_PER_FIRST_SHIFT;
+                + StudentTimetableConfig.MAX_QTY_LESSONS_PER_FIRST_SHIFT;
 
         if (shift == 2) {
-            currentShiftBeginRow = currentShiftEndRow;
+            currentShiftBeginRow
+                    = StudentTimetableConfig.NUM_OF_FIRST_ROW_WITH_LESSON
+                    + schoolDay * StudentTimetableConfig.QTY_LESSONS_PER_DAY
+                    + StudentTimetableConfig.QTY_LESSONS_PER_FIRST_SHIFT;
             currentShiftEndRow = currentShiftBeginRow
-                    + StudentTimetableConfig.QTY_LESSONS_PER_SECOND_SHIFT;
+                    + StudentTimetableConfig.MAX_QTY_LESSONS_PER_SECOND_SHIFT;
         }
 
         int qtyLessonPerCurrentShift = 0;
