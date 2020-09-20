@@ -172,14 +172,14 @@ public class StudentTimetableSheet {
     public List<String> getLessonsByDayAndClass(int schoolDay, int schoolClass) {
         int shift = getShiftByDayAndClass(schoolDay, schoolClass);
         int qtyLessonsPerCurrentShift
-                = StudentTimetableConfig.QTY_LESSONS_PER_FIRST_SHIFT;
+                = StudentTimetableConfig.MAX_QTY_LESSONS_PER_FIRST_SHIFT;
         if (shift == 2) {
             qtyLessonsPerCurrentShift
-                    = StudentTimetableConfig.QTY_LESSONS_PER_SECOND_SHIFT;
+                    = StudentTimetableConfig.MAX_QTY_LESSONS_PER_SECOND_SHIFT;
         }
         int numOfFirstLessonForCurrentDayAndShift
                 = StudentTimetableConfig.NUM_OF_FIRST_ROW_WITH_LESSON
-                + schoolDay * StudentTimetableConfig.LESSONS_PER_DAY
+                + schoolDay * StudentTimetableConfig.QTY_LESSONS_PER_DAY
                 + (shift - 1) * StudentTimetableConfig.QTY_LESSONS_PER_FIRST_SHIFT;
 
         List<String> lessons = new ArrayList<>();
@@ -210,9 +210,7 @@ public class StudentTimetableSheet {
                  i > numOfFirstLessonForCurrentDayAndShift - 1
                          - StudentTimetableConfig.QTY_LESSONS_PER_FIRST_SHIFT;
                  i--) {
-                String lesson = sheet
-                        .getRow(i)
-                        .getCell(schoolClass)
+                String lesson = getCell(i, schoolClass)
                         .getStringCellValue()
                         .trim();
                 if (!lesson.isEmpty()) {
