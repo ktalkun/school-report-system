@@ -95,6 +95,15 @@ public class StudentTimetableSheet {
     }
 
     /**
+     * Remove row by number.
+     *
+     * @param rowNum the number of the row to remove
+     */
+    public void removeRow(int rowNum) {
+        sheet.shiftRows(rowNum + 1, getPhysicalNumberOfRows(), -1);
+    }
+
+    /**
      * Get quantity of the lessons per day according to shift and class.
      *
      * @param shift       of the day of a class
