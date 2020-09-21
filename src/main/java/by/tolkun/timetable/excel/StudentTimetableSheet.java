@@ -104,6 +104,16 @@ public class StudentTimetableSheet {
     }
 
     /**
+     * Remove column by number.
+     *
+     * @param columnNum the number of the column to remove
+     */
+    public void removeColumn(int columnNum) {
+        sheet.shiftColumns(columnNum + 1,
+                getPhysicalNumberOfColumns(), -1);
+    }
+
+    /**
      * Get quantity of the lessons per day according to shift and class.
      *
      * @param shift       of the day of a class
