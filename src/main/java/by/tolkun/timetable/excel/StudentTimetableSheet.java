@@ -15,6 +15,9 @@ import java.util.Objects;
  * Class to represent student timetable like a excel sheet.
  */
 public class StudentTimetableSheet {
+    /**
+     * Sheet of Excel document.
+     */
     private Sheet sheet;
 
     /**
@@ -299,12 +302,12 @@ public class StudentTimetableSheet {
 
     /**
      * Compares this StudentTimeTableSheet to the specified object. The result
-     * is true if and only if the argument is not null and is a String object
-     * that represents the same sequence of characters as this object.
+     * is true if and only if the argument is not null and is
+     * a StudentTimeTableSheet object and objects are equal.
      *
-     * @param o the object to compare this String against
-     * @return true if the given object represents a String equivalent to this
-     * string, false otherwise
+     * @param o the object to compare this StudentTimeTableSheet against
+     * @return true if the given object of StudentTimeTableSheet class
+     * equivalent to this student timetable sheet, false otherwise
      */
     @Override
     public boolean equals(Object o) {
