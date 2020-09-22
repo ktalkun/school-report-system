@@ -71,11 +71,11 @@ public class StudentTimetable {
     /**
      * Compares this StudentTimetable to the specified object. The result
      * is true if and only if the argument is not null and is a StudentTimetable
-     * object that represents the same sequence of characters as this object.
+     * object and objects are equal.
      *
      * @param o the object to compare this StudentTimetable against
-     * @return true if the given object represents a StudentTimetable
-     * equivalent to this StudentTimetable, false otherwise
+     * @return true if the given object of StudentTimeTable class
+     * equivalent to this student timetable, false otherwise
      */
     @Override
     public boolean equals(Object o) {
