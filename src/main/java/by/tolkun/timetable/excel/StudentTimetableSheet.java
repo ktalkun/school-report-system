@@ -103,7 +103,8 @@ public class StudentTimetableSheet {
      * @param rowNum the number of the row to remove
      */
     public void removeRow(int rowNum) {
-        sheet.shiftRows(rowNum + 1, getPhysicalNumberOfRows(), -1);
+        sheet.shiftRows(rowNum + 1,
+                getPhysicalNumberOfRows() - 1, -1);
     }
 
     /**
@@ -113,7 +114,7 @@ public class StudentTimetableSheet {
      */
     public void removeColumn(int columnNum) {
         sheet.shiftColumns(columnNum + 1,
-                getPhysicalNumberOfColumns(), -1);
+                getPhysicalNumberOfColumns() - 1, -1);
     }
 
     /**
