@@ -108,6 +108,15 @@ public class StudentTimetableSheet {
     }
 
     /**
+     * Insert row by number.
+     *
+     * @param rowNum the number of the row to insert
+     */
+    public void insertRow(int rowNum) {
+        sheet.shiftRows(rowNum, getPhysicalNumberOfRows() - 1, 1);
+    }
+
+    /**
      * Remove column by number.
      *
      * @param columnNum the number of the column to remove
@@ -115,6 +124,16 @@ public class StudentTimetableSheet {
     public void removeColumn(int columnNum) {
         sheet.shiftColumns(columnNum + 1,
                 getPhysicalNumberOfColumns() - 1, -1);
+    }
+
+    /**
+     * Insert column by number.
+     *
+     * @param columnNum the number of the column to insert
+     */
+    public void insertColumn(int columnNum) {
+        sheet.shiftColumns(columnNum,
+                getPhysicalNumberOfColumns() - 1, 1);
     }
 
     /**
