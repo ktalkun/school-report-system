@@ -148,6 +148,19 @@ public class StudentTimetableSheet {
     }
 
     /**
+     * Set column style by number of the column.
+     *
+     * @param columnNum the number of the column to set style
+     * @param cellStyle the style of cells in column with number
+     *                  {@code columnNum}
+     */
+    public void setColumnStyle(int columnNum, CellStyle cellStyle) {
+        for (int i = 0; i < getPhysicalNumberOfRows(); i++) {
+            getCell(i, columnNum).setCellStyle(cellStyle);
+        }
+    }
+
+    /**
      * Get quantity of the lessons per day according to shift and class.
      *
      * @param shift       of the day of a class
