@@ -127,6 +127,16 @@ public class StudentTimetableSheet {
     }
 
     /**
+     * Insert column by number.
+     *
+     * @param columnNum the number of the column to insert
+     */
+    public void insertColumn(int columnNum) {
+        sheet.shiftColumns(columnNum,
+                getPhysicalNumberOfColumns() - 1, 1);
+    }
+
+    /**
      * Get quantity of the lessons per day according to shift and class.
      *
      * @param shift       of the day of a class
