@@ -144,7 +144,9 @@ public class StudentTimetableSheet {
      * @param cellStyle the style of cells in row with number {@code rowNum}
      */
     public void setRowStyle(int rowNum, CellStyle cellStyle) {
-        sheet.getRow(rowNum).setRowStyle(cellStyle);
+        for (int i = 0; i < getPhysicalNumberOfColumns(); i++) {
+            getCell(rowNum, i).setCellStyle(cellStyle);
+        }
     }
 
     /**
