@@ -4,6 +4,7 @@ import by.tolkun.timetable.config.StudentTimetableConfig;
 import by.tolkun.timetable.entity.SchoolClass;
 import by.tolkun.timetable.entity.SchoolDay;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 
@@ -134,6 +135,29 @@ public class StudentTimetableSheet {
     public void insertColumn(int columnNum) {
         sheet.shiftColumns(columnNum,
                 getPhysicalNumberOfColumns() - 1, 1);
+    }
+
+    /**
+     * Set row style by number of the row.
+     *
+     * @param rowNum    the number of the row to set style
+     * @param cellStyle the style of cells in row with number {@code rowNum}
+     */
+    public void setRowStyle(int rowNum, CellStyle cellStyle) {
+        sheet.getRow(rowNum).setRowStyle(cellStyle);
+    }
+
+    /**
+     * Set column style by number of the column.
+     *
+     * @param columnNum the number of the column to set style
+     * @param cellStyle the style of cells in column with number
+     *                  {@code columnNum}
+     */
+    public void setColumnStyle(int columnNum, CellStyle cellStyle) {
+        for (int i = 0; i < getPhysicalNumberOfRows(); i++) {
+            getCell(i, columnNum).setCellStyle(cellStyle);
+        }
     }
 
     /**
