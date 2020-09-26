@@ -3,10 +3,7 @@ package by.tolkun.timetable.excel;
 import by.tolkun.timetable.config.StudentTimetableConfig;
 import by.tolkun.timetable.entity.SchoolClass;
 import by.tolkun.timetable.entity.SchoolDay;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -159,6 +156,26 @@ public class StudentTimetableSheet {
     public void setColumnStyle(int columnNum, CellStyle cellStyle) {
         for (int i = 0; i < getPhysicalNumberOfRows(); i++) {
             getCell(i, columnNum).setCellStyle(cellStyle);
+        }
+    }
+
+    /**
+     * Set the top border for the row.
+     *
+     * @param rowNum      the number of the row to set top border
+     * @param borderStyle the style of the top border
+     */
+    public void setRowBorderTop(int rowNum, BorderStyle borderStyle) {
+        for (int i = 0; i < getPhysicalNumberOfColumns(); i++) {
+            CellStyle newCellStyle = sheet.getWorkbook().createCellStyle();
+            newCellStyle.setBorderTop(borderStyle);
+            Cell cell = getCell(rowNum, i);
+            CellStyle currentCellStyle = cell.getCellStyle();
+            if (currentCellStyle.getIndex() == 0) {
+                cell.setCellStyle(newCellStyle);
+            } else {
+                currentCellStyle.setBorderTop(borderStyle);
+            }
         }
     }
 
