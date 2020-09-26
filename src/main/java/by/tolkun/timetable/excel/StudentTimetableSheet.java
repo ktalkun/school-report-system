@@ -7,6 +7,7 @@ import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 
@@ -161,6 +162,19 @@ public class StudentTimetableSheet {
     public void setColumnStyle(int columnNum, CellStyle cellStyle) {
         for (int i = 0; i < getPhysicalNumberOfRows(); i++) {
             getCell(i, columnNum).setCellStyle(cellStyle);
+        }
+    }
+
+    /**
+     * Set row alignment for all cells in row.
+     *
+     * @param rowNum    the number of the row to set alignment
+     * @param alignment the alignment
+     */
+    public void setRowHorizontalAlignment(int rowNum,
+                                          HorizontalAlignment alignment) {
+        for (int i = 0; i < getPhysicalNumberOfColumns(); i++) {
+            getUniqueCellStyle(getCell(rowNum, i)).setAlignment(alignment);
         }
     }
 
