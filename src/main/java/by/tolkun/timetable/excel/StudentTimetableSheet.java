@@ -145,14 +145,14 @@ public class StudentTimetableSheet {
     /**
      * Merge cells (create merge region).
      *
-     * @param firstRowNum the first row number of merged region
+     * @param firstRowNum    the first row number of merged region
      * @param firstColumnNum the first column number of merged region
-     * @param lastRowNum the last row number of merged region
-     * @param lastColumnNum the last column number of merged region
+     * @param lastRowNum     the last row number of merged region
+     * @param lastColumnNum  the last column number of merged region
      * @return index of this region
      */
     public int mergeCells(int firstRowNum, int firstColumnNum,
-                           int lastRowNum, int lastColumnNum) {
+                          int lastRowNum, int lastColumnNum) {
         return sheet.addMergedRegion(new CellRangeAddress(firstRowNum, lastRowNum,
                 firstColumnNum, lastColumnNum));
     }
