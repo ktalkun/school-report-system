@@ -1,5 +1,8 @@
 package by.tolkun.timetable.config;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Class to represent properties of student timetable.
  */
@@ -38,6 +41,19 @@ public final class StudentTimetableConfig {
      * The quantity of days per week.
      */
     public static final int QTY_SCHOOL_DAYS_PER_WEEK = 5;
+
+    /**
+     * The list of week days' names.
+     */
+    public static final List<String> WEEK_DAYS = Arrays.asList(
+            "Понедльник",
+            "Вторник",
+            "Среда",
+            "Четверг",
+            "Пятница",
+            "Суббота",
+            "Воскресенье"
+    );
 
     /**
      * The number of first row with lessons.
