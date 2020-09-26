@@ -207,6 +207,20 @@ public class StudentTimetableSheet {
     }
 
     /**
+     * Set vertical alignment for all cells in column.
+     *
+     * @param columnNum the number fo the column to set vertical alignment
+     * @param alignment the vertical alignment
+     */
+    public void setColumnVerticalAlignment(int columnNum,
+                                           VerticalAlignment alignment) {
+        for (int i = 0; i < getPhysicalNumberOfRows(); i++) {
+            getUniqueCellStyle(getCell(i, columnNum))
+                    .setVerticalAlignment(alignment);
+        }
+    }
+
+    /**
      * Set the top border for the row.
      *
      * @param rowNum      the number of the row to set top border
