@@ -172,15 +172,8 @@ public class StudentTimetableSheet {
      */
     public void setRowBorderTop(int rowNum, BorderStyle borderStyle) {
         for (int i = 0; i < getPhysicalNumberOfColumns(); i++) {
-            CellStyle newCellStyle = sheet.getWorkbook().createCellStyle();
-            newCellStyle.setBorderTop(borderStyle);
-            Cell cell = getCell(rowNum, i);
-            CellStyle currentCellStyle = cell.getCellStyle();
-            if (currentCellStyle.getIndex() == 0) {
-                cell.setCellStyle(newCellStyle);
-            } else {
-                currentCellStyle.setBorderTop(borderStyle);
-            }
+            getUniqueCellStyle(getCell(rowNum, i))
+                    .setBorderTop(borderStyle);
         }
     }
 
@@ -192,15 +185,8 @@ public class StudentTimetableSheet {
      */
     public void setRowBorderBottom(int rowNum, BorderStyle borderStyle) {
         for (int i = 0; i < getPhysicalNumberOfColumns(); i++) {
-            CellStyle newCellStyle = sheet.getWorkbook().createCellStyle();
-            newCellStyle.setBorderBottom(borderStyle);
-            Cell cell = getCell(rowNum, i);
-            CellStyle currentCellStyle = cell.getCellStyle();
-            if (currentCellStyle.getIndex() == 0) {
-                cell.setCellStyle(newCellStyle);
-            } else {
-                currentCellStyle.setBorderBottom(borderStyle);
-            }
+            getUniqueCellStyle(getCell(rowNum, i))
+                    .setBorderBottom(borderStyle);
         }
     }
 
@@ -212,15 +198,8 @@ public class StudentTimetableSheet {
      */
     public void setColumnBorderRight(int columnNum, BorderStyle borderStyle) {
         for (int i = 0; i < getPhysicalNumberOfRows(); i++) {
-            CellStyle newCellStyle = sheet.getWorkbook().createCellStyle();
-            newCellStyle.setBorderRight(borderStyle);
-            Cell cell = getCell(i, columnNum);
-            CellStyle currentCellStyle = cell.getCellStyle();
-            if (currentCellStyle.getIndex() == 0) {
-                cell.setCellStyle(newCellStyle);
-            } else {
-                currentCellStyle.setBorderRight(borderStyle);
-            }
+            getUniqueCellStyle(getCell(i, columnNum))
+                    .setBorderRight(borderStyle);
         }
     }
 
@@ -232,15 +211,8 @@ public class StudentTimetableSheet {
      */
     public void setColumnBorderLeft(int columnNum, BorderStyle borderStyle) {
         for (int i = 0; i < getPhysicalNumberOfRows(); i++) {
-            CellStyle newCellStyle = sheet.getWorkbook().createCellStyle();
-            newCellStyle.setBorderLeft(borderStyle);
-            Cell cell = getCell(i, columnNum);
-            CellStyle currentCellStyle = cell.getCellStyle();
-            if (currentCellStyle.getIndex() == 0) {
-                cell.setCellStyle(newCellStyle);
-            } else {
-                currentCellStyle.setBorderLeft(borderStyle);
-            }
+            getUniqueCellStyle(getCell(i, columnNum))
+                    .setBorderLeft(borderStyle);
         }
     }
 
