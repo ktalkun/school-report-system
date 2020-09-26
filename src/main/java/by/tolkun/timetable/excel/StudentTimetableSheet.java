@@ -179,6 +179,19 @@ public class StudentTimetableSheet {
     }
 
     /**
+     * Set column alignment for all cells in column.
+     *
+     * @param columnNum the number of the column to set alignment
+     * @param alignment the alignment
+     */
+    public void setColumnHorizontalAlignment(int columnNum,
+                                             HorizontalAlignment alignment) {
+        for (int i = 0; i < getPhysicalNumberOfRows(); i++) {
+            getUniqueCellStyle(getCell(i, columnNum)).setAlignment(alignment);
+        }
+    }
+
+    /**
      * Set the top border for the row.
      *
      * @param rowNum      the number of the row to set top border
