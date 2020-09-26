@@ -3,6 +3,7 @@ package by.tolkun.timetable.excel;
 import by.tolkun.timetable.config.StudentTimetableConfig;
 import by.tolkun.timetable.entity.SchoolClass;
 import by.tolkun.timetable.entity.SchoolDay;
+import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Row;
@@ -159,6 +160,86 @@ public class StudentTimetableSheet {
     public void setColumnStyle(int columnNum, CellStyle cellStyle) {
         for (int i = 0; i < getPhysicalNumberOfRows(); i++) {
             getCell(i, columnNum).setCellStyle(cellStyle);
+        }
+    }
+
+    /**
+     * Set the top border for the row.
+     *
+     * @param rowNum      the number of the row to set top border
+     * @param borderStyle the style of the top border
+     */
+    public void setRowBorderTop(int rowNum, BorderStyle borderStyle) {
+        for (int i = 0; i < getPhysicalNumberOfColumns(); i++) {
+            CellStyle newCellStyle = sheet.getWorkbook().createCellStyle();
+            newCellStyle.setBorderTop(borderStyle);
+            Cell cell = getCell(rowNum, i);
+            CellStyle currentCellStyle = cell.getCellStyle();
+            if (currentCellStyle.getIndex() == 0) {
+                cell.setCellStyle(newCellStyle);
+            } else {
+                currentCellStyle.setBorderTop(borderStyle);
+            }
+        }
+    }
+
+    /**
+     * Set the bottom border for the row.
+     *
+     * @param rowNum      the number of the row to set bottom border
+     * @param borderStyle the style of the bottom border
+     */
+    public void setRowBorderBottom(int rowNum, BorderStyle borderStyle) {
+        for (int i = 0; i < getPhysicalNumberOfColumns(); i++) {
+            CellStyle newCellStyle = sheet.getWorkbook().createCellStyle();
+            newCellStyle.setBorderBottom(borderStyle);
+            Cell cell = getCell(rowNum, i);
+            CellStyle currentCellStyle = cell.getCellStyle();
+            if (currentCellStyle.getIndex() == 0) {
+                cell.setCellStyle(newCellStyle);
+            } else {
+                currentCellStyle.setBorderBottom(borderStyle);
+            }
+        }
+    }
+
+    /**
+     * Set the right border for the column.
+     *
+     * @param columnNum   the number of the column to set right border
+     * @param borderStyle the style of the right border
+     */
+    public void setColumnBorderRight(int columnNum, BorderStyle borderStyle) {
+        for (int i = 0; i < getPhysicalNumberOfRows(); i++) {
+            CellStyle newCellStyle = sheet.getWorkbook().createCellStyle();
+            newCellStyle.setBorderRight(borderStyle);
+            Cell cell = getCell(i, columnNum);
+            CellStyle currentCellStyle = cell.getCellStyle();
+            if (currentCellStyle.getIndex() == 0) {
+                cell.setCellStyle(newCellStyle);
+            } else {
+                currentCellStyle.setBorderRight(borderStyle);
+            }
+        }
+    }
+
+    /**
+     * Set the left border for the column.
+     *
+     * @param columnNum   the number of the column to set left border
+     * @param borderStyle the style of the left border
+     */
+    public void setColumnBorderLeft(int columnNum, BorderStyle borderStyle) {
+        for (int i = 0; i < getPhysicalNumberOfRows(); i++) {
+            CellStyle newCellStyle = sheet.getWorkbook().createCellStyle();
+            newCellStyle.setBorderLeft(borderStyle);
+            Cell cell = getCell(i, columnNum);
+            CellStyle currentCellStyle = cell.getCellStyle();
+            if (currentCellStyle.getIndex() == 0) {
+                cell.setCellStyle(newCellStyle);
+            } else {
+                currentCellStyle.setBorderLeft(borderStyle);
+            }
         }
     }
 
