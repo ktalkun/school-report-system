@@ -6,6 +6,7 @@ import by.tolkun.timetable.entity.SchoolDay;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 
@@ -241,6 +242,44 @@ public class StudentTimetableSheet {
                 currentCellStyle.setBorderLeft(borderStyle);
             }
         }
+    }
+
+    /**
+     * Set the font for the row.
+     *
+     * @param rowNum the number of the row to set font
+     * @param font   the font
+     */
+    public void setRowFont(int rowNum, Font font) {
+        for (int i = 0; i < getPhysicalNumberOfColumns(); i++) {
+            getUniqueCellStyle(getCell(rowNum, i)).setFont(font);
+        }
+    }
+
+    /**
+     * Set the font for the column.
+     *
+     * @param columnNum the number of the column to set font
+     * @param font      the font
+     */
+    public void setColumnFont(int columnNum, Font font) {
+        for (int i = 0; i < getPhysicalNumberOfRows(); i++) {
+            getUniqueCellStyle(getCell(i, columnNum)).setFont(font);
+        }
+    }
+
+    /**
+     * Get unique cell style. Style that's not used by others cell.
+     *
+     * @param cell the cell to get unique style
+     * @return existing cell style if it's not used by others cells otherwise
+     * create and return new cell style
+     */
+    private CellStyle getUniqueCellStyle(Cell cell) {
+        if (cell.getCellStyle().getIndex() == 0) {
+            cell.setCellStyle(sheet.getWorkbook().createCellStyle());
+        }
+        return cell.getCellStyle();
     }
 
     /**
