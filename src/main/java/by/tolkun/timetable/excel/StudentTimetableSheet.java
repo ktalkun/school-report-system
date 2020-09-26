@@ -237,6 +237,18 @@ public class StudentTimetableSheet {
     }
 
     /**
+     * Set rotation for text in all cells in the row.
+     *
+     * @param rowNum   the number of the row to set rotation text
+     * @param rotation the rotation of text in degrees
+     */
+    public void setRowRotation(int rowNum, short rotation) {
+        for (int i = 0; i < getPhysicalNumberOfColumns(); i++) {
+            getUniqueCellStyle(getCell(rowNum, i)).setRotation(rotation);
+        }
+    }
+
+    /**
      * Set the top border for the row.
      *
      * @param rowNum      the number of the row to set top border
