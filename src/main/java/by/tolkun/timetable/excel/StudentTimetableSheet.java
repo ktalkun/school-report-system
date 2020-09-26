@@ -3,7 +3,11 @@ package by.tolkun.timetable.excel;
 import by.tolkun.timetable.config.StudentTimetableConfig;
 import by.tolkun.timetable.entity.SchoolClass;
 import by.tolkun.timetable.entity.SchoolDay;
-import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.usermodel.BorderStyle;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -175,6 +179,26 @@ public class StudentTimetableSheet {
                 cell.setCellStyle(newCellStyle);
             } else {
                 currentCellStyle.setBorderTop(borderStyle);
+            }
+        }
+    }
+
+    /**
+     * Set the bottom border for the row.
+     *
+     * @param rowNum      the number of the row to set bottom border
+     * @param borderStyle the style of the bottom border
+     */
+    public void setRowBorderBottom(int rowNum, BorderStyle borderStyle) {
+        for (int i = 0; i < getPhysicalNumberOfColumns(); i++) {
+            CellStyle newCellStyle = sheet.getWorkbook().createCellStyle();
+            newCellStyle.setBorderBottom(borderStyle);
+            Cell cell = getCell(rowNum, i);
+            CellStyle currentCellStyle = cell.getCellStyle();
+            if (currentCellStyle.getIndex() == 0) {
+                cell.setCellStyle(newCellStyle);
+            } else {
+                currentCellStyle.setBorderBottom(borderStyle);
             }
         }
     }
