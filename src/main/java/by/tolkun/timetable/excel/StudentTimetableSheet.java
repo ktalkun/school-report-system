@@ -54,6 +54,16 @@ public class StudentTimetableSheet {
     }
 
     /**
+     * Create and get new font.
+     *
+     * @return new object of class {@code Font}
+     */
+    public Font createFont() {
+        return sheet.getWorkbook().createFont();
+
+    }
+
+    /**
      * Get physical number of the rows in a sheet.
      *
      * @return physical number of the rows in a sheet
