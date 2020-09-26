@@ -204,6 +204,26 @@ public class StudentTimetableSheet {
     }
 
     /**
+     * Set the right border for the column.
+     *
+     * @param columnNum   the number of the column to set right border
+     * @param borderStyle the style of the right border
+     */
+    public void setColumnBorderRight(int columnNum, BorderStyle borderStyle) {
+        for (int i = 0; i < getPhysicalNumberOfRows(); i++) {
+            CellStyle newCellStyle = sheet.getWorkbook().createCellStyle();
+            newCellStyle.setBorderRight(borderStyle);
+            Cell cell = getCell(i, columnNum);
+            CellStyle currentCellStyle = cell.getCellStyle();
+            if (currentCellStyle.getIndex() == 0) {
+                cell.setCellStyle(newCellStyle);
+            } else {
+                currentCellStyle.setBorderRight(borderStyle);
+            }
+        }
+    }
+
+    /**
      * Get quantity of the lessons per day according to shift and class.
      *
      * @param shift       of the day of a class
