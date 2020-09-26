@@ -6,6 +6,7 @@ import by.tolkun.timetable.entity.SchoolDay;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 
@@ -241,6 +242,20 @@ public class StudentTimetableSheet {
                 currentCellStyle.setBorderLeft(borderStyle);
             }
         }
+    }
+
+    /**
+     * Get unique cell style. Style that's not used by others cell.
+     *
+     * @param cell the cell to get unique style
+     * @return existing cell style if it's not used by others cells otherwise
+     * create and return new cell style
+     */
+    private CellStyle getUniqueCellStyle(Cell cell) {
+        if (cell.getCellStyle().getIndex() == 0) {
+            cell.setCellStyle(sheet.getWorkbook().createCellStyle());
+        }
+        return cell.getCellStyle();
     }
 
     /**
