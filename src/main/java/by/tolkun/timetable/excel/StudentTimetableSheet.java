@@ -11,6 +11,7 @@ import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.VerticalAlignment;
+import org.apache.poi.ss.util.CellRangeAddress;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -139,6 +140,21 @@ public class StudentTimetableSheet {
     public void insertColumn(int columnNum) {
         sheet.shiftColumns(columnNum,
                 getPhysicalNumberOfColumns() - 1, 1);
+    }
+
+    /**
+     * Merge cells (create merge region).
+     *
+     * @param firstRowNum the first row number of merged region
+     * @param firstColumnNum the first column number of merged region
+     * @param lastRowNum the last row number of merged region
+     * @param lastColumnNum the last column number of merged region
+     * @return index of this region
+     */
+    public int mergeCells(int firstRowNum, int firstColumnNum,
+                           int lastRowNum, int lastColumnNum) {
+        return sheet.addMergedRegion(new CellRangeAddress(firstRowNum, lastRowNum,
+                firstColumnNum, lastColumnNum));
     }
 
     /**
