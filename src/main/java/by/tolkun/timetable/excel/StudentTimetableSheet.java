@@ -373,6 +373,17 @@ public class StudentTimetableSheet {
     }
 
     /**
+     * Set the font of the cell.
+     *
+     * @param rowNum    the number of the row of cell
+     * @param columnNum the number of the column of cell
+     * @param font      the font
+     */
+    public void setCellFont(int rowNum, int columnNum, Font font) {
+        getUniqueCellStyle(getCell(rowNum, columnNum)).setFont(font);
+    }
+
+    /**
      * Get unique cell style. Style that's not used by others cell.
      *
      * @param cell the cell to get unique style
