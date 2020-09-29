@@ -219,6 +219,19 @@ public class StudentTimetableSheet {
     }
 
     /**
+     * Set cell horizontal alignment.
+     *
+     * @param rowNum the number of the cell row to set horizontal alignment
+     * @param columnNum the number of the cell column to set horizontal alignment
+     * @param alignment the horizontal alignment
+     */
+    public void setCellHorizontalAlignment(int rowNum, int columnNum,
+                                           HorizontalAlignment alignment) {
+        getUniqueCellStyle(getCell(rowNum, columnNum))
+                .setAlignment(alignment);
+    }
+
+    /**
      * Set row vertical alignment for all cells in row.
      *
      * @param rowNum    the number of the row to set vertical alignment
@@ -244,6 +257,19 @@ public class StudentTimetableSheet {
             getUniqueCellStyle(getCell(i, columnNum))
                     .setVerticalAlignment(alignment);
         }
+    }
+
+    /**
+     * Set cell vertical alignment.
+     *
+     * @param rowNum  the number of the cell row to set vertical alignment
+     * @param columnNum the number of the cell column to vertical alignment
+     * @param alignment the vertical alignment
+     */
+    public void setCellVerticalAlignment(int rowNum, int columnNum,
+                                         VerticalAlignment alignment) {
+        getUniqueCellStyle(getCell(rowNum, columnNum))
+                .setVerticalAlignment(alignment);
     }
 
     /**
