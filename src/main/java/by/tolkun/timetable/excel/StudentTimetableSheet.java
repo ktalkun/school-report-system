@@ -625,6 +625,15 @@ public class StudentTimetableSheet {
     }
 
     /**
+     * Set autosize of all rows.
+     */
+    public void autoSizeAllRows() {
+        for (int i = 0; i < getPhysicalNumberOfRows(); i++) {
+            autoSizeRow(i);
+        }
+    }
+
+    /**
      * Set autosize of all columns.
      */
     public void autoSizeAllColumns() {
