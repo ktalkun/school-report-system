@@ -616,6 +616,15 @@ public class StudentTimetableSheet {
     }
 
     /**
+     * Set autosize of column by the number.
+     *
+     * @param columnNum the number of a column
+     */
+    public void autoSizeColumn(int columnNum) {
+        sheet.autoSizeColumn(columnNum);
+    }
+
+    /**
      * Set autosize of all columns.
      */
     public void autoSizeAllColumns() {
