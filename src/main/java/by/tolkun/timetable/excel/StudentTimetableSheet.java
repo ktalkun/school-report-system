@@ -6,6 +6,7 @@ import by.tolkun.timetable.entity.SchoolDay;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.Row;
@@ -576,6 +577,42 @@ public class StudentTimetableSheet {
         }
 
         return schoolClasses;
+    }
+
+    /**
+     * Set autosize of a row by the number.
+     *
+     * @param rowNum the number of a row
+     */
+    public void autoSizeRow(int rowNum) {
+        float maxCellHeight = -1;
+        for (int columnNum = 0;
+             columnNum < getPhysicalNumberOfColumns();
+             columnNum++) {
+            Cell cell = getCell(rowNum, columnNum);
+            if (cell.getCellType() == CellType.STRING) {
+                int fontSize = getCellFontSizeInPoints(rowNum, columnNum);
+                String value = cell.getStringCellValue();
+                int numLines = 1;
+                for (int i = 0; i < value.length(); i++) {
+                    if (value.charAt(i) == '\n') {
+                        numLines++;
+                    }
+                }
+                float cellHeight = computeRowHeightInPoints(fontSize, numLines);
+                if (cellHeight > maxCellHeight) {
+                    maxCellHeight = cellHeight;
+                }
+            }
+        }
+
+        float defaultRowHeightInPoints = sheet.getDefaultRowHeightInPoints();
+        float rowHeight = maxCellHeight;
+        if (rowHeight < defaultRowHeightInPoints + 1) {
+            rowHeight = -1;    // resets to the default
+        }
+
+        getRow(rowNum).setHeightInPoints(rowHeight);
     }
 
     /**
