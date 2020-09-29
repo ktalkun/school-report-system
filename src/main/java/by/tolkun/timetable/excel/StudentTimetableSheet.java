@@ -195,7 +195,7 @@ public class StudentTimetableSheet {
     /**
      * Set row horizontal alignment for all cells in row.
      *
-     * @param rowNum    the number of the row to set alignment
+     * @param rowNum    the number of the row to set horizontal alignment
      * @param alignment the horizontal alignment
      */
     public void setRowHorizontalAlignment(int rowNum,
@@ -208,7 +208,7 @@ public class StudentTimetableSheet {
     /**
      * Set column horizontal alignment for all cells in column.
      *
-     * @param columnNum the number of the column to set alignment
+     * @param columnNum the number of the column to set horizontal alignment
      * @param alignment the horizontal alignment
      */
     public void setColumnHorizontalAlignment(int columnNum,
@@ -221,7 +221,7 @@ public class StudentTimetableSheet {
     /**
      * Set cell horizontal alignment.
      *
-     * @param rowNum the number of the cell row to set horizontal alignment
+     * @param rowNum    the number of the cell row to set horizontal alignment
      * @param columnNum the number of the cell column to set horizontal alignment
      * @param alignment the horizontal alignment
      */
@@ -262,7 +262,7 @@ public class StudentTimetableSheet {
     /**
      * Set cell vertical alignment.
      *
-     * @param rowNum  the number of the cell row to set vertical alignment
+     * @param rowNum    the number of the cell row to set vertical alignment
      * @param columnNum the number of the cell column to vertical alignment
      * @param alignment the vertical alignment
      */
