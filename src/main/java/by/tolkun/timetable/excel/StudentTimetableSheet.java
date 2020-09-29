@@ -6,6 +6,7 @@ import by.tolkun.timetable.entity.SchoolDay;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.Row;
@@ -579,12 +580,102 @@ public class StudentTimetableSheet {
     }
 
     /**
+     * Set autosize of a row by the number.
+     *
+     * @param rowNum the number of a row
+     */
+    public void autoSizeRow(int rowNum) {
+        float maxCellHeight = -1;
+        for (int columnNum = 0;
+             columnNum < getPhysicalNumberOfColumns();
+             columnNum++) {
+            Cell cell = getCell(rowNum, columnNum);
+            if (cell.getCellType() == CellType.STRING) {
+                int fontSize = getCellFontSizeInPoints(rowNum, columnNum);
+                String value = cell.getStringCellValue();
+                int numLines = 1;
+                for (int i = 0; i < value.length(); i++) {
+                    if (value.charAt(i) == '\n') {
+                        numLines++;
+                    }
+                }
+                float cellHeight = computeRowHeightInPoints(fontSize, numLines);
+                if (cellHeight > maxCellHeight) {
+                    maxCellHeight = cellHeight;
+                }
+            }
+        }
+
+        float defaultRowHeightInPoints = sheet.getDefaultRowHeightInPoints();
+        float rowHeight = maxCellHeight;
+        if (rowHeight < defaultRowHeightInPoints + 1) {
+            rowHeight = -1;    // resets to the default
+        }
+
+        getRow(rowNum).setHeightInPoints(rowHeight);
+    }
+
+    /**
+     * Set autosize of column by the number.
+     *
+     * @param columnNum the number of a column
+     */
+    public void autoSizeColumn(int columnNum) {
+        sheet.autoSizeColumn(columnNum);
+    }
+
+    /**
+     * Set autosize of all rows.
+     */
+    public void autoSizeAllRows() {
+        for (int i = 0; i < getPhysicalNumberOfRows(); i++) {
+            autoSizeRow(i);
+        }
+    }
+
+    /**
      * Set autosize of all columns.
      */
     public void autoSizeAllColumns() {
         for (int i = 0; i < getPhysicalNumberOfColumns(); i++) {
             sheet.autoSizeColumn(i);
         }
+    }
+
+    /**
+     * Get font size in points of cell.
+     *
+     * @param rowNum    the number of a row
+     * @param columnNum the number of a column
+     * @return font size in points of cell
+     */
+    public int getCellFontSizeInPoints(int rowNum, int columnNum) {
+        Cell cell = getCell(rowNum, columnNum);
+        int fontIndex = cell.getCellStyle().getFontIndexAsInt();
+        Font font = sheet.getWorkbook().getFontAt(fontIndex);
+        return font.getFontHeightInPoints();
+    }
+
+    /**
+     * Compute row height in points by font size and number of lines.
+     *
+     * @param fontSizeInPoints the font size in points
+     * @param numLines         the number of lines
+     * @return row height in points by font size and number of lines
+     */
+    public float computeRowHeightInPoints(int fontSizeInPoints, int numLines) {
+        // A crude approximation of what excel does.
+        float lineHeightInPoints = 1.4f * fontSizeInPoints;
+        float rowHeightInPoints = lineHeightInPoints * numLines;
+        // Round to the nearest 0.25.
+        rowHeightInPoints = Math.round(rowHeightInPoints * 4) / 4f;
+
+        // Don't shrink rows to fit the font, only grow them
+        float defaultRowHeightInPoints = sheet.getDefaultRowHeightInPoints();
+        if (rowHeightInPoints < defaultRowHeightInPoints + 1) {
+            rowHeightInPoints = defaultRowHeightInPoints;
+        }
+        return rowHeightInPoints;
     }
 
     /**
