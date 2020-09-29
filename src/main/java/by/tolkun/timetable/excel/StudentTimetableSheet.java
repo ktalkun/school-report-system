@@ -588,6 +588,20 @@ public class StudentTimetableSheet {
     }
 
     /**
+     * Get font size in points of cell.
+     *
+     * @param rowNum    the number of a row
+     * @param columnNum the number of a column
+     * @return font size in points of cell
+     */
+    public int getCellFontSizeInPoints(int rowNum, int columnNum) {
+        Cell cell = getCell(rowNum, columnNum);
+        int fontIndex = cell.getCellStyle().getFontIndexAsInt();
+        Font font = sheet.getWorkbook().getFontAt(fontIndex);
+        return font.getFontHeightInPoints();
+    }
+
+    /**
      * Clear all rows.
      */
     public void clearAll() {
