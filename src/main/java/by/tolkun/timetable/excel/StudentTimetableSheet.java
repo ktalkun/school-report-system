@@ -260,6 +260,19 @@ public class StudentTimetableSheet {
     }
 
     /**
+     * Set cell vertical alignment.
+     *
+     * @param rowNum  the number of the cell row to set vertical alignment
+     * @param columnNum the number of the cell column to vertical alignment
+     * @param alignment the vertical alignment
+     */
+    public void setCellVerticalAlignment(int rowNum, int columnNum,
+                                         VerticalAlignment alignment) {
+        getUniqueCellStyle(getCell(rowNum, columnNum))
+                .setVerticalAlignment(alignment);
+    }
+
+    /**
      * Set rotation for text in all cells in the row.
      *
      * @param rowNum   the number of the row to set rotation text
