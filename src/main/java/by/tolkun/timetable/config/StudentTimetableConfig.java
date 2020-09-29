@@ -1,7 +1,9 @@
 package by.tolkun.timetable.config;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Class to represent properties of student timetable.
@@ -54,6 +56,16 @@ public final class StudentTimetableConfig {
             "Суббота",
             "Воскресенье"
     );
+
+    /**
+     * Map of subject to replace.
+     */
+    public static final Map<String, String> SUBJECTS_TO_REPLACE
+            = new HashMap<String, String>() {{
+        put("а/а/а", "английский язык");
+        put("ин/ин", "информатика");
+        put("тр/тр", "трудовое обуч.");
+    }};
 
     /**
      * The number of first row with lessons.
