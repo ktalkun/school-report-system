@@ -384,6 +384,20 @@ public class StudentTimetableSheet {
     }
 
     /**
+     * Set whether the text should be wrapped. Setting this flag to
+     * {@code true} make all content visible within a cell by displaying
+     * it on multiple lines.
+     *
+     * @param rowNum    the number of the row of cell
+     * @param columnNum the number of the column of cell
+     * @param wrapped   {@code true} if make cell wrapped, {@code false}
+     *                  otherwise
+     */
+    public void setCellWrapText(int rowNum, int columnNum, boolean wrapped) {
+        getUniqueCellStyle(getCell(rowNum, columnNum)).setWrapText(wrapped);
+    }
+
+    /**
      * Get unique cell style. Style that's not used by others cell.
      *
      * @param cell the cell to get unique style
