@@ -67,6 +67,25 @@ public final class StudentTimetableConfig {
         put("тр/тр", "трудовое обуч.");
     }};
 
+    public static final int CURRENT_YEAR = 2020;
+
+    public static final String DIRECTOR_NAME = "Коресташова  Е.Н.";
+
+    public static final String CURRENT_HALF_YEAR = "I";
+
+    public static final String TIMETABLE_NAME
+            = "Расписание уроков 5-11 классов\n" +
+            CURRENT_HALF_YEAR + " полугодие " + CURRENT_YEAR + " / "
+            + (CURRENT_YEAR + 1) + " учебного года";
+
+    public static final String TIMETABLE_SIGN = "         УТВЕРЖДАЮ \n" +
+            "Директор государственного учреждения образования\n" +
+            " «Средняя школа № 49 г.Минска»\n" +
+            "\n" +
+            "________________" + DIRECTOR_NAME + "\n" +
+            "________________" + CURRENT_YEAR + " г.";
+
+
     /**
      * The number of first row with lessons.
      */
