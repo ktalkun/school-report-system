@@ -580,6 +580,16 @@ public class StudentTimetableSheet {
     }
 
     /**
+     * Get the width (in units of 1/256th of a character width ) of a column.
+     *
+     * @param columnNum the number of a column
+     * @return width - the width in units of 1/256th of a character width
+     */
+    public int getColumnWidth(int columnNum) {
+        return sheet.getColumnWidth(columnNum);
+    }
+
+    /**
      * Set autosize of a row by the number.
      *
      * @param rowNum the number of a row
