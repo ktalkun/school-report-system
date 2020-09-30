@@ -580,6 +580,22 @@ public class StudentTimetableSheet {
     }
 
     /**
+     * Set the width (in units of 1/256th of a character width) for range of
+     * columns. The maximum column width for an individual cell is
+     * 255 characters.
+     *
+     * @param firstColumnNum the number of first column
+     * @param lastColumnNum  the number of last column
+     * @param columnWidth    the width in units of 1/256th of a character width
+     */
+    public void setColumnsWidth(int firstColumnNum, int lastColumnNum,
+                                int columnWidth) {
+        for (int i = firstColumnNum; i < lastColumnNum; i++) {
+            setColumnWidth(i, columnWidth);
+        }
+    }
+
+    /**
      * Set the width (in units of 1/256th of a character width)
      * The maximum column width for an individual cell is 255 characters.
      *
