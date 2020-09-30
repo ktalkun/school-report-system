@@ -67,6 +67,15 @@ public final class StudentTimetableConfig {
         put("тр/тр", "трудовое обуч.");
     }};
 
+    public static final int CURRENT_YEAR = 2020;
+
+    public static final String CURRENT_HALF_YEAR = "I";
+
+    public static final String TIMETABLE_NAME
+            = "Расписание уроков 5-11 классов\n" +
+            CURRENT_HALF_YEAR + " полугодие " + CURRENT_YEAR + " / "
+            + (CURRENT_YEAR + 1) + " учебного года";
+
     /**
      * The number of first row with lessons.
      */
