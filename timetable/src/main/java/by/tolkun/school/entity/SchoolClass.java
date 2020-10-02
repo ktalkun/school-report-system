@@ -1,4 +1,4 @@
-package by.tolkun.timetable.entity;
+package by.tolkun.school.entity;
 
 import java.util.List;
 import java.util.Objects;

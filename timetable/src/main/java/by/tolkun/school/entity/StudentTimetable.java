@@ -1,4 +1,4 @@
-package by.tolkun.timetable.entity;
+package by.tolkun.school.entity;
 
 import java.util.Comparator;
 import java.util.List;
