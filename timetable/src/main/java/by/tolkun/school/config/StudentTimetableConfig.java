@@ -1,4 +1,4 @@
-package by.tolkun.timetable.config;
+package by.tolkun.school.config;
 
 import java.util.Arrays;
 import java.util.HashMap;
