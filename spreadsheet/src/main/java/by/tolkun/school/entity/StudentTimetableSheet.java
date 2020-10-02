@@ -1,6 +1,6 @@
-package by.tolkun.timetable.excel;
+package by.tolkun.school.entity;
 
-import by.tolkun.timetable.config.StudentTimetableConfig;
+import by.tolkun.school.config.StudentTimetableConfig;
 import by.tolkun.timetable.entity.SchoolClass;
 import by.tolkun.timetable.entity.SchoolDay;
 import org.apache.poi.ss.usermodel.BorderStyle;
