@@ -1,8 +1,6 @@
 package by.tolkun.school.entity;
 
 import by.tolkun.school.config.StudentTimetableConfig;
-import by.tolkun.timetable.entity.SchoolClass;
-import by.tolkun.timetable.entity.SchoolDay;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
