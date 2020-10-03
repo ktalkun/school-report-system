@@ -246,4 +246,166 @@ public class SpreadsheetCellStyle {
             return style;
         }
     }
+
+    /**
+     * Get font.
+     *
+     * @return font of cell
+     */
+    public SpreadsheetFont getFont() {
+        return font;
+    }
+
+    /**
+     * Get horizontal alignment.
+     *
+     * @return horizontal alignment
+     */
+    public HorizontalAlignment getHorizontalAlignment() {
+        return horizontalAlignment;
+    }
+
+    /**
+     * Get vertical alignment.
+     *
+     * @return vertical alignment
+     */
+    public VerticalAlignment getVerticalAlignment() {
+        return verticalAlignment;
+    }
+
+    /**
+     * Get border top style.
+     *
+     * @return border top style
+     */
+    public BorderStyle getTopBorderStyle() {
+        return topBorderStyle;
+    }
+
+    /**
+     * Get border right style.
+     *
+     * @return border right style
+     */
+    public BorderStyle getRightBorderStyle() {
+        return rightBorderStyle;
+    }
+
+    /**
+     * Get border bottom style.
+     *
+     * @return border bottom style
+     */
+    public BorderStyle getBottomBorderStyle() {
+        return bottomBorderStyle;
+    }
+
+    /**
+     * Get border left style.
+     *
+     * @return left bottom style
+     */
+    public BorderStyle getLeftBorderStyle() {
+        return leftBorderStyle;
+    }
+
+    /**
+     * Get border top color.
+     *
+     * @return top bottom color
+     */
+    public Color getTopBorderColor() {
+        return topBorderColor;
+    }
+
+    /**
+     * Get border right color.
+     *
+     * @return right bottom color
+     */
+    public Color getRightBorderColor() {
+        return rightBorderColor;
+    }
+
+    /**
+     * Get border bottom color.
+     *
+     * @return bottom bottom color
+     */
+    public Color getBottomBorderColor() {
+        return bottomBorderColor;
+    }
+
+    /**
+     * Get border left color.
+     *
+     * @return left bottom color
+     */
+    public Color getLeftBorderColor() {
+        return leftBorderColor;
+    }
+
+    /**
+     * Get data formatting string.
+     *
+     * @return data formatting string
+     */
+    public String getDataFormatString() {
+        return dataFormatString;
+    }
+
+    /**
+     * Get background color.
+     *
+     * @return background color
+     */
+    public Color getBackgroundColor() {
+        return backgroundColor;
+    }
+
+    /**
+     * Check is cell locked.
+     *
+     * @return {@code true} if cell is locked, {@code false} otherwise
+     */
+    public Boolean isLocked() {
+        return isLocked;
+    }
+
+    /**
+     * Check cell is hidden.
+     *
+     * @return {@code true} if cell is hidden, {@code false} otherwise
+     */
+    public Boolean isHidden() {
+        return isHidden;
+    }
+
+    /**
+     * Check cell text is wrapped.
+     *
+     * @return {@code true} if cell text is wrapped, {@code false} otherwise
+     */
+    public Boolean isTextWrapped() {
+        return isTextWrapped;
+    }
+
+    /**
+     * Get cell indentation.
+     *
+     * @return indentation
+     */
+    public Integer getIndention() {
+        return indention;
+    }
+
+    /**
+     * Get text rotation of cell in degrees.
+     *
+     * @return text rotation in degrees
+     */
+    public Integer getRotation() {
+        return rotation;
+    }
 }
