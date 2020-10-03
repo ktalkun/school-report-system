@@ -6,13 +6,45 @@ import java.util.Objects;
  * Class to represent font of cell in spreed sheet.
  */
 public class SpreadsheetFont {
+
+    /**
+     * Font name of text in cell.
+     */
     private String fontName;
+
+    /**
+     * Font offset of text in cell.
+     */
     private Integer fontOffset;
+
+    /**
+     * Is text bold in cell.
+     */
     private Boolean isBold;
+
+    /**
+     * Is text italic in cell.
+     */
     private Boolean isItalic;
+
+    /**
+     * Is text underlined in cell.
+     */
     private Boolean isUnderlined;
+
+    /**
+     * Is test is double underlined in cell.
+     */
     private Boolean isDoubleUnderlined;
+
+    /**
+     * Is text is strikeout in cell.
+     */
     private Boolean isStrikeout;
+
+    /**
+     * Text size in point of cell.
+     */
     private Integer sizeInPoints;
 
     /**
