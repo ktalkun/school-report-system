@@ -5,6 +5,8 @@ import org.apache.poi.ss.usermodel.Color;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.VerticalAlignment;
 
+import java.util.Objects;
+
 public class SpreadsheetCellStyle {
     private SpreadsheetFont font;
     private HorizontalAlignment horizontalAlignment;
@@ -407,5 +409,55 @@ public class SpreadsheetCellStyle {
      */
     public Integer getRotation() {
         return rotation;
+    }
+
+    /**
+     * Compares this cell style to the specified object. The result is
+     * {@code true} if and only if the argument is not null and
+     * is a {@code SpreadsheetCellStyle}.
+     *
+     * @param o the object to compare this {@code SpreadsheetCellStyle} against
+     * @return {@code true} if the given object represents
+     * a {code SpreadsheetCellStyle} equivalent to this cell style, {@code false}
+     * otherwise
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof SpreadsheetCellStyle)) return false;
+        SpreadsheetCellStyle that = (SpreadsheetCellStyle) o;
+        return Objects.equals(font, that.font) &&
+                horizontalAlignment == that.horizontalAlignment &&
+                verticalAlignment == that.verticalAlignment &&
+                topBorderStyle == that.topBorderStyle &&
+                rightBorderStyle == that.rightBorderStyle &&
+                bottomBorderStyle == that.bottomBorderStyle &&
+                leftBorderStyle == that.leftBorderStyle &&
+                Objects.equals(topBorderColor, that.topBorderColor) &&
+                Objects.equals(rightBorderColor, that.rightBorderColor) &&
+                Objects.equals(bottomBorderColor, that.bottomBorderColor) &&
+                Objects.equals(leftBorderColor, that.leftBorderColor) &&
+                Objects.equals(dataFormatString, that.dataFormatString) &&
+                Objects.equals(backgroundColor, that.backgroundColor) &&
+                Objects.equals(isLocked, that.isLocked) &&
+                Objects.equals(isHidden, that.isHidden) &&
+                Objects.equals(isTextWrapped, that.isTextWrapped) &&
+                Objects.equals(indention, that.indention) &&
+                Objects.equals(rotation, that.rotation);
+    }
+
+    /**
+     * Compute hash code of {@code SpreadsheetCellStyle}.
+     *
+     * @return a hash code for this cell style
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(font, horizontalAlignment, verticalAlignment,
+                topBorderStyle, rightBorderStyle, bottomBorderStyle,
+                leftBorderStyle, topBorderColor, rightBorderColor,
+                bottomBorderColor, leftBorderColor, dataFormatString,
+                backgroundColor, isLocked, isHidden, isTextWrapped, indention,
+                rotation);
     }
 }
