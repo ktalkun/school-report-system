@@ -7,29 +7,99 @@ import org.apache.poi.ss.usermodel.VerticalAlignment;
 
 import java.util.Objects;
 
+/**
+ * Class to represent style of cell in spreed sheet.
+ */
 public class SpreadsheetCellStyle {
+
+    /**
+     * Font of cell.
+     */
     private SpreadsheetFont font;
+
+    /**
+     * Horizontal alignment of cell.
+     */
     private HorizontalAlignment horizontalAlignment;
+
+    /**
+     * Vertical alignment of cell.
+     */
     private VerticalAlignment verticalAlignment;
 
+    /**
+     * Top border style of cell.
+     */
     private BorderStyle topBorderStyle;
+
+    /**
+     * Right border style of cell.
+     */
     private BorderStyle rightBorderStyle;
+
+    /**
+     * Bottom border style of cell.
+     */
     private BorderStyle bottomBorderStyle;
+
+    /**
+     * Left border style of cell.
+     */
     private BorderStyle leftBorderStyle;
 
+    /**
+     * Top border color of cell.
+     */
     private Color topBorderColor;
+
+    /**
+     * Right border color of cell.
+     */
     private Color rightBorderColor;
+
+    /**
+     * Bottom border color of cell.
+     */
     private Color bottomBorderColor;
+
+    /**
+     * Left border color of cell.
+     */
     private Color leftBorderColor;
 
+    /**
+     * Data format string of cell.
+     */
     private String dataFormatString;
+
+    /**
+     * Background color of cell.
+     */
     private Color backgroundColor;
 
+    /**
+     * Is locked cell.
+     */
     private Boolean isLocked;
+
+    /**
+     * Is hidden cell.
+     */
     private Boolean isHidden;
+
+    /**
+     * Is text wrapped in cell.
+     */
     private Boolean isTextWrapped;
 
+    /**
+     * Indentation of cell.
+     */
     private Integer indention;
+
+    /**
+     * Text rotation int cell.
+     */
     private Integer rotation;
 
     /**
