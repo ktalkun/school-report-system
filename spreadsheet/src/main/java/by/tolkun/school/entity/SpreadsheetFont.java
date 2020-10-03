@@ -1,5 +1,7 @@
 package by.tolkun.school.entity;
 
+import java.util.Objects;
+
 /**
  * Class to represent font of cell in spreed sheet.
  */
@@ -193,5 +195,40 @@ public class SpreadsheetFont {
      */
     public Integer getSizeInPoints() {
         return sizeInPoints;
+    }
+
+    /**
+     * Compares this font to the specified object. The result is {@code true}
+     * if and only if the argument is not null and is a {@code SpreadsheetFont}.
+     *
+     * @param o the object to compare this {@code SpreadsheetFont} against
+     * @return {@code true} if the given object represents
+     * a {code SpreadsheetFont} equivalent to this string, {@code false}
+     * otherwise
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof SpreadsheetFont)) return false;
+        SpreadsheetFont that = (SpreadsheetFont) o;
+        return Objects.equals(fontName, that.fontName) &&
+                Objects.equals(fontOffset, that.fontOffset) &&
+                Objects.equals(isBold, that.isBold) &&
+                Objects.equals(isItalic, that.isItalic) &&
+                Objects.equals(isUnderlined, that.isUnderlined) &&
+                Objects.equals(isDoubleUnderlined, that.isDoubleUnderlined) &&
+                Objects.equals(isStrikeout, that.isStrikeout) &&
+                Objects.equals(sizeInPoints, that.sizeInPoints);
+    }
+
+    /**
+     * Compute hash code of {@code SpreadsheetFont}.
+     *
+     * @return a hash code for this font
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(fontName, fontOffset, isBold, isItalic,
+                isUnderlined, isDoubleUnderlined, isStrikeout, sizeInPoints);
     }
 }
