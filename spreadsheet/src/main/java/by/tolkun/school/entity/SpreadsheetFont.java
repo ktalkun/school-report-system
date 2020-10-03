@@ -1,5 +1,8 @@
 package by.tolkun.school.entity;
 
+/**
+ * Class to represent font of cell in spreed sheet.
+ */
 public class SpreadsheetFont {
     private String fontName;
     private Integer fontOffset;
@@ -117,5 +120,78 @@ public class SpreadsheetFont {
         public SpreadsheetFont build() {
             return font;
         }
+    }
+
+    /**
+     * Get font name.
+     *
+     * @return font name
+     */
+    public String getFontName() {
+        return fontName;
+    }
+
+    /**
+     * Get font offset.
+     *
+     * @return font offset
+     */
+    public Integer getFontOffset() {
+        return fontOffset;
+    }
+
+    /**
+     * Check is font bold.
+     *
+     * @return {@code true} if font is bold, {@code false} otherwise
+     */
+    public Boolean isBold() {
+        return isBold;
+    }
+
+    /**
+     * Check is font italic.
+     *
+     * @return {@code true} if font is italic, {@code false} otherwise
+     */
+    public Boolean isItalic() {
+        return isItalic;
+    }
+
+    /**
+     * Check is font underlined.
+     *
+     * @return {@code true} if font is underlined, {@code false} otherwise
+     */
+    public Boolean getUnderlined() {
+        return isUnderlined;
+    }
+
+    /**
+     * Check is font double underlined.
+     *
+     * @return {@code true} if font is double underlined,
+     * {@code false} otherwise
+     */
+    public Boolean getDoubleUnderlined() {
+        return isDoubleUnderlined;
+    }
+
+    /**
+     * Check is font strikeout.
+     *
+     * @return {@code true} if font is strikeout, {@code false} otherwise
+     */
+    public Boolean getStrikeout() {
+        return isStrikeout;
+    }
+
+    /**
+     * Get font size in points.
+     *
+     * @return size of font in points
+     */
+    public Integer getSizeInPoints() {
+        return sizeInPoints;
     }
 }
