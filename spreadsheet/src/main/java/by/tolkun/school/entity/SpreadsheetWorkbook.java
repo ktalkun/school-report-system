@@ -126,6 +126,26 @@ public class SpreadsheetWorkbook {
     }
 
     /**
+     * Get  map of spreadsheet font and Poi font.
+     *
+     * @return map of spreadsheet font {@link SpreadsheetFont} and Poi font
+     * {@link Font}
+     */
+    public Map<SpreadsheetFont, Font> getFonts() {
+        return fontMap;
+    }
+
+    /**
+     * Get map of spreadsheet style and Poi style.
+     *
+     * @return map of spreadsheet style {@link SpreadsheetCellStyle} and
+     * Poi CellStyle {@link CellStyle}
+     */
+    public Map<SpreadsheetCellStyle, CellStyle> getCellStyles() {
+        return styleMap;
+    }
+
+    /**
      * Register style: create Poi style {@link CellStyle} from
      * {@link SpreadsheetCellStyle} and add it to style map.
      *
