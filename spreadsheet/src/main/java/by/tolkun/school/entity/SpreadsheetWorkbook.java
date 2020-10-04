@@ -13,7 +13,7 @@ public class SpreadsheetWorkbook {
     /**
      * Poi workbook.
      */
-    private XSSFWorkbook workbook;
+    private final XSSFWorkbook workbook;
 
     /**
      * Map of tabs by index.
