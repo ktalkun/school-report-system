@@ -38,4 +38,13 @@ public class SpreadsheetTab {
         this.spreadsheetWorkbook = spreadsheetWorkbook;
         this.sheet = sheet;
     }
+
+    /**
+     * Get Poi sheet.
+     *
+     * @return Poi sheet
+     */
+    public XSSFSheet getPoiSheet() {
+        return sheet;
+    }
 }
