@@ -16,4 +16,31 @@ public class SpreadsheetCell {
      * Style of cell.
      */
     private SpreadsheetCellStyle style;
+
+    /**
+     * Constructor with parameters.
+     *
+     * @param cell the cell of sheet
+     */
+    public SpreadsheetCell(XSSFCell cell) {
+        this.cell = cell;
+    }
+
+    /**
+     * Get poi cell.
+     *
+     * @return poi cell
+     */
+    public XSSFCell getPoiCell() {
+        return cell;
+    }
+
+    /**
+     * Get cell style.
+     *
+     * @return style of cell
+     */
+    public SpreadsheetCellStyle getStyle() {
+        return style;
+    }
 }
