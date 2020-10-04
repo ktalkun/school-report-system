@@ -197,7 +197,7 @@ public class SpreadsheetFont {
      *
      * @return {@code true} if font is underlined, {@code false} otherwise
      */
-    public Boolean getUnderlined() {
+    public Boolean isUnderlined() {
         return isUnderlined;
     }
 
@@ -207,7 +207,7 @@ public class SpreadsheetFont {
      * @return {@code true} if font is double underlined,
      * {@code false} otherwise
      */
-    public Boolean getDoubleUnderlined() {
+    public Boolean isDoubleUnderlined() {
         return isDoubleUnderlined;
     }
 
@@ -216,7 +216,7 @@ public class SpreadsheetFont {
      *
      * @return {@code true} if font is strikeout, {@code false} otherwise
      */
-    public Boolean getStrikeout() {
+    public Boolean isStrikeout() {
         return isStrikeout;
     }
 
