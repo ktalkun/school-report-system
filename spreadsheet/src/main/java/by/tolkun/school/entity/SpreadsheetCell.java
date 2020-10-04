@@ -16,7 +16,7 @@ public class SpreadsheetCell {
     /**
      * POI cell of sheet.
      */
-    private XSSFCell cell;
+    private final XSSFCell cell;
 
     /**
      * Style of cell.
