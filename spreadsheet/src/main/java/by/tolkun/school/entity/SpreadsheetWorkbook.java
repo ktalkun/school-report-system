@@ -1,6 +1,10 @@
 package by.tolkun.school.entity;
 
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
+import org.apache.poi.xssf.usermodel.XSSFColor;
 import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -33,6 +37,13 @@ public class SpreadsheetWorkbook {
      * and Poi font {@link Font}.
      */
     private final Map<SpreadsheetFont, Font> fontMap = new HashMap<>();
+
+    /**
+     * Map of spreadsheet style {@link SpreadsheetCellStyle}
+     * and Poi style {@link CellStyle}.
+     */
+    private final Map<SpreadsheetCellStyle, CellStyle> styleMap
+            = new HashMap<>();
 
     /**
      * Default constructor.
@@ -112,6 +123,94 @@ public class SpreadsheetWorkbook {
      */
     public XSSFWorkbook getPoiWorkbook() {
         return workbook;
+    }
+
+    /**
+     * Register style: create Poi style {@link CellStyle} from
+     * {@link SpreadsheetCellStyle} and add it to style map.
+     *
+     * @param style the style {@link SpreadsheetCellStyle}
+     * @return Poi style {@link CellStyle}
+     */
+    public CellStyle registerStyle(SpreadsheetCellStyle style) {
+        CellStyle cellStyle = styleMap.get(style);
+        if (cellStyle == null) {
+            cellStyle = createNewStyle(style);
+            styleMap.put(style, cellStyle);
+        }
+        return cellStyle;
+    }
+
+    /**
+     * Create Poi style {@link CellStyle} from spreadsheet style
+     * {@link SpreadsheetCellStyle}
+     *
+     * @param style the style {@link SpreadsheetCellStyle}
+     * @return Poi style {@link CellStyle}
+     */
+    private CellStyle createNewStyle(SpreadsheetCellStyle style) {
+        XSSFCellStyle cellStyle = workbook.createCellStyle();
+        if (style.getHorizontalAlignment() != null) {
+            cellStyle.setAlignment(style.getHorizontalAlignment());
+        }
+        if (style.getVerticalAlignment() != null) {
+            cellStyle.setVerticalAlignment(style.getVerticalAlignment());
+        }
+        if (style.getTopBorderStyle() != null) {
+            cellStyle.setBorderTop(style.getTopBorderStyle());
+        }
+        if (style.getRightBorderStyle() != null) {
+            cellStyle.setBorderLeft(style.getRightBorderStyle());
+        }
+        if (style.getBottomBorderStyle() != null) {
+            cellStyle.setBorderBottom(style.getBottomBorderStyle());
+        }
+        if (style.getLeftBorderStyle() != null) {
+            cellStyle.setBorderRight(style.getLeftBorderStyle());
+        }
+        if (style.isLocked() != null) {
+            cellStyle.setLocked(style.isLocked());
+        }
+        if (style.isHidden() != null) {
+            cellStyle.setHidden(style.isHidden());
+        }
+        if (style.isTextWrapped() != null) {
+            cellStyle.setWrapText(style.isTextWrapped());
+        }
+        if (style.getIndention() != null) {
+            cellStyle.setIndention(style.getIndention());
+        }
+        if (style.getRotation() != null) {
+            cellStyle.setRotation(style.getRotation());
+        }
+        if (style.getTopBorderColor() != null) {
+            cellStyle.setTopBorderColor(XSSFColor
+                    .toXSSFColor(style.getTopBorderColor()));
+        }
+        if (style.getLeftBorderColor() != null) {
+            cellStyle.setLeftBorderColor(XSSFColor
+                    .toXSSFColor(style.getLeftBorderColor()));
+        }
+        if (style.getBottomBorderColor() != null)
+            cellStyle.setBottomBorderColor(XSSFColor
+                    .toXSSFColor(style.getBottomBorderColor()));
+        if (style.getRightBorderColor() != null) {
+            cellStyle.setRightBorderColor(XSSFColor
+                    .toXSSFColor(style.getRightBorderColor()));
+        }
+        if (style.getFont() != null) {
+            cellStyle.setFont(registerFont(style.getFont()));
+        }
+        if (style.getBackgroundColor() != null) {
+            cellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+            cellStyle.setFillForegroundColor(XSSFColor
+                    .toXSSFColor(style.getBackgroundColor()));
+        }
+        if (style.getDataFormatString() != null) {
+            cellStyle.setDataFormat(workbook.createDataFormat()
+                    .getFormat(style.getDataFormatString()));
+        }
+        return cellStyle;
     }
 
     /**
