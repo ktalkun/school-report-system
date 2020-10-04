@@ -97,6 +97,15 @@ public class SpreadsheetWorkbook {
     }
 
     /**
+     * Get Poi workbook.
+     *
+     * @return Poi workbook
+     */
+    public XSSFWorkbook getPoiWorkbook() {
+        return workbook;
+    }
+
+    /**
      * Get tab by index.
      *
      * @param index the index of tab (sheet)
@@ -114,15 +123,6 @@ public class SpreadsheetWorkbook {
      */
     public SpreadsheetTab getTab(String title) {
         return tabsByTitle.get(title);
-    }
-
-    /**
-     * Get Poi workbook.
-     *
-     * @return Poi workbook
-     */
-    public XSSFWorkbook getPoiWorkbook() {
-        return workbook;
     }
 
     /**
