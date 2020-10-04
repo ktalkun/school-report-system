@@ -27,4 +27,13 @@ public class SpreadsheetWorkbook {
     public SpreadsheetWorkbook(XSSFWorkbook workbook) {
         this.workbook = workbook;
     }
+
+    /**
+     * Get Poi workbook.
+     *
+     * @return Poi workbook
+     */
+    public XSSFWorkbook getPoiWorkbook() {
+        return workbook;
+    }
 }
