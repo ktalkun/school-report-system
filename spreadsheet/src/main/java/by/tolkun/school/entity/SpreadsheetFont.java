@@ -15,7 +15,7 @@ public class SpreadsheetFont {
     /**
      * Font offset of text in cell.
      */
-    private Integer fontOffset;
+    private Short fontOffset;
 
     /**
      * Is text bold in cell.
@@ -45,7 +45,7 @@ public class SpreadsheetFont {
     /**
      * Text size in point of cell.
      */
-    private Integer sizeInPoints;
+    private Short sizeInPoints;
 
     /**
      * Class to build object of class {@link SpreadsheetFont}.
@@ -70,7 +70,7 @@ public class SpreadsheetFont {
          * @param fontOffset the offset of font
          * @return builder
          */
-        public Builder fontOffset(Integer fontOffset) {
+        public Builder fontOffset(Short fontOffset) {
             font.fontOffset = fontOffset;
             return this;
         }
@@ -141,7 +141,7 @@ public class SpreadsheetFont {
          * @param sizeInPoints the size in points of font
          * @return builder
          */
-        public Builder sizeInPoints(Integer sizeInPoints) {
+        public Builder sizeInPoints(Short sizeInPoints) {
             font.sizeInPoints = sizeInPoints;
             return this;
         }
@@ -170,7 +170,7 @@ public class SpreadsheetFont {
      *
      * @return font offset
      */
-    public Integer getFontOffset() {
+    public Short getFontOffset() {
         return fontOffset;
     }
 
@@ -197,7 +197,7 @@ public class SpreadsheetFont {
      *
      * @return {@code true} if font is underlined, {@code false} otherwise
      */
-    public Boolean getUnderlined() {
+    public Boolean isUnderlined() {
         return isUnderlined;
     }
 
@@ -207,7 +207,7 @@ public class SpreadsheetFont {
      * @return {@code true} if font is double underlined,
      * {@code false} otherwise
      */
-    public Boolean getDoubleUnderlined() {
+    public Boolean isDoubleUnderlined() {
         return isDoubleUnderlined;
     }
 
@@ -216,7 +216,7 @@ public class SpreadsheetFont {
      *
      * @return {@code true} if font is strikeout, {@code false} otherwise
      */
-    public Boolean getStrikeout() {
+    public Boolean isStrikeout() {
         return isStrikeout;
     }
 
@@ -225,7 +225,7 @@ public class SpreadsheetFont {
      *
      * @return size of font in points
      */
-    public Integer getSizeInPoints() {
+    public Short getSizeInPoints() {
         return sizeInPoints;
     }
 
