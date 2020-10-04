@@ -4,6 +4,7 @@ import by.tolkun.school.exception.SpreadsheetException;
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.RichTextString;
 import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFFont;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -110,5 +111,23 @@ public class SpreadsheetCell {
         } catch (SpreadsheetException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Get font size in points.
+     *
+     * @return size of font in points
+     */
+    public int getFontSizeInPoints() {
+        if (style != null) {
+            SpreadsheetFont font = style.getFont();
+            if (font != null) {
+                Integer size = font.getSizeInPoints();
+                if (size != null) {
+                    return size;
+                }
+            }
+        }
+        return XSSFFont.DEFAULT_FONT_SIZE;
     }
 }
