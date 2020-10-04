@@ -1,5 +1,6 @@
 package by.tolkun.school.entity;
 
+import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.util.HashMap;
@@ -39,6 +40,23 @@ public class SpreadsheetWorkbook {
      */
     public SpreadsheetWorkbook(XSSFWorkbook workbook) {
         this.workbook = workbook;
+        if (workbook.getNumberOfSheets() > 0) {
+            for (int index = 0; index < workbook.getNumberOfSheets(); index++) {
+                XSSFSheet sheet = workbook.getSheetAt(index);
+                createExistingTab(sheet);
+            }
+        }
+    }
+
+    /**
+     * Create existing sheet.
+     *
+     * @param sheet the sheet of workbook
+     */
+    private void createExistingTab(XSSFSheet sheet) {
+        SpreadsheetTab tab = new SpreadsheetTab(this, sheet);
+        tabsByTitle.put(sheet.getSheetName(), tab);
+        tabsByIndex.put(getPoiWorkbook().getSheetIndex(tab.getPoiSheet()), tab);
     }
 
     /**
