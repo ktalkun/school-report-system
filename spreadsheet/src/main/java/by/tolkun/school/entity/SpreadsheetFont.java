@@ -45,7 +45,7 @@ public class SpreadsheetFont {
     /**
      * Text size in point of cell.
      */
-    private Integer sizeInPoints;
+    private Short sizeInPoints;
 
     /**
      * Class to build object of class {@link SpreadsheetFont}.
@@ -141,7 +141,7 @@ public class SpreadsheetFont {
          * @param sizeInPoints the size in points of font
          * @return builder
          */
-        public Builder sizeInPoints(Integer sizeInPoints) {
+        public Builder sizeInPoints(Short sizeInPoints) {
             font.sizeInPoints = sizeInPoints;
             return this;
         }
@@ -225,7 +225,7 @@ public class SpreadsheetFont {
      *
      * @return size of font in points
      */
-    public Integer getSizeInPoints() {
+    public Short getSizeInPoints() {
         return sizeInPoints;
     }
 
