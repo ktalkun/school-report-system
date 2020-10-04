@@ -9,6 +9,8 @@ import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -283,5 +285,21 @@ public class SpreadsheetWorkbook {
         if (font.getSizeInPoints() != null)
             poiFont.setFontHeightInPoints(font.getSizeInPoints());
         return poiFont;
+    }
+
+    /**
+     * Write out this document to an Outputstream. Note - if the Document was
+     * opened from a {@code File} rather than an {@code InputStream},
+     * you must write out to a different file, overwriting via an OutputStream
+     * isn't possible. If stream is a {@code FileOutputStream} on a networked
+     * drive or has a high cost/latency associated with each written byte,
+     * consider wrapping the OutputStream in a {@code BufferedOutputStream}
+     * to improve write performance.
+     *
+     * @param out the output stream
+     * @throws IOException if anything can't be written.
+     */
+    public void write(OutputStream out) throws IOException {
+        workbook.write(out);
     }
 }
