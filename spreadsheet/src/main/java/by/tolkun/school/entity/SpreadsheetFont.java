@@ -15,7 +15,7 @@ public class SpreadsheetFont {
     /**
      * Font offset of text in cell.
      */
-    private Integer fontOffset;
+    private Short fontOffset;
 
     /**
      * Is text bold in cell.
@@ -70,7 +70,7 @@ public class SpreadsheetFont {
          * @param fontOffset the offset of font
          * @return builder
          */
-        public Builder fontOffset(Integer fontOffset) {
+        public Builder fontOffset(Short fontOffset) {
             font.fontOffset = fontOffset;
             return this;
         }
@@ -170,7 +170,7 @@ public class SpreadsheetFont {
      *
      * @return font offset
      */
-    public Integer getFontOffset() {
+    public Short getFontOffset() {
         return fontOffset;
     }
 
