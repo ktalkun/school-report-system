@@ -95,7 +95,7 @@ public class SpreadsheetCellStyle {
     /**
      * Indentation of cell.
      */
-    private Integer indention;
+    private Short indention;
 
     /**
      * Text rotation int cell.
@@ -293,7 +293,7 @@ public class SpreadsheetCellStyle {
          * @param indention the indentation of cell
          * @return builder
          */
-        public Builder indention(Integer indention) {
+        public Builder indention(Short indention) {
             style.indention = indention;
             return this;
         }
@@ -468,7 +468,7 @@ public class SpreadsheetCellStyle {
      *
      * @return indentation
      */
-    public Integer getIndention() {
+    public Short getIndention() {
         return indention;
     }
 
