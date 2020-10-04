@@ -100,7 +100,7 @@ public class SpreadsheetCellStyle {
     /**
      * Text rotation int cell.
      */
-    private Integer rotation;
+    private Short rotation;
 
     /**
      * Class to build object of class {@link SpreadsheetCellStyle}.
@@ -304,7 +304,7 @@ public class SpreadsheetCellStyle {
          * @param rotation the text rotation of cell
          * @return builder
          */
-        public Builder rotation(Integer rotation) {
+        public Builder rotation(Short rotation) {
             style.rotation = rotation;
             return this;
         }
@@ -477,7 +477,7 @@ public class SpreadsheetCellStyle {
      *
      * @return text rotation in degrees
      */
-    public Integer getRotation() {
+    public Short getRotation() {
         return rotation;
     }
 
