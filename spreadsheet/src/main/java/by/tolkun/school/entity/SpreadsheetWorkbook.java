@@ -60,6 +60,24 @@ public class SpreadsheetWorkbook {
     }
 
     /**
+     * Create tab.
+     *
+     * @param title the title of new tab (sheet)
+     * @return tab (sheet)
+     */
+    public SpreadsheetTab createTab(String title) {
+        if (getTab(title) != null) {
+            throw new IllegalArgumentException("Workbook already has a sheet"
+                    + " with title: " + title);
+        }
+        // Create tab by creating sheet in poi workbook.
+        SpreadsheetTab tab = new SpreadsheetTab(this, title);
+        tabsByTitle.put(title, tab);
+        tabsByIndex.put(getPoiWorkbook().getSheetIndex(tab.getPoiSheet()), tab);
+        return tab;
+    }
+
+    /**
      * Get tab by index.
      *
      * @param index the index of tab (sheet)
