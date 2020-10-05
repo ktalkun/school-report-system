@@ -76,6 +76,21 @@ public class SpreadsheetCell {
     }
 
     /**
+     * Apply style to cell.
+     *
+     * @param toApplyStyle the style to apply
+     */
+    public void applyStyle(SpreadsheetCellStyle toApplyStyle) {
+        if (style == null) {
+            setStyle(toApplyStyle);
+        } else {
+            SpreadsheetCellStyle newStyle = toApplyStyle
+                    .applyStyle(toApplyStyle);
+            setStyle(newStyle);
+        }
+    }
+
+    /**
      * Get value of cell. Returns the formatted value of a cell as a String
      * regardless of the cell type. If the Excel format pattern cannot be
      * parsed then the cell value will be formatted using a default format.
