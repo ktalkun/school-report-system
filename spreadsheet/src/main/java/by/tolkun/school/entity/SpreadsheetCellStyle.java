@@ -10,7 +10,7 @@ import java.util.Objects;
 /**
  * Class to represent style of cell in spreed sheet.
  */
-public class SpreadsheetCellStyle {
+public class SpreadsheetCellStyle implements Cloneable {
 
     /**
      * Font of cell.
@@ -595,5 +595,16 @@ public class SpreadsheetCellStyle {
                 bottomBorderColor, leftBorderColor, dataFormatString,
                 backgroundColor, isLocked, isHidden, isTextWrapped, indention,
                 rotation);
+    }
+
+    /**
+     * Get clone of the object.
+     *
+     * @return style
+     */
+    public SpreadsheetCellStyle clone() {
+        SpreadsheetCellStyle style = new SpreadsheetCellStyle();
+        applyStyle(this, style);
+        return style;
     }
 }
