@@ -482,6 +482,23 @@ public class SpreadsheetCellStyle implements Cloneable {
     }
 
     /**
+     * Get a new style that applies the given style to this one, ignoring
+     * all null fields. For instance, you could define a style that represents
+     * an 'invalid' cell and make the background color red and give it a red
+     * border. Then you could take any other style or cell and apply the
+     * invalid style to it. It would change the color to red and add the red
+     * border, but leave all other styles (such as alignment, font, etc.) alone.
+     *
+     * @param style the style to apply
+     * @return new style with applied styles
+     */
+    public SpreadsheetCellStyle applyStyle(SpreadsheetCellStyle style) {
+        SpreadsheetCellStyle newStyle = clone();
+        applyStyle(style, newStyle);
+        return newStyle;
+    }
+
+    /**
      * Apply style: copy properties of source style to destination style.
      *
      * @param source      the source style
