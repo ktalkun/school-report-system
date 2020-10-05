@@ -237,7 +237,8 @@ public class SpreadsheetWorkbook {
     }
 
     /**
-     * Register font: create Poi font {@link Font} from {@link SpreadsheetCell}
+     * Register font: return registered font if it exists
+     * create Poi font {@link Font} from {@link SpreadsheetCell}
      * and add it to font map.
      *
      * @param font the font {@link SpreadsheetFont}
