@@ -5,7 +5,7 @@ import java.util.Objects;
 /**
  * Class to represent font of cell in spreed sheet.
  */
-public class SpreadsheetFont {
+public class SpreadsheetFont implements Cloneable {
 
     /**
      * Font name of text in cell.
@@ -295,5 +295,16 @@ public class SpreadsheetFont {
     public int hashCode() {
         return Objects.hash(fontName, fontOffset, isBold, isItalic,
                 isUnderlined, isDoubleUnderlined, isStrikeout, sizeInPoints);
+    }
+
+    /**
+     * Get clone of the object.
+     *
+     * @return font
+     */
+    public SpreadsheetFont clone() {
+        SpreadsheetFont font = new SpreadsheetFont();
+        applyFont(this, font);
+        return font;
     }
 }
