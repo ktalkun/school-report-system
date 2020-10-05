@@ -47,6 +47,15 @@ public class SpreadsheetCell {
     }
 
     /**
+     * Get tab where is current cell.
+     *
+     * @return tab of workbook
+     */
+    public SpreadsheetTab getTab() {
+        return tab;
+    }
+
+    /**
      * Get poi cell.
      *
      * @return poi cell
