@@ -230,6 +230,19 @@ public class SpreadsheetFont implements Cloneable {
     }
 
     /**
+     * Get a new font that applies the given font to this one, ignoring
+     * all null fields.
+     *
+     * @param font the font to apply
+     * @return new font with applied properties
+     */
+    public SpreadsheetFont applyFont(SpreadsheetFont font) {
+        SpreadsheetFont newFont = clone();
+        applyFont(font, newFont);
+        return newFont;
+    }
+
+    /**
      * Apply font: copy properties of source font to destination font.
      *
      * @param source      the source font
