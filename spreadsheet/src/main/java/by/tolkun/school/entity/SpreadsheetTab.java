@@ -1,5 +1,6 @@
 package by.tolkun.school.entity;
 
+import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 
 /**
@@ -21,7 +22,7 @@ public class SpreadsheetTab {
      * Constructor with parameters.
      *
      * @param spreadsheetWorkbook the workbook
-     * @param title    the title of new sheet
+     * @param title               the title of new sheet
      */
     SpreadsheetTab(SpreadsheetWorkbook spreadsheetWorkbook, String title) {
         this.spreadsheetWorkbook = spreadsheetWorkbook;
@@ -32,7 +33,7 @@ public class SpreadsheetTab {
      * Constructor with parameters.
      *
      * @param spreadsheetWorkbook the workbook
-     * @param sheet    the sheet
+     * @param sheet               the sheet
      */
     SpreadsheetTab(SpreadsheetWorkbook spreadsheetWorkbook, XSSFSheet sheet) {
         this.spreadsheetWorkbook = spreadsheetWorkbook;
@@ -46,5 +47,17 @@ public class SpreadsheetTab {
      */
     public XSSFSheet getPoiSheet() {
         return sheet;
+    }
+
+    /**
+     * Register style: return registered style if it exists,
+     * create Poi style {@link CellStyle} from {@link SpreadsheetCellStyle}
+     * and add it to style map otherwise.
+     *
+     * @param style the style {@link SpreadsheetCellStyle}
+     * @return Poi style {@link CellStyle}
+     */
+    public CellStyle registerStyle(SpreadsheetCellStyle style) {
+        return spreadsheetWorkbook.registerStyle(style);
     }
 }
