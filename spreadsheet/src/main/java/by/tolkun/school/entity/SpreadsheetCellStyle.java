@@ -482,6 +482,72 @@ public class SpreadsheetCellStyle {
     }
 
     /**
+     * Apply style: copy properties of source style to destination style.
+     *
+     * @param source      the source style
+     * @param destination the destination style
+     */
+    private void applyStyle(SpreadsheetCellStyle source,
+                            SpreadsheetCellStyle destination) {
+        if (destination.font == null) {
+            destination.font = source.font;
+        } else {
+            destination.font = destination.font.applyFont(source.font);
+        }
+        if (source.horizontalAlignment != null) {
+            destination.horizontalAlignment = source.horizontalAlignment;
+        }
+        if (source.verticalAlignment != null) {
+            destination.verticalAlignment = source.verticalAlignment;
+        }
+        if (source.topBorderStyle != null) {
+            destination.topBorderStyle = source.topBorderStyle;
+        }
+        if (source.rightBorderStyle != null) {
+            destination.rightBorderStyle = source.rightBorderStyle;
+        }
+        if (source.bottomBorderStyle != null) {
+            destination.bottomBorderStyle = source.bottomBorderStyle;
+        }
+        if (source.leftBorderStyle != null) {
+            destination.leftBorderStyle = source.leftBorderStyle;
+        }
+        if (source.topBorderColor != null) {
+            destination.topBorderColor = source.topBorderColor;
+        }
+        if (source.rightBorderColor != null) {
+            destination.rightBorderColor = source.rightBorderColor;
+        }
+        if (source.bottomBorderColor != null) {
+            destination.bottomBorderColor = source.bottomBorderColor;
+        }
+        if (source.leftBorderColor != null) {
+            destination.leftBorderColor = source.leftBorderColor;
+        }
+        if (source.dataFormatString != null) {
+            destination.dataFormatString = source.dataFormatString;
+        }
+        if (source.backgroundColor != null) {
+            destination.backgroundColor = source.backgroundColor;
+        }
+        if (source.isLocked != null) {
+            destination.isLocked = source.isLocked;
+        }
+        if (source.isHidden != null) {
+            destination.isHidden = source.isHidden;
+        }
+        if (source.isTextWrapped != null) {
+            destination.isTextWrapped = source.isTextWrapped;
+        }
+        if (source.indention != null) {
+            destination.indention = source.indention;
+        }
+        if (source.rotation != null) {
+            destination.rotation = source.rotation;
+        }
+    }
+
+    /**
      * Compares this cell style to the specified object. The result is
      * {@code true} if and only if the argument is not null and
      * is a {@code SpreadsheetCellStyle}.
