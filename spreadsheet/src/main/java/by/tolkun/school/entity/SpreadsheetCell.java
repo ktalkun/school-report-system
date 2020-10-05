@@ -1,6 +1,7 @@
 package by.tolkun.school.entity;
 
 import by.tolkun.school.exception.SpreadsheetException;
+import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.RichTextString;
 import org.apache.poi.xssf.usermodel.XSSFCell;
@@ -13,6 +14,11 @@ import java.util.Date;
  * Class to represent cell of spreadsheet cell.
  */
 public class SpreadsheetCell {
+
+    /**
+     * Tab (sheet)
+     */
+    private final SpreadsheetTab tab;
 
     /**
      * POI cell of sheet.
@@ -32,9 +38,11 @@ public class SpreadsheetCell {
     /**
      * Constructor with parameters.
      *
+     * @param tab  the tab (sheet)
      * @param cell the cell of sheet
      */
-    public SpreadsheetCell(XSSFCell cell) {
+    SpreadsheetCell(SpreadsheetTab tab, XSSFCell cell) {
+        this.tab = tab;
         this.cell = cell;
     }
 
@@ -54,6 +62,32 @@ public class SpreadsheetCell {
      */
     public SpreadsheetCellStyle getStyle() {
         return style;
+    }
+
+    /**
+     * Set style of cell.
+     *
+     * @param style the style of cell
+     */
+    public void setStyle(SpreadsheetCellStyle style) {
+        CellStyle cellStyle = tab.registerStyle(style);
+        cell.setCellStyle(cellStyle);
+        this.style = style;
+    }
+
+    /**
+     * Apply style to cell.
+     *
+     * @param toApplyStyle the style to apply
+     */
+    public void applyStyle(SpreadsheetCellStyle toApplyStyle) {
+        if (style == null) {
+            setStyle(toApplyStyle);
+        } else {
+            SpreadsheetCellStyle newStyle = toApplyStyle
+                    .applyStyle(toApplyStyle);
+            setStyle(newStyle);
+        }
     }
 
     /**
@@ -122,7 +156,7 @@ public class SpreadsheetCell {
         if (style != null) {
             SpreadsheetFont font = style.getFont();
             if (font != null) {
-                Integer size = font.getSizeInPoints();
+                Short size = font.getSizeInPoints();
                 if (size != null) {
                     return size;
                 }

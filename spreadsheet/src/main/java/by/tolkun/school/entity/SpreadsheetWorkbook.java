@@ -148,8 +148,9 @@ public class SpreadsheetWorkbook {
     }
 
     /**
-     * Register style: create Poi style {@link CellStyle} from
-     * {@link SpreadsheetCellStyle} and add it to style map.
+     * Register style: return registered style if it exists,
+     * create Poi style {@link CellStyle} from {@link SpreadsheetCellStyle}
+     * and add it to style map otherwise.
      *
      * @param style the style {@link SpreadsheetCellStyle}
      * @return Poi style {@link CellStyle}

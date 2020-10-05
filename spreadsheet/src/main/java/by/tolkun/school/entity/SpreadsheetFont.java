@@ -5,7 +5,7 @@ import java.util.Objects;
 /**
  * Class to represent font of cell in spreed sheet.
  */
-public class SpreadsheetFont {
+public class SpreadsheetFont implements Cloneable {
 
     /**
      * Font name of text in cell.
@@ -230,6 +230,52 @@ public class SpreadsheetFont {
     }
 
     /**
+     * Get a new font that applies the given font to this one, ignoring
+     * all null fields.
+     *
+     * @param font the font to apply
+     * @return new font with applied properties
+     */
+    public SpreadsheetFont applyFont(SpreadsheetFont font) {
+        SpreadsheetFont newFont = clone();
+        applyFont(font, newFont);
+        return newFont;
+    }
+
+    /**
+     * Apply font: copy properties of source font to destination font.
+     *
+     * @param source      the source font
+     * @param destination the destination font
+     */
+    private void applyFont(SpreadsheetFont source,
+                           SpreadsheetFont destination) {
+        if (source.fontName != null) {
+            destination.fontName = source.fontName;
+        }
+        if (source.fontOffset != null) {
+            destination.fontOffset = source.fontOffset;
+        }
+        if (source.isBold != null) {
+            destination.isBold = source.isBold;
+        }
+        if (source.isItalic != null) {
+            destination.isItalic = source.isItalic;
+        }
+        if (source.isUnderlined != null) {
+            destination.isUnderlined = source.isUnderlined;
+        }
+        if (source.isDoubleUnderlined != null) {
+            destination.isDoubleUnderlined = source.isDoubleUnderlined;
+        }
+        if (source.isStrikeout != null) {
+            destination.isStrikeout = source.isStrikeout;
+        }
+        if (source.sizeInPoints != null)
+            destination.sizeInPoints = source.sizeInPoints;
+    }
+
+    /**
      * Compares this font to the specified object. The result is {@code true}
      * if and only if the argument is not null and is a {@code SpreadsheetFont}.
      *
@@ -262,5 +308,16 @@ public class SpreadsheetFont {
     public int hashCode() {
         return Objects.hash(fontName, fontOffset, isBold, isItalic,
                 isUnderlined, isDoubleUnderlined, isStrikeout, sizeInPoints);
+    }
+
+    /**
+     * Get clone of the object.
+     *
+     * @return font
+     */
+    public SpreadsheetFont clone() {
+        SpreadsheetFont font = new SpreadsheetFont();
+        applyFont(this, font);
+        return font;
     }
 }
