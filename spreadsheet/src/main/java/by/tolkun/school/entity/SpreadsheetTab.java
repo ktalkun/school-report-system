@@ -3,6 +3,9 @@ package by.tolkun.school.entity;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Class to represent tab (sheet) of workbook.
  */
@@ -19,10 +22,15 @@ public class SpreadsheetTab {
     private final XSSFSheet sheet;
 
     /**
+     * Map of address and cell.
+     */
+    private final Map<String, SpreadsheetCell> cells = new HashMap<>();
+
+    /**
      * Constructor with parameters.
      *
      * @param workbook the workbook
-     * @param title               the title of new sheet
+     * @param title    the title of new sheet
      */
     SpreadsheetTab(SpreadsheetWorkbook workbook, String title) {
         this.workbook = workbook;
@@ -33,7 +41,7 @@ public class SpreadsheetTab {
      * Constructor with parameters.
      *
      * @param workbook the workbook
-     * @param sheet               the sheet
+     * @param sheet    the sheet
      */
     SpreadsheetTab(SpreadsheetWorkbook workbook, XSSFSheet sheet) {
         this.workbook = workbook;
@@ -60,4 +68,6 @@ public class SpreadsheetTab {
     public CellStyle registerStyle(SpreadsheetCellStyle style) {
         return workbook.registerStyle(style);
     }
+
+
 }
