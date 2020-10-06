@@ -106,6 +106,25 @@ public class SpreadsheetTab {
     }
 
     /**
+     * Get cell by cell address if cell exists or create and return new cell
+     * otherwise.
+     *
+     * @param cellAddress the cell address
+     * @return cell if it exists or create and return new cell otherwise
+     */
+    public SpreadsheetCell getOrCreateCell(String cellAddress) {
+        SpreadsheetCell cell = getCell(cellAddress);
+        if (cell == null) {
+            CellReference cellReference = new CellReference(cellAddress);
+            cell = new SpreadsheetCell(this, getOrCreatePoiCell(
+                    cellReference.getRow(), cellReference.getCol()
+            ));
+            cells.put(cellAddress, cell);
+        }
+        return cell;
+    }
+
+    /**
      * Get Poi row {@link XSSFRow} if it exists or create and return new row
      * otherwise.
      *
@@ -119,7 +138,6 @@ public class SpreadsheetTab {
         }
         return row;
     }
-
 
     /**
      * Get Poi cell {@link XSSFCell} if it exists or create and return new cell
