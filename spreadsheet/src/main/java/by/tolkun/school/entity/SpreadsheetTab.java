@@ -2,6 +2,7 @@ package by.tolkun.school.entity;
 
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.util.CellReference;
+import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 
@@ -117,6 +118,24 @@ public class SpreadsheetTab {
             row = sheet.createRow(rowNum);
         }
         return row;
+    }
+
+
+    /**
+     * Get Poi cell {@link XSSFCell} if it exists or create and return new cell
+     * otherwise.
+     *
+     * @param rowNum    the number of row
+     * @param columnNum the number of column
+     * @return Poi cell {@link XSSFCell}
+     */
+    private XSSFCell getOrCreatePoiCell(int rowNum, int columnNum) {
+        XSSFRow row = getOrCreatePoiRow(rowNum);
+        XSSFCell cell = row.getCell(columnNum);
+        if (cell == null) {
+            cell = row.createCell(columnNum);
+        }
+        return cell;
     }
 
     /**
