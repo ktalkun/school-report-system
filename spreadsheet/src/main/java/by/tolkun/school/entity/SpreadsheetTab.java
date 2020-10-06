@@ -116,10 +116,12 @@ public class SpreadsheetTab {
         SpreadsheetCell cell = getCell(cellAddress);
         if (cell == null) {
             CellReference cellReference = new CellReference(cellAddress);
-            cell = new SpreadsheetCell(this, getOrCreatePoiCell(
-                    cellReference.getRow(), cellReference.getCol()
-            ));
+            int rowNum = cellReference.getRow();
+            int columnNum = cellReference.getCol();
+            cell = new SpreadsheetCell(this, getOrCreatePoiCell(rowNum,
+                    columnNum));
             cells.put(cellAddress, cell);
+            recordCellModified(rowNum, columnNum);
         }
         return cell;
     }
@@ -166,6 +168,23 @@ public class SpreadsheetTab {
             cell = row.createCell(columnNum);
         }
         return cell;
+    }
+
+    /**
+     * Record cell. If new cell is created it's necessary to update fields
+     * {@code highestModifiedCol} and {@code highestModifiedRow} (update
+     * dimensions of tab (sheet)).
+     *
+     * @param rowNum    the number of row
+     * @param columnNum the number of column
+     */
+    private void recordCellModified(int rowNum, int columnNum) {
+        if (columnNum > highestModifiedCol) {
+            highestModifiedCol = columnNum;
+        }
+        if (rowNum > highestModifiedRow) {
+            highestModifiedRow = rowNum;
+        }
     }
 
     /**
