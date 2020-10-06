@@ -300,6 +300,29 @@ public class SpreadsheetTab {
     }
 
     /**
+     * Get the row's height measured in twips (1/20th of a point). If the
+     * height is not set, the default worksheet value is returned,
+     * See {@link XSSFSheet#getDefaultRowHeightInPoints()}.
+     *
+     * @param rowNum the number of row
+     * @return height of row
+     */
+    public int getRowHeight(int rowNum) {
+        return sheet.getRow(rowNum).getHeight();
+    }
+
+    /**
+     * Set the height in "twips" or 1/20th of a point.
+     *
+     * @param rowNum the number of row
+     * @param height the height in "twips" or 1/20th of a point.
+     *               -1 resets to the default height
+     */
+    public void setRowHeight(int rowNum, short height) {
+        sheet.getRow(rowNum).setHeight(height);
+    }
+
+    /**
      * Get cell address.
      *
      * @param rowNum    the number of row
