@@ -312,6 +312,17 @@ public class SpreadsheetTab {
     }
 
     /**
+     * Set the height in "twips" or 1/20th of a point.
+     *
+     * @param rowNum the number of row
+     * @param height the height in "twips" or 1/20th of a point.
+     *               -1 resets to the default height
+     */
+    public void setRowHeight(int rowNum, short height) {
+        sheet.getRow(rowNum).setHeight(height);
+    }
+
+    /**
      * Get cell address.
      *
      * @param rowNum    the number of row
