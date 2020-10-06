@@ -1,6 +1,7 @@
 package by.tolkun.school.entity;
 
 import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.util.CellReference;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 
 import java.util.HashMap;
@@ -79,5 +80,14 @@ public class SpreadsheetTab {
         return workbook.registerStyle(style);
     }
 
-
+    /**
+     * Get cell address.
+     *
+     * @param rowNum    the number of row
+     * @param columnNum the number of column
+     * @return cell address as string
+     */
+    public static String getCellAddress(int rowNum, int columnNum) {
+        return CellReference.convertNumToColString(columnNum) + (rowNum + 1);
+    }
 }
