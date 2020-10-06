@@ -125,6 +125,18 @@ public class SpreadsheetTab {
     }
 
     /**
+     * Get cell by row number and column number if cell exists or create
+     * and return new cell otherwise.
+     *
+     * @param rowNum    the number of row
+     * @param columnNum the number of column
+     * @return cell if it exists or create and return new cell otherwise
+     */
+    public SpreadsheetCell getOrCreateCell(int rowNum, int columnNum) {
+        return getOrCreateCell(getCellAddress(rowNum, columnNum));
+    }
+
+    /**
      * Get Poi row {@link XSSFRow} if it exists or create and return new row
      * otherwise.
      *
