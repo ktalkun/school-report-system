@@ -250,6 +250,28 @@ public class SpreadsheetTab {
     }
 
     /**
+     * Set style for diapason of cells by cells' addresses.
+     *
+     * @param firstCellAddress the cell address of first cell
+     * @param lastCellAddress  the cell address of last cell
+     * @param style            the style of cell
+     */
+    public void setStyle(String firstCellAddress, String lastCellAddress,
+                         SpreadsheetCellStyle style) {
+        CellReference firstReference = new CellReference(firstCellAddress);
+        CellReference lastReference = new CellReference(lastCellAddress);
+        for (int row = firstReference.getRow();
+             row <= lastReference.getRow();
+             row++) {
+            for (int col = firstReference.getCol();
+                 col <= lastReference.getCol();
+                 col++) {
+                getOrCreateCell(row, col).setStyle(style);
+            }
+        }
+    }
+
+    /**
      * Get cell address.
      *
      * @param rowNum    the number of row
