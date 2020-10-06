@@ -206,6 +206,16 @@ public class SpreadsheetTab {
     }
 
     /**
+     * Set value of cell by cell address.
+     *
+     * @param cellAddress the cell address
+     * @param content     the content of cell
+     */
+    public void setValue(String cellAddress, Object content) {
+        setValue(cellAddress, content, null);
+    }
+
+    /**
      * Get cell address.
      *
      * @param rowNum    the number of row
