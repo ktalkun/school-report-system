@@ -2,6 +2,8 @@ package by.tolkun.school.entity;
 
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.util.CellReference;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 
 import java.util.HashMap;
@@ -101,6 +103,39 @@ public class SpreadsheetTab {
     public SpreadsheetCell getCell(int rowNum, int columnNum) {
         String address = getCellAddress(rowNum, columnNum);
         return getCell(address);
+    }
+
+    /**
+     * Get Poi row {@link XSSFRow} if it exists or create and return new row
+     * otherwise.
+     *
+     * @param rowNum the number of row
+     * @return Poi row {@link XSSFRow}
+     */
+    private XSSFRow getOrCreatePoiRow(int rowNum) {
+        XSSFRow row = sheet.getRow(rowNum);
+        if (row == null) {
+            row = sheet.createRow(rowNum);
+        }
+        return row;
+    }
+
+
+    /**
+     * Get Poi cell {@link XSSFCell} if it exists or create and return new cell
+     * otherwise.
+     *
+     * @param rowNum    the number of row
+     * @param columnNum the number of column
+     * @return Poi cell {@link XSSFCell}
+     */
+    private XSSFCell getOrCreatePoiCell(int rowNum, int columnNum) {
+        XSSFRow row = getOrCreatePoiRow(rowNum);
+        XSSFCell cell = row.getCell(columnNum);
+        if (cell == null) {
+            cell = row.createCell(columnNum);
+        }
+        return cell;
     }
 
     /**
