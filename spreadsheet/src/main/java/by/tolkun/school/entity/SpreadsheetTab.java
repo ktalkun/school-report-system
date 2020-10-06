@@ -2,6 +2,7 @@ package by.tolkun.school.entity;
 
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.util.CellReference;
+import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 
 import java.util.HashMap;
@@ -101,6 +102,21 @@ public class SpreadsheetTab {
     public SpreadsheetCell getCell(int rowNum, int columnNum) {
         String address = getCellAddress(rowNum, columnNum);
         return getCell(address);
+    }
+
+    /**
+     * Get Poi row {@link XSSFRow} if it exists or create and return new row
+     * otherwise.
+     *
+     * @param rowNum the number of row
+     * @return Poi row {@link XSSFRow}
+     */
+    private XSSFRow getOrCreatePoiRow(int rowNum) {
+        XSSFRow row = sheet.getRow(rowNum);
+        if (row == null) {
+            row = sheet.createRow(rowNum);
+        }
+        return row;
     }
 
     /**
