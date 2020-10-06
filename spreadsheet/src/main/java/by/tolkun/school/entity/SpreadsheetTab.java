@@ -188,6 +188,24 @@ public class SpreadsheetTab {
     }
 
     /**
+     * Set value and style of cell by cell address.
+     *
+     * @param cellAddress the cell address
+     * @param content     the content of cell
+     * @param style       the style of cell
+     */
+    public void setValue(String cellAddress, Object content,
+                         SpreadsheetCellStyle style) {
+        CellReference cellReference = new CellReference(cellAddress);
+        SpreadsheetCell cell = getOrCreateCell(cellReference.getRow(),
+                cellReference.getCol());
+        cell.setValue(content);
+        if (style != null) {
+            cell.setStyle(style);
+        }
+    }
+
+    /**
      * Get cell address.
      *
      * @param rowNum    the number of row
