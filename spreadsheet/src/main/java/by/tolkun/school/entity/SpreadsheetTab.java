@@ -27,6 +27,16 @@ public class SpreadsheetTab {
     private final Map<String, SpreadsheetCell> cells = new HashMap<>();
 
     /**
+     * Max number of existing row.
+     */
+    private int highestModifiedRow = -1;
+
+    /**
+     * Max number of existing column.
+     */
+    private int highestModifiedCol = -1;
+
+    /**
      * Constructor with parameters.
      *
      * @param workbook the workbook
