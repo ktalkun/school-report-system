@@ -1,6 +1,9 @@
 package by.tolkun.school.entity;
 
 import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.util.CellReference;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 
 import java.util.HashMap;
@@ -79,5 +82,100 @@ public class SpreadsheetTab {
         return workbook.registerStyle(style);
     }
 
+    /**
+     * Get cell by cell address.
+     *
+     * @param cellAddress the cell address
+     * @return cell
+     */
+    public SpreadsheetCell getCell(String cellAddress) {
+        CellReference cellReference = new CellReference(cellAddress);
+        return cells.get(cellAddress);
+    }
 
+    /**
+     * Get cell by row number and column number.
+     *
+     * @param rowNum    the number of row
+     * @param columnNum the number of column
+     * @return cell
+     */
+    public SpreadsheetCell getCell(int rowNum, int columnNum) {
+        String address = getCellAddress(rowNum, columnNum);
+        return getCell(address);
+    }
+
+    /**
+     * Get cell by cell address if cell exists or create and return new cell
+     * otherwise.
+     *
+     * @param cellAddress the cell address
+     * @return cell if it exists or create and return new cell otherwise
+     */
+    public SpreadsheetCell getOrCreateCell(String cellAddress) {
+        SpreadsheetCell cell = getCell(cellAddress);
+        if (cell == null) {
+            CellReference cellReference = new CellReference(cellAddress);
+            cell = new SpreadsheetCell(this, getOrCreatePoiCell(
+                    cellReference.getRow(), cellReference.getCol()
+            ));
+            cells.put(cellAddress, cell);
+        }
+        return cell;
+    }
+
+    /**
+     * Get cell by row number and column number if cell exists or create
+     * and return new cell otherwise.
+     *
+     * @param rowNum    the number of row
+     * @param columnNum the number of column
+     * @return cell if it exists or create and return new cell otherwise
+     */
+    public SpreadsheetCell getOrCreateCell(int rowNum, int columnNum) {
+        return getOrCreateCell(getCellAddress(rowNum, columnNum));
+    }
+
+    /**
+     * Get Poi row {@link XSSFRow} if it exists or create and return new row
+     * otherwise.
+     *
+     * @param rowNum the number of row
+     * @return Poi row {@link XSSFRow}
+     */
+    private XSSFRow getOrCreatePoiRow(int rowNum) {
+        XSSFRow row = sheet.getRow(rowNum);
+        if (row == null) {
+            row = sheet.createRow(rowNum);
+        }
+        return row;
+    }
+
+    /**
+     * Get Poi cell {@link XSSFCell} if it exists or create and return new cell
+     * otherwise.
+     *
+     * @param rowNum    the number of row
+     * @param columnNum the number of column
+     * @return Poi cell {@link XSSFCell}
+     */
+    private XSSFCell getOrCreatePoiCell(int rowNum, int columnNum) {
+        XSSFRow row = getOrCreatePoiRow(rowNum);
+        XSSFCell cell = row.getCell(columnNum);
+        if (cell == null) {
+            cell = row.createCell(columnNum);
+        }
+        return cell;
+    }
+
+    /**
+     * Get cell address.
+     *
+     * @param rowNum    the number of row
+     * @param columnNum the number of column
+     * @return cell address as string
+     */
+    public static String getCellAddress(int rowNum, int columnNum) {
+        return CellReference.convertNumToColString(columnNum) + (rowNum + 1);
+    }
 }
