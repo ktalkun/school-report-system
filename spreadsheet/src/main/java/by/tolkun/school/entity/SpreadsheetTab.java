@@ -339,6 +339,45 @@ public class SpreadsheetTab {
     }
 
     /**
+     * Set the width (in units of 1/256th of a character width).
+     * <p>
+     * The maximum column width for an individual cell is 255 characters.
+     * This value represents the number of characters that can be displayed
+     * in a cell that is formatted with the standard font (first font in the
+     * workbook).
+     * <p>
+     * Character width is defined as the maximum digit width of the numbers
+     * {@code 0, 1, 2, ... 9} as rendered using the default font (first font
+     * in the workbook). Unless you are using a very special font, the default
+     * character is '0' (zero), this is true for Arial (default font font
+     * in HSSF) and Calibri (default font in XSSF).
+     * <p>
+     * Please note, that the width set by this method includes 4 pixels
+     * of margin padding (two on each side), plus 1 pixel padding
+     * for the gridlines (Section 3.3.1.12 of the OOXML spec).
+     * This results is a slightly less value of visible characters than passed
+     * to this method (approx. 1/2 of a character).
+     * <p>
+     * To compute the actual number of visible characters, Excel uses
+     * the following formula (Section 3.3.1.12 of the OOXML spec):
+     * {@code width = Truncate([{Number of Visible Characters} * {Maximum Digit
+     * Width} + {5 pixel padding}]/{Maximum Digit Width}*256)/256 }.
+     * <p>
+     * Using the Calibri font as an example, the maximum digit width of 11
+     * point font size is 7 pixels (at 96 dpi). If you set a column width to be
+     * eight characters wide, e.g. setColumnWidth(columnIndex, 8*256), then the
+     * actual value of visible characters (the value shown in Excel) is derived
+     * from the following equation: Truncate([numChars*7+5]/7*256)/256 = 8;
+     * which gives 7.29.
+     *
+     * @param columnNum the number of column
+     * @param width     the width in units of 1/256th of a character width
+     */
+    public void setColumnWidth(int columnNum, int width) {
+        sheet.setColumnWidth(columnNum, width);
+    }
+
+    /**
      * Get cell address.
      *
      * @param rowNum    the number of row
