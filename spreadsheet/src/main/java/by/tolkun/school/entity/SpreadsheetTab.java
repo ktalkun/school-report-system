@@ -11,7 +11,7 @@ public class SpreadsheetTab {
     /**
      * Workbook of excel document.
      */
-    private final SpreadsheetWorkbook spreadsheetWorkbook;
+    private final SpreadsheetWorkbook workbook;
 
     /**
      * Sheet (tab) of workbook.
@@ -21,22 +21,22 @@ public class SpreadsheetTab {
     /**
      * Constructor with parameters.
      *
-     * @param spreadsheetWorkbook the workbook
+     * @param workbook the workbook
      * @param title               the title of new sheet
      */
-    SpreadsheetTab(SpreadsheetWorkbook spreadsheetWorkbook, String title) {
-        this.spreadsheetWorkbook = spreadsheetWorkbook;
-        this.sheet = spreadsheetWorkbook.getPoiWorkbook().createSheet(title);
+    SpreadsheetTab(SpreadsheetWorkbook workbook, String title) {
+        this.workbook = workbook;
+        this.sheet = workbook.getPoiWorkbook().createSheet(title);
     }
 
     /**
      * Constructor with parameters.
      *
-     * @param spreadsheetWorkbook the workbook
+     * @param workbook the workbook
      * @param sheet               the sheet
      */
-    SpreadsheetTab(SpreadsheetWorkbook spreadsheetWorkbook, XSSFSheet sheet) {
-        this.spreadsheetWorkbook = spreadsheetWorkbook;
+    SpreadsheetTab(SpreadsheetWorkbook workbook, XSSFSheet sheet) {
+        this.workbook = workbook;
         this.sheet = sheet;
     }
 
@@ -58,6 +58,6 @@ public class SpreadsheetTab {
      * @return Poi style {@link CellStyle}
      */
     public CellStyle registerStyle(SpreadsheetCellStyle style) {
-        return spreadsheetWorkbook.registerStyle(style);
+        return workbook.registerStyle(style);
     }
 }
