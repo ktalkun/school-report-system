@@ -240,6 +240,16 @@ public class SpreadsheetTab {
     }
 
     /**
+     * Set style of cell by cell address.
+     *
+     * @param cellAddress the cell address
+     * @param style       the style of cell
+     */
+    public void setStyle(String cellAddress, SpreadsheetCellStyle style) {
+        getOrCreateCell(cellAddress).setStyle(style);
+    }
+
+    /**
      * Get cell address.
      *
      * @param rowNum    the number of row
