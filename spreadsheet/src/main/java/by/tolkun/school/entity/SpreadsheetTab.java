@@ -116,10 +116,12 @@ public class SpreadsheetTab {
         SpreadsheetCell cell = getCell(cellAddress);
         if (cell == null) {
             CellReference cellReference = new CellReference(cellAddress);
-            cell = new SpreadsheetCell(this, getOrCreatePoiCell(
-                    cellReference.getRow(), cellReference.getCol()
-            ));
+            int rowNum = cellReference.getRow();
+            int columnNum = cellReference.getCol();
+            cell = new SpreadsheetCell(this, getOrCreatePoiCell(rowNum,
+                    columnNum));
             cells.put(cellAddress, cell);
+            recordCellModified(rowNum, columnNum);
         }
         return cell;
     }
