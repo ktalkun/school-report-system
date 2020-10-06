@@ -323,6 +323,22 @@ public class SpreadsheetTab {
     }
 
     /**
+     * Get the actual column width (in units of 1/256th of a character width )
+     * Note, the returned value is always greater that getDefaultColumnWidth()
+     * because the latter does not include margins. Actual column width
+     * measured as the number of characters of the maximum digit width
+     * of the numbers 0, 1, 2, ..., 9 as rendered in the normal style's font.
+     * There are 4 pixels of margin padding (two on each side), plus 1 pixel
+     * padding for the gridlines.
+     *
+     * @param columnNum the column number
+     * @return width - the width in units of 1/256th of a character width
+     */
+    public int getColumnWidth(int columnNum) {
+        return sheet.getColumnWidth(columnNum);
+    }
+
+    /**
      * Get cell address.
      *
      * @param rowNum    the number of row
