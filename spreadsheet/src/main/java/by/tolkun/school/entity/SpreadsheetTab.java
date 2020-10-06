@@ -284,6 +284,22 @@ public class SpreadsheetTab {
     }
 
     /**
+     * Set style for diapason of cells by cells' row numbers and column numbers.
+     *
+     * @param firstRowNum    the row number of first cell
+     * @param firstColumnNum the column number of first cell
+     * @param lastRowNum     the row number of last cell
+     * @param lastColumnNum  the column number of last cell
+     * @param style          the style of cell
+     */
+    public void setStyle(int firstRowNum, int firstColumnNum,
+                         int lastRowNum, int lastColumnNum,
+                         SpreadsheetCellStyle style) {
+        setStyle(getCellAddress(firstRowNum, firstColumnNum),
+                getCellAddress(lastRowNum, lastColumnNum), style);
+    }
+
+    /**
      * Get cell address.
      *
      * @param rowNum    the number of row
