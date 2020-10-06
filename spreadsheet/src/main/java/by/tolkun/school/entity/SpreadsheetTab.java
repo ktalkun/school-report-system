@@ -188,6 +188,58 @@ public class SpreadsheetTab {
     }
 
     /**
+     * Set value and style of cell by cell address.
+     *
+     * @param cellAddress the cell address
+     * @param content     the content of cell
+     * @param style       the style of cell
+     */
+    public void setValue(String cellAddress, Object content,
+                         SpreadsheetCellStyle style) {
+        CellReference cellReference = new CellReference(cellAddress);
+        SpreadsheetCell cell = getOrCreateCell(cellReference.getRow(),
+                cellReference.getCol());
+        cell.setValue(content);
+        if (style != null) {
+            cell.setStyle(style);
+        }
+    }
+
+    /**
+     * Set value of cell by cell address.
+     *
+     * @param cellAddress the cell address
+     * @param content     the content of cell
+     */
+    public void setValue(String cellAddress, Object content) {
+        setValue(cellAddress, content, null);
+    }
+
+    /**
+     * Set value and style of cell by row number and column number.
+     *
+     * @param rowNum    the number of row
+     * @param columnNum the number of column
+     * @param content   the content of cell
+     * @param style     the style of cell
+     */
+    public void setValue(int rowNum, int columnNum, Object content,
+                         SpreadsheetCellStyle style) {
+        setValue(getCellAddress(rowNum, columnNum), content, style);
+    }
+
+    /**
+     * Set value of cell by row number and column number.
+     *
+     * @param rowNum    the number of row
+     * @param columnNum the number of column
+     * @param content   the content of cell
+     */
+    public void setValue(int rowNum, int columnNum, Object content) {
+        setValue(rowNum, columnNum, content, null);
+    }
+
+    /**
      * Get cell address.
      *
      * @param rowNum    the number of row
