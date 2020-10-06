@@ -240,6 +240,66 @@ public class SpreadsheetTab {
     }
 
     /**
+     * Set style of cell by cell address.
+     *
+     * @param cellAddress the cell address
+     * @param style       the style of cell
+     */
+    public void setStyle(String cellAddress, SpreadsheetCellStyle style) {
+        getOrCreateCell(cellAddress).setStyle(style);
+    }
+
+    /**
+     * Set style for diapason of cells by cells' addresses.
+     *
+     * @param firstCellAddress the cell address of first cell
+     * @param lastCellAddress  the cell address of last cell
+     * @param style            the style of cell
+     */
+    public void setStyle(String firstCellAddress, String lastCellAddress,
+                         SpreadsheetCellStyle style) {
+        CellReference firstReference = new CellReference(firstCellAddress);
+        CellReference lastReference = new CellReference(lastCellAddress);
+        for (int row = firstReference.getRow();
+             row <= lastReference.getRow();
+             row++) {
+            for (int col = firstReference.getCol();
+                 col <= lastReference.getCol();
+                 col++) {
+                getOrCreateCell(row, col).setStyle(style);
+            }
+        }
+    }
+
+    /**
+     * Set style of cell by row number and column number.
+     *
+     * @param rowNum    the number of cell
+     * @param columnNum the number of column
+     * @param style     the style of cell
+     */
+    public void setStyle(int rowNum, int columnNum,
+                         SpreadsheetCellStyle style) {
+        setStyle(getCellAddress(rowNum, columnNum), style);
+    }
+
+    /**
+     * Set style for diapason of cells by cells' row numbers and column numbers.
+     *
+     * @param firstRowNum    the row number of first cell
+     * @param firstColumnNum the column number of first cell
+     * @param lastRowNum     the row number of last cell
+     * @param lastColumnNum  the column number of last cell
+     * @param style          the style of cell
+     */
+    public void setStyle(int firstRowNum, int firstColumnNum,
+                         int lastRowNum, int lastColumnNum,
+                         SpreadsheetCellStyle style) {
+        setStyle(getCellAddress(firstRowNum, firstColumnNum),
+                getCellAddress(lastRowNum, lastColumnNum), style);
+    }
+
+    /**
      * Get cell address.
      *
      * @param rowNum    the number of row
