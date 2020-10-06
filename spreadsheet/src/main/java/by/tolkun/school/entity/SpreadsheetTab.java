@@ -272,6 +272,18 @@ public class SpreadsheetTab {
     }
 
     /**
+     * Set style of cell by row number and column number.
+     *
+     * @param rowNum    the number of cell
+     * @param columnNum the number of column
+     * @param style     the style of cell
+     */
+    public void setStyle(int rowNum, int columnNum,
+                         SpreadsheetCellStyle style) {
+        setStyle(getCellAddress(rowNum, columnNum), style);
+    }
+
+    /**
      * Get cell address.
      *
      * @param rowNum    the number of row
