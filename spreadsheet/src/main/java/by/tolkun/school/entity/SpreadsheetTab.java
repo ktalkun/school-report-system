@@ -81,6 +81,17 @@ public class SpreadsheetTab {
     }
 
     /**
+     * Get cell by cell address.
+     *
+     * @param cellAddress the cell address
+     * @return cell
+     */
+    public SpreadsheetCell getCell(String cellAddress) {
+        CellReference cellReference = new CellReference(cellAddress);
+        return cells.get(cellAddress);
+    }
+
+    /**
      * Get cell address.
      *
      * @param rowNum    the number of row
