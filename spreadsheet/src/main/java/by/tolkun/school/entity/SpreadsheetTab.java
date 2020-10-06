@@ -92,6 +92,18 @@ public class SpreadsheetTab {
     }
 
     /**
+     * Get cell by row number and column number.
+     *
+     * @param rowNum    the number of row
+     * @param columnNum the number of column
+     * @return cell
+     */
+    public SpreadsheetCell getCell(int rowNum, int columnNum) {
+        String address = getCellAddress(rowNum, columnNum);
+        return getCell(address);
+    }
+
+    /**
      * Get cell address.
      *
      * @param rowNum    the number of row
