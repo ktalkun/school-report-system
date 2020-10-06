@@ -169,6 +169,23 @@ public class SpreadsheetTab {
     }
 
     /**
+     * Record cell. If new cell is created it's necessary to update fields
+     * {@code highestModifiedCol} and {@code highestModifiedRow} (update
+     * dimensions of tab (sheet)).
+     *
+     * @param rowNum    the number of row
+     * @param columnNum the number of column
+     */
+    private void recordCellModified(int rowNum, int columnNum) {
+        if (columnNum > highestModifiedCol) {
+            highestModifiedCol = columnNum;
+        }
+        if (rowNum > highestModifiedRow) {
+            highestModifiedRow = rowNum;
+        }
+    }
+
+    /**
      * Get cell address.
      *
      * @param rowNum    the number of row
