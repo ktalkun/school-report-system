@@ -261,6 +261,20 @@ public class SpreadsheetTab {
     }
 
     /**
+     * Print values column down cell by cell using first cell address.
+     *
+     * @param cellAddress the first cell address
+     * @param style       the style of cell
+     * @param values      the values of cells
+     */
+    public void printDown(String cellAddress, SpreadsheetCellStyle style,
+                          Object... values) {
+        CellReference cellReference = new CellReference(cellAddress);
+        printDown(cellReference.getRow(), cellReference.getCol(),
+                style, values);
+    }
+
+    /**
      * Set style of cell by cell address.
      *
      * @param cellAddress the cell address
