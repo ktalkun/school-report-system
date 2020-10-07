@@ -275,6 +275,24 @@ public class SpreadsheetTab {
     }
 
     /**
+     * Print values row across cell by cell using number of first cell
+     * row and column.
+     *
+     * @param rowNum    the number of first cell row
+     * @param columnNum the number of first cell column
+     * @param style     the style of cell
+     * @param values    the values of cells
+     * @return index of the next row after the last one written
+     */
+    public int printAcross(int rowNum, int columnNum,
+                           SpreadsheetCellStyle style, Object... values) {
+        for (int i = 0; i < values.length; i++) {
+            setValue(rowNum, columnNum + i, values[i], style);
+        }
+        return columnNum + values.length;
+    }
+
+    /**
      * Set style of cell by cell address.
      *
      * @param cellAddress the cell address
