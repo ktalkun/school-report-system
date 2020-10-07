@@ -243,6 +243,24 @@ public class SpreadsheetTab {
     }
 
     /**
+     * Print values column down cell by cell using number of first cell
+     * row and column.
+     *
+     * @param rowNum    the number of first cell row
+     * @param columnNum the number of first cell column
+     * @param style     the style of cell
+     * @param values    the values of cells
+     * @return index of the next row after the last one written
+     */
+    public int printDown(int rowNum, int columnNum,
+                         SpreadsheetCellStyle style, Object... values) {
+        for (int i = 0; i < values.length; i++) {
+            setValue(rowNum + i, columnNum, values[i], style);
+        }
+        return rowNum + values.length;
+    }
+
+    /**
      * Set style of cell by cell address.
      *
      * @param cellAddress the cell address
