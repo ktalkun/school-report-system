@@ -434,6 +434,15 @@ public class SpreadsheetTab {
     }
 
     /**
+     * Adjusts the column width to fit the contents.
+     *
+     * @param columnNum the number of column
+     */
+    public void autoSizeColumn(int columnNum) {
+        sheet.autoSizeColumn(columnNum);
+    }
+
+    /**
      * Get cell address.
      *
      * @param rowNum    the number of row
