@@ -439,7 +439,7 @@ public class SpreadsheetTab {
      * @param columnNum the number of column
      */
     public void autoSizeColumn(int columnNum) {
-        sheet.autoSizeColumn(columnNum);
+        sheet.autoSizeColumn(columnNum, true);
     }
 
     /**
@@ -448,6 +448,15 @@ public class SpreadsheetTab {
     public void autosizeRows() {
         for (int rowNum = 0; rowNum <= highestModifiedRow; rowNum++) {
             autoSizeRow(rowNum);
+        }
+    }
+
+    /**
+     * Adjusts the all columns' widths to fit the contents.
+     */
+    public void autosizeCols() {
+        for (int colNum = 0; colNum <= highestModifiedCol; colNum++) {
+            autoSizeColumn(colNum);
         }
     }
 
