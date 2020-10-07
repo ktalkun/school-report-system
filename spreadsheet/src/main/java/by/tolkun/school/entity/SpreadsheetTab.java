@@ -1,6 +1,7 @@
 package by.tolkun.school.entity;
 
 import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.util.CellReference;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -375,6 +376,97 @@ public class SpreadsheetTab {
      */
     public void setColumnWidth(int columnNum, int width) {
         sheet.setColumnWidth(columnNum, width);
+    }
+
+    /**
+     * Adjusts the row height to fit the contents.
+     *
+     * @param rowNum the number of row
+     */
+    public void autoSizeRow(int rowNum) {
+        float maxCellHeight = -1;
+        for (int columnNum = 0; columnNum <= highestModifiedCol; columnNum++) {
+            SpreadsheetCell cell = getOrCreateCell(rowNum, columnNum);
+            int fontSize = cell.getFontSizeInPoints();
+            XSSFCell poiCell = cell.getPoiCell();
+            if (poiCell.getCellType() == CellType.STRING) {
+                String value = poiCell.getStringCellValue();
+                int numLines = 1;
+                for (int i = 0; i < value.length(); i++) {
+                    if (value.charAt(i) == '\n') numLines++;
+                }
+                float cellHeight = computeRowHeightInPoints(fontSize, numLines);
+                if (cellHeight > maxCellHeight) {
+                    maxCellHeight = cellHeight;
+                }
+            }
+        }
+
+        float defaultRowHeightInPoints = sheet.getDefaultRowHeightInPoints();
+        float rowHeight = maxCellHeight;
+        if (rowHeight < defaultRowHeightInPoints + 1) {
+            rowHeight = -1; // resets to the default.
+        }
+
+        sheet.getRow(rowNum).setHeightInPoints(rowHeight);
+    }
+
+    /**
+     * Compute row height in points.
+     *
+     * @param fontSizeInPoints the font size in points
+     * @param numLines         the number of lines
+     * @return row height in points
+     */
+    public float computeRowHeightInPoints(int fontSizeInPoints, int numLines) {
+        // A crude approximation of what excel does.
+        float lineHeightInPoints = 1.4f * fontSizeInPoints;
+        float rowHeightInPoints = lineHeightInPoints * numLines;
+        // Round to the nearest 0.25.
+        rowHeightInPoints = Math.round(rowHeightInPoints * 4) / 4f;
+
+        // Don't shrink rows to fit the font, only grow them.
+        float defaultRowHeightInPoints = sheet.getDefaultRowHeightInPoints();
+        if (rowHeightInPoints < defaultRowHeightInPoints + 1) {
+            rowHeightInPoints = defaultRowHeightInPoints;
+        }
+        return rowHeightInPoints;
+    }
+
+    /**
+     * Adjusts the column width to fit the contents.
+     *
+     * @param columnNum the number of column
+     */
+    public void autoSizeColumn(int columnNum) {
+        sheet.autoSizeColumn(columnNum, true);
+    }
+
+    /**
+     * Adjusts the all rows' heights to fit the contents.
+     */
+    public void autosizeRows() {
+        for (int rowNum = 0; rowNum <= highestModifiedRow; rowNum++) {
+            autoSizeRow(rowNum);
+        }
+    }
+
+    /**
+     * Adjusts the all columns' widths to fit the contents.
+     */
+    public void autosizeCols() {
+        for (int colNum = 0; colNum <= highestModifiedCol; colNum++) {
+            autoSizeColumn(colNum);
+        }
+    }
+
+    /**
+     * Adjusts the  all rows' heights and all columns' widths to fit
+     * the contents.
+     */
+    public void autosizeRowsAndCols() {
+        autosizeCols();
+        autosizeRows();
     }
 
     /**
