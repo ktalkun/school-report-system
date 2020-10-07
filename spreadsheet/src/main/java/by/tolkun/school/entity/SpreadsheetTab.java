@@ -323,6 +323,27 @@ public class SpreadsheetTab {
     }
 
     /**
+     * Set bottom border for cells in {@code rowNum} row from
+     * {@code firstColumnNum} to {@code lastColumnNum} column.
+     *
+     * @param rowNum         the number of row to set bottom border
+     * @param firstColumnNum the number of first column to set bottom border
+     * @param lastColumnNum  the number of last column to set bottom border
+     * @param borderStyle    the border style of cell
+     */
+    public void setBottomBorder(int rowNum, int firstColumnNum,
+                                int lastColumnNum, BorderStyle borderStyle) {
+        for (int columnNum = firstColumnNum;
+             columnNum <= lastColumnNum; columnNum++) {
+            getOrCreateCell(rowNum, columnNum)
+                    .applyStyle(new SpreadsheetCellStyle.Builder()
+                            .bottomBorderStyle(borderStyle)
+                            .build()
+                    );
+        }
+    }
+
+    /**
      * Set right border for cells in {@code columnNum} column from
      * {@code firstRowNum} to {@code lastRowNum} row.
      *
