@@ -385,6 +385,17 @@ public class SpreadsheetTab {
     }
 
     /**
+     * Set right border for cells in {@code columnNum} column.
+     *
+     * @param columnNum   the number of column to set right border
+     * @param borderStyle the border style of cell
+     */
+    public void setRightBorder(int columnNum, BorderStyle borderStyle) {
+        setRightBorder(columnNum, 0, highestModifiedRow,
+                borderStyle);
+    }
+
+    /**
      * Set left border for cells in {@code columnNum} column from
      * {@code firstRowNum} to {@code lastRowNum} row.
      *
