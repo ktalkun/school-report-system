@@ -444,6 +444,25 @@ public class SpreadsheetTab {
     }
 
     /**
+     * Set surrounded border for group of cell.
+     *
+     * @param firstCellAddress the address of first cell
+     * @param lastCellAddress  the address of last cell
+     * @param borderStyle      the border style of cell
+     */
+    public void setSurroundBorder(String firstCellAddress,
+                                  String lastCellAddress,
+                                  BorderStyle borderStyle) {
+        CellReference firstCellReference = new CellReference(firstCellAddress);
+        CellReference lastCellReference = new CellReference(lastCellAddress);
+        setSurroundBorder(
+                firstCellReference.getRow(), firstCellReference.getCol(),
+                lastCellReference.getRow(), lastCellReference.getCol(),
+                borderStyle
+        );
+    }
+
+    /**
      * Get the row's height measured in twips (1/20th of a point). If the
      * height is not set, the default worksheet value is returned,
      * See {@link XSSFSheet#getDefaultRowHeightInPoints()}.
