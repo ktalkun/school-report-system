@@ -461,6 +461,15 @@ public class SpreadsheetTab {
     }
 
     /**
+     * Adjusts the  all rows' heights and all columns' widths to fit
+     * the contents.
+     */
+    public void autosizeRowsAndCols() {
+        autosizeCols();
+        autosizeRows();
+    }
+
+    /**
      * Get cell address.
      *
      * @param rowNum    the number of row
