@@ -1,5 +1,6 @@
 package by.tolkun.school.entity;
 
+import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.util.CellReference;
@@ -298,6 +299,167 @@ public class SpreadsheetTab {
                          SpreadsheetCellStyle style) {
         setStyle(getCellAddress(firstRowNum, firstColumnNum),
                 getCellAddress(lastRowNum, lastColumnNum), style);
+    }
+
+    /**
+     * Set top border for cells in {@code rowNum} row from
+     * {@code firstColumnNum} to {@code lastColumnNum} column.
+     *
+     * @param rowNum         the number of row to set top border
+     * @param firstColumnNum the number of first column to set top border
+     * @param lastColumnNum  the number of last column to set top border
+     * @param borderStyle    the border style of cell
+     */
+    public void setTopBorder(int rowNum, int firstColumnNum, int lastColumnNum,
+                             BorderStyle borderStyle) {
+        for (int columnNum = firstColumnNum;
+             columnNum <= lastColumnNum; columnNum++) {
+            getOrCreateCell(rowNum, columnNum)
+                    .applyStyle(new SpreadsheetCellStyle.Builder()
+                            .topBorderStyle(borderStyle)
+                            .build()
+                    );
+        }
+    }
+
+    /**
+     * Set top border for cells in {@code rowNum} row.
+     *
+     * @param rowNum      the number of row to set top border
+     * @param borderStyle the border style of cell
+     */
+    public void setTopBorder(int rowNum, BorderStyle borderStyle) {
+        setTopBorder(rowNum, 0, highestModifiedCol, borderStyle);
+    }
+
+    /**
+     * Set bottom border for cells in {@code rowNum} row from
+     * {@code firstColumnNum} to {@code lastColumnNum} column.
+     *
+     * @param rowNum         the number of row to set bottom border
+     * @param firstColumnNum the number of first column to set bottom border
+     * @param lastColumnNum  the number of last column to set bottom border
+     * @param borderStyle    the border style of cell
+     */
+    public void setBottomBorder(int rowNum, int firstColumnNum,
+                                int lastColumnNum, BorderStyle borderStyle) {
+        for (int columnNum = firstColumnNum;
+             columnNum <= lastColumnNum; columnNum++) {
+            getOrCreateCell(rowNum, columnNum)
+                    .applyStyle(new SpreadsheetCellStyle.Builder()
+                            .bottomBorderStyle(borderStyle)
+                            .build()
+                    );
+        }
+    }
+
+    /**
+     * Set bottom border for cells in {@code rowNum} row.
+     *
+     * @param rowNum      the number of row to set bottom border
+     * @param borderStyle the border style of cell
+     */
+    public void setBottomBorder(int rowNum, BorderStyle borderStyle) {
+        setBottomBorder(rowNum, 0, highestModifiedCol,
+                borderStyle);
+    }
+
+    /**
+     * Set right border for cells in {@code columnNum} column from
+     * {@code firstRowNum} to {@code lastRowNum} row.
+     *
+     * @param columnNum   the number of column to set right border
+     * @param firstRowNum the number of first row to set right border
+     * @param lastRowNum  the number of last row to set right border
+     * @param borderStyle the border style of cell
+     */
+    public void setRightBorder(int columnNum, int firstRowNum, int lastRowNum,
+                               BorderStyle borderStyle) {
+        for (int rowNum = firstRowNum; rowNum <= lastRowNum; rowNum++) {
+            getOrCreateCell(rowNum, columnNum)
+                    .applyStyle(new SpreadsheetCellStyle.Builder()
+                            .rightBorderStyle(borderStyle)
+                            .build()
+                    );
+        }
+    }
+
+    /**
+     * Set right border for cells in {@code columnNum} column.
+     *
+     * @param columnNum   the number of column to set right border
+     * @param borderStyle the border style of cell
+     */
+    public void setRightBorder(int columnNum, BorderStyle borderStyle) {
+        setRightBorder(columnNum, 0, highestModifiedRow,
+                borderStyle);
+    }
+
+    /**
+     * Set left border for cells in {@code columnNum} column from
+     * {@code firstRowNum} to {@code lastRowNum} row.
+     *
+     * @param columnNum   the number of column to set left border
+     * @param firstRowNum the number of first row to set left border
+     * @param lastRowNum  the number of last row to set left border
+     * @param borderStyle the border style of cell
+     */
+    public void setLeftBorder(int columnNum, int firstRowNum, int lastRowNum,
+                              BorderStyle borderStyle) {
+        for (int rowNum = firstRowNum; rowNum <= lastRowNum; rowNum++) {
+            getOrCreateCell(rowNum, columnNum)
+                    .applyStyle(new SpreadsheetCellStyle.Builder()
+                            .leftBorderStyle(borderStyle)
+                            .build()
+                    );
+        }
+    }
+
+    /**
+     * Set left border for cells in {@code columnNum} column.
+     *
+     * @param columnNum   the number of column to set left border
+     * @param borderStyle the border style of cell
+     */
+    public void setLeftBorder(int columnNum, BorderStyle borderStyle) {
+        setLeftBorder(columnNum, 0, highestModifiedRow, borderStyle);
+    }
+
+    /**
+     * Set surrounded border for group of cell.
+     *
+     * @param firstRowNum    the number of first row
+     * @param lastRowNum     the number of last row
+     * @param firstColumnNum the number of first column
+     * @param lastColumnNum  the number of last column
+     * @param borderStyle    the border style of cell
+     */
+    public void setSurroundBorder(int firstRowNum, int firstColumnNum,
+                                  int lastRowNum, int lastColumnNum,
+                                  BorderStyle borderStyle) {
+        setTopBorder(firstRowNum, firstColumnNum, lastColumnNum, borderStyle);
+        setBottomBorder(lastRowNum, firstColumnNum, lastColumnNum, borderStyle);
+        setLeftBorder(firstRowNum, lastRowNum, firstColumnNum, borderStyle);
+        setRightBorder(firstRowNum, lastRowNum, lastColumnNum, borderStyle);
+    }
+
+    /**
+     * Set surrounded border for group of cell.
+     *
+     * @param firstCellAddress the address of first cell
+     * @param lastCellAddress  the address of last cell
+     * @param borderStyle      the border style of cell
+     */
+    public void setSurroundBorder(String firstCellAddress,
+                                  String lastCellAddress,
+                                  BorderStyle borderStyle) {
+        CellReference firstCellReference = new CellReference(firstCellAddress);
+        CellReference lastCellReference = new CellReference(lastCellAddress);
+        setSurroundBorder(
+                firstCellReference.getRow(), firstCellReference.getCol(),
+                lastCellReference.getRow(), lastCellReference.getCol(),
+                borderStyle
+        );
     }
 
     /**
