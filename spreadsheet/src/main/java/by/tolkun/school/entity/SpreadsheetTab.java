@@ -656,6 +656,23 @@ public class SpreadsheetTab {
     }
 
     /**
+     * Merge cells by cells' addresses.
+     *
+     * @param firstCellAddress the address of first cell
+     * @param lastCellAddress  the address of last cell
+     * @param content          the content of merged cell
+     * @param style            the style of cell
+     */
+    public void mergeCells(String firstCellAddress, String lastCellAddress,
+                           Object content, SpreadsheetCellStyle style) {
+        CellReference firstReference = new CellReference(firstCellAddress);
+        CellReference lastReference = new CellReference(lastCellAddress);
+        mergeCells(firstReference.getRow(), lastReference.getRow(),
+                firstReference.getCol(), lastReference.getCol(),
+                content, style);
+    }
+
+    /**
      * Get cell address.
      *
      * @param rowNum    the number of row
