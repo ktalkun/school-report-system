@@ -426,6 +426,24 @@ public class SpreadsheetTab {
     }
 
     /**
+     * Set surrounded border for group of cell.
+     *
+     * @param firstRowNum    the number of first row
+     * @param lastRowNum     the number of last row
+     * @param firstColumnNum the number of first column
+     * @param lastColumnNum  the number of last column
+     * @param borderStyle    the border style of cell
+     */
+    public void setSurroundBorder(int firstRowNum, int firstColumnNum,
+                                  int lastRowNum, int lastColumnNum,
+                                  BorderStyle borderStyle) {
+        setTopBorder(firstRowNum, firstColumnNum, lastColumnNum, borderStyle);
+        setBottomBorder(lastRowNum, firstColumnNum, lastColumnNum, borderStyle);
+        setLeftBorder(firstRowNum, lastRowNum, firstColumnNum, borderStyle);
+        setRightBorder(firstRowNum, lastRowNum, lastColumnNum, borderStyle);
+    }
+
+    /**
      * Get the row's height measured in twips (1/20th of a point). If the
      * height is not set, the default worksheet value is returned,
      * See {@link XSSFSheet#getDefaultRowHeightInPoints()}.
