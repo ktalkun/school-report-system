@@ -443,6 +443,15 @@ public class SpreadsheetTab {
     }
 
     /**
+     * Adjusts the all rows' heights to fit the contents.
+     */
+    public void autosizeRows() {
+        for (int rowNum = 0; rowNum <= highestModifiedRow; rowNum++) {
+            autoSizeRow(rowNum);
+        }
+    }
+
+    /**
      * Get cell address.
      *
      * @param rowNum    the number of row
