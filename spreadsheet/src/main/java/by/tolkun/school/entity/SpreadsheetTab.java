@@ -1,6 +1,7 @@
 package by.tolkun.school.entity;
 
 import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.util.CellReference;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -375,6 +376,39 @@ public class SpreadsheetTab {
      */
     public void setColumnWidth(int columnNum, int width) {
         sheet.setColumnWidth(columnNum, width);
+    }
+
+    /**
+     * Adjusts the row height to fit the contents.
+     *
+     * @param rowNum the number of row
+     */
+    public void autoSizeRow(int rowNum) {
+        float maxCellHeight = -1;
+        for (int columnNum = 0; columnNum <= highestModifiedCol; columnNum++) {
+            SpreadsheetCell cell = getOrCreateCell(rowNum, columnNum);
+            int fontSize = cell.getFontSizeInPoints();
+            XSSFCell poiCell = cell.getPoiCell();
+            if (poiCell.getCellType() == CellType.STRING) {
+                String value = poiCell.getStringCellValue();
+                int numLines = 1;
+                for (int i = 0; i < value.length(); i++) {
+                    if (value.charAt(i) == '\n') numLines++;
+                }
+                float cellHeight = computeRowHeightInPoints(fontSize, numLines);
+                if (cellHeight > maxCellHeight) {
+                    maxCellHeight = cellHeight;
+                }
+            }
+        }
+
+        float defaultRowHeightInPoints = sheet.getDefaultRowHeightInPoints();
+        float rowHeight = maxCellHeight;
+        if (rowHeight < defaultRowHeightInPoints + 1) {
+            rowHeight = -1; // resets to the default.
+        }
+
+        sheet.getRow(rowNum).setHeightInPoints(rowHeight);
     }
 
     /**
