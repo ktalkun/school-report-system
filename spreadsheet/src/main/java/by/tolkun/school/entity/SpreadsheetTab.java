@@ -3,6 +3,7 @@ package by.tolkun.school.entity;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.ss.util.CellReference;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -629,6 +630,29 @@ public class SpreadsheetTab {
     public void autosizeRowsAndCols() {
         autosizeCols();
         autosizeRows();
+    }
+
+    /**
+     * Merge cells by numbers of rows and columns.
+     *
+     * @param firstRowNum    the number of first row
+     * @param firstColumnNum the number of first column
+     * @param lastRowNum     the number of last row
+     * @param lastColumnNum  the number of last column
+     * @param content        the content of merged cell
+     * @param style          the style of cell
+     */
+    public void mergeCells(int firstRowNum, int firstColumnNum,
+                           int lastRowNum, int lastColumnNum,
+                           Object content, SpreadsheetCellStyle style) {
+        setValue(firstRowNum, firstColumnNum, content);
+        for (int col = firstColumnNum; col <= lastColumnNum; col++) {
+            for (int row = firstRowNum; row <= lastRowNum; row++) {
+                setStyle(row, col, style);
+            }
+        }
+        sheet.addMergedRegion(new CellRangeAddress(firstRowNum, lastRowNum,
+                firstColumnNum, lastColumnNum));
     }
 
     /**
