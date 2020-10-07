@@ -364,6 +364,26 @@ public class SpreadsheetTab {
     }
 
     /**
+     * Set left border for cells in {@code columnNum} column from
+     * {@code firstRowNum} to {@code lastRowNum} row.
+     *
+     * @param columnNum   the number of column to set left border
+     * @param firstRowNum the number of first row to set left border
+     * @param lastRowNum  the number of last row to set left border
+     * @param borderStyle the border style of cell
+     */
+    public void setLeftBorder(int columnNum, int firstRowNum, int lastRowNum,
+                              BorderStyle borderStyle) {
+        for (int rowNum = firstRowNum; rowNum <= lastRowNum; rowNum++) {
+            getOrCreateCell(rowNum, columnNum)
+                    .applyStyle(new SpreadsheetCellStyle.Builder()
+                            .leftBorderStyle(borderStyle)
+                            .build()
+                    );
+        }
+    }
+
+    /**
      * Get the row's height measured in twips (1/20th of a point). If the
      * height is not set, the default worksheet value is returned,
      * See {@link XSSFSheet#getDefaultRowHeightInPoints()}.
