@@ -354,6 +354,17 @@ public class SpreadsheetTab {
     }
 
     /**
+     * Set bottom border for cells in {@code rowNum} row.
+     *
+     * @param rowNum      the number of row to set bottom border
+     * @param borderStyle the border style of cell
+     */
+    public void setBottomBorder(int rowNum, BorderStyle borderStyle) {
+        setBottomBorder(rowNum, 0, highestModifiedCol,
+                borderStyle);
+    }
+
+    /**
      * Set right border for cells in {@code columnNum} column from
      * {@code firstRowNum} to {@code lastRowNum} row.
      *
