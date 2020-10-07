@@ -378,6 +378,28 @@ public class SpreadsheetTab {
     }
 
     /**
+     * Compute row height in points.
+     *
+     * @param fontSizeInPoints the font size in points
+     * @param numLines         the number of lines
+     * @return row height in points
+     */
+    public float computeRowHeightInPoints(int fontSizeInPoints, int numLines) {
+        // A crude approximation of what excel does.
+        float lineHeightInPoints = 1.4f * fontSizeInPoints;
+        float rowHeightInPoints = lineHeightInPoints * numLines;
+        // Round to the nearest 0.25.
+        rowHeightInPoints = Math.round(rowHeightInPoints * 4) / 4f;
+
+        // Don't shrink rows to fit the font, only grow them.
+        float defaultRowHeightInPoints = sheet.getDefaultRowHeightInPoints();
+        if (rowHeightInPoints < defaultRowHeightInPoints + 1) {
+            rowHeightInPoints = defaultRowHeightInPoints;
+        }
+        return rowHeightInPoints;
+    }
+
+    /**
      * Get cell address.
      *
      * @param rowNum    the number of row
