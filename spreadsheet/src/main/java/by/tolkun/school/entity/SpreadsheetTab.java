@@ -293,6 +293,20 @@ public class SpreadsheetTab {
     }
 
     /**
+     * Print values row across cell by cell using first cell address.
+     *
+     * @param cellAddress the first cell address
+     * @param style       the style of cell
+     * @param values      the values of cells
+     */
+    public void printAcross(String cellAddress, SpreadsheetCellStyle style,
+                            Object... values) {
+        CellReference cellReference = new CellReference(cellAddress);
+        printAcross(cellReference.getRow(), cellReference.getCol(),
+                style, values);
+    }
+
+    /**
      * Set style of cell by cell address.
      *
      * @param cellAddress the cell address
