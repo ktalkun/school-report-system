@@ -1,6 +1,8 @@
 package by.tolkun.school.entity;
 
+import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.util.CellReference;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -237,6 +239,396 @@ public class SpreadsheetTab {
      */
     public void setValue(int rowNum, int columnNum, Object content) {
         setValue(rowNum, columnNum, content, null);
+    }
+
+    /**
+     * Set style of cell by cell address.
+     *
+     * @param cellAddress the cell address
+     * @param style       the style of cell
+     */
+    public void setStyle(String cellAddress, SpreadsheetCellStyle style) {
+        getOrCreateCell(cellAddress).setStyle(style);
+    }
+
+    /**
+     * Set style for diapason of cells by cells' addresses.
+     *
+     * @param firstCellAddress the cell address of first cell
+     * @param lastCellAddress  the cell address of last cell
+     * @param style            the style of cell
+     */
+    public void setStyle(String firstCellAddress, String lastCellAddress,
+                         SpreadsheetCellStyle style) {
+        CellReference firstReference = new CellReference(firstCellAddress);
+        CellReference lastReference = new CellReference(lastCellAddress);
+        for (int row = firstReference.getRow();
+             row <= lastReference.getRow();
+             row++) {
+            for (int col = firstReference.getCol();
+                 col <= lastReference.getCol();
+                 col++) {
+                getOrCreateCell(row, col).setStyle(style);
+            }
+        }
+    }
+
+    /**
+     * Set style of cell by row number and column number.
+     *
+     * @param rowNum    the number of cell
+     * @param columnNum the number of column
+     * @param style     the style of cell
+     */
+    public void setStyle(int rowNum, int columnNum,
+                         SpreadsheetCellStyle style) {
+        setStyle(getCellAddress(rowNum, columnNum), style);
+    }
+
+    /**
+     * Set style for diapason of cells by cells' row numbers and column numbers.
+     *
+     * @param firstRowNum    the row number of first cell
+     * @param firstColumnNum the column number of first cell
+     * @param lastRowNum     the row number of last cell
+     * @param lastColumnNum  the column number of last cell
+     * @param style          the style of cell
+     */
+    public void setStyle(int firstRowNum, int firstColumnNum,
+                         int lastRowNum, int lastColumnNum,
+                         SpreadsheetCellStyle style) {
+        setStyle(getCellAddress(firstRowNum, firstColumnNum),
+                getCellAddress(lastRowNum, lastColumnNum), style);
+    }
+
+    /**
+     * Set top border for cells in {@code rowNum} row from
+     * {@code firstColumnNum} to {@code lastColumnNum} column.
+     *
+     * @param rowNum         the number of row to set top border
+     * @param firstColumnNum the number of first column to set top border
+     * @param lastColumnNum  the number of last column to set top border
+     * @param borderStyle    the border style of cell
+     */
+    public void setTopBorder(int rowNum, int firstColumnNum, int lastColumnNum,
+                             BorderStyle borderStyle) {
+        for (int columnNum = firstColumnNum;
+             columnNum <= lastColumnNum; columnNum++) {
+            getOrCreateCell(rowNum, columnNum)
+                    .applyStyle(new SpreadsheetCellStyle.Builder()
+                            .topBorderStyle(borderStyle)
+                            .build()
+                    );
+        }
+    }
+
+    /**
+     * Set top border for cells in {@code rowNum} row.
+     *
+     * @param rowNum      the number of row to set top border
+     * @param borderStyle the border style of cell
+     */
+    public void setTopBorder(int rowNum, BorderStyle borderStyle) {
+        setTopBorder(rowNum, 0, highestModifiedCol, borderStyle);
+    }
+
+    /**
+     * Set bottom border for cells in {@code rowNum} row from
+     * {@code firstColumnNum} to {@code lastColumnNum} column.
+     *
+     * @param rowNum         the number of row to set bottom border
+     * @param firstColumnNum the number of first column to set bottom border
+     * @param lastColumnNum  the number of last column to set bottom border
+     * @param borderStyle    the border style of cell
+     */
+    public void setBottomBorder(int rowNum, int firstColumnNum,
+                                int lastColumnNum, BorderStyle borderStyle) {
+        for (int columnNum = firstColumnNum;
+             columnNum <= lastColumnNum; columnNum++) {
+            getOrCreateCell(rowNum, columnNum)
+                    .applyStyle(new SpreadsheetCellStyle.Builder()
+                            .bottomBorderStyle(borderStyle)
+                            .build()
+                    );
+        }
+    }
+
+    /**
+     * Set bottom border for cells in {@code rowNum} row.
+     *
+     * @param rowNum      the number of row to set bottom border
+     * @param borderStyle the border style of cell
+     */
+    public void setBottomBorder(int rowNum, BorderStyle borderStyle) {
+        setBottomBorder(rowNum, 0, highestModifiedCol,
+                borderStyle);
+    }
+
+    /**
+     * Set right border for cells in {@code columnNum} column from
+     * {@code firstRowNum} to {@code lastRowNum} row.
+     *
+     * @param columnNum   the number of column to set right border
+     * @param firstRowNum the number of first row to set right border
+     * @param lastRowNum  the number of last row to set right border
+     * @param borderStyle the border style of cell
+     */
+    public void setRightBorder(int columnNum, int firstRowNum, int lastRowNum,
+                               BorderStyle borderStyle) {
+        for (int rowNum = firstRowNum; rowNum <= lastRowNum; rowNum++) {
+            getOrCreateCell(rowNum, columnNum)
+                    .applyStyle(new SpreadsheetCellStyle.Builder()
+                            .rightBorderStyle(borderStyle)
+                            .build()
+                    );
+        }
+    }
+
+    /**
+     * Set right border for cells in {@code columnNum} column.
+     *
+     * @param columnNum   the number of column to set right border
+     * @param borderStyle the border style of cell
+     */
+    public void setRightBorder(int columnNum, BorderStyle borderStyle) {
+        setRightBorder(columnNum, 0, highestModifiedRow,
+                borderStyle);
+    }
+
+    /**
+     * Set left border for cells in {@code columnNum} column from
+     * {@code firstRowNum} to {@code lastRowNum} row.
+     *
+     * @param columnNum   the number of column to set left border
+     * @param firstRowNum the number of first row to set left border
+     * @param lastRowNum  the number of last row to set left border
+     * @param borderStyle the border style of cell
+     */
+    public void setLeftBorder(int columnNum, int firstRowNum, int lastRowNum,
+                              BorderStyle borderStyle) {
+        for (int rowNum = firstRowNum; rowNum <= lastRowNum; rowNum++) {
+            getOrCreateCell(rowNum, columnNum)
+                    .applyStyle(new SpreadsheetCellStyle.Builder()
+                            .leftBorderStyle(borderStyle)
+                            .build()
+                    );
+        }
+    }
+
+    /**
+     * Set left border for cells in {@code columnNum} column.
+     *
+     * @param columnNum   the number of column to set left border
+     * @param borderStyle the border style of cell
+     */
+    public void setLeftBorder(int columnNum, BorderStyle borderStyle) {
+        setLeftBorder(columnNum, 0, highestModifiedRow, borderStyle);
+    }
+
+    /**
+     * Set surrounded border for group of cell.
+     *
+     * @param firstRowNum    the number of first row
+     * @param lastRowNum     the number of last row
+     * @param firstColumnNum the number of first column
+     * @param lastColumnNum  the number of last column
+     * @param borderStyle    the border style of cell
+     */
+    public void setSurroundBorder(int firstRowNum, int firstColumnNum,
+                                  int lastRowNum, int lastColumnNum,
+                                  BorderStyle borderStyle) {
+        setTopBorder(firstRowNum, firstColumnNum, lastColumnNum, borderStyle);
+        setBottomBorder(lastRowNum, firstColumnNum, lastColumnNum, borderStyle);
+        setLeftBorder(firstRowNum, lastRowNum, firstColumnNum, borderStyle);
+        setRightBorder(firstRowNum, lastRowNum, lastColumnNum, borderStyle);
+    }
+
+    /**
+     * Set surrounded border for group of cell.
+     *
+     * @param firstCellAddress the address of first cell
+     * @param lastCellAddress  the address of last cell
+     * @param borderStyle      the border style of cell
+     */
+    public void setSurroundBorder(String firstCellAddress,
+                                  String lastCellAddress,
+                                  BorderStyle borderStyle) {
+        CellReference firstCellReference = new CellReference(firstCellAddress);
+        CellReference lastCellReference = new CellReference(lastCellAddress);
+        setSurroundBorder(
+                firstCellReference.getRow(), firstCellReference.getCol(),
+                lastCellReference.getRow(), lastCellReference.getCol(),
+                borderStyle
+        );
+    }
+
+    /**
+     * Get the row's height measured in twips (1/20th of a point). If the
+     * height is not set, the default worksheet value is returned,
+     * See {@link XSSFSheet#getDefaultRowHeightInPoints()}.
+     *
+     * @param rowNum the number of row
+     * @return height of row
+     */
+    public int getRowHeight(int rowNum) {
+        return sheet.getRow(rowNum).getHeight();
+    }
+
+    /**
+     * Set the height in "twips" or 1/20th of a point.
+     *
+     * @param rowNum the number of row
+     * @param height the height in "twips" or 1/20th of a point.
+     *               -1 resets to the default height
+     */
+    public void setRowHeight(int rowNum, short height) {
+        sheet.getRow(rowNum).setHeight(height);
+    }
+
+    /**
+     * Get the actual column width (in units of 1/256th of a character width )
+     * Note, the returned value is always greater that getDefaultColumnWidth()
+     * because the latter does not include margins. Actual column width
+     * measured as the number of characters of the maximum digit width
+     * of the numbers 0, 1, 2, ..., 9 as rendered in the normal style's font.
+     * There are 4 pixels of margin padding (two on each side), plus 1 pixel
+     * padding for the gridlines.
+     *
+     * @param columnNum the column number
+     * @return width - the width in units of 1/256th of a character width
+     */
+    public int getColumnWidth(int columnNum) {
+        return sheet.getColumnWidth(columnNum);
+    }
+
+    /**
+     * Set the width (in units of 1/256th of a character width).
+     * <p>
+     * The maximum column width for an individual cell is 255 characters.
+     * This value represents the number of characters that can be displayed
+     * in a cell that is formatted with the standard font (first font in the
+     * workbook).
+     * <p>
+     * Character width is defined as the maximum digit width of the numbers
+     * {@code 0, 1, 2, ... 9} as rendered using the default font (first font
+     * in the workbook). Unless you are using a very special font, the default
+     * character is '0' (zero), this is true for Arial (default font font
+     * in HSSF) and Calibri (default font in XSSF).
+     * <p>
+     * Please note, that the width set by this method includes 4 pixels
+     * of margin padding (two on each side), plus 1 pixel padding
+     * for the gridlines (Section 3.3.1.12 of the OOXML spec).
+     * This results is a slightly less value of visible characters than passed
+     * to this method (approx. 1/2 of a character).
+     * <p>
+     * To compute the actual number of visible characters, Excel uses
+     * the following formula (Section 3.3.1.12 of the OOXML spec):
+     * {@code width = Truncate([{Number of Visible Characters} * {Maximum Digit
+     * Width} + {5 pixel padding}]/{Maximum Digit Width}*256)/256 }.
+     * <p>
+     * Using the Calibri font as an example, the maximum digit width of 11
+     * point font size is 7 pixels (at 96 dpi). If you set a column width to be
+     * eight characters wide, e.g. setColumnWidth(columnIndex, 8*256), then the
+     * actual value of visible characters (the value shown in Excel) is derived
+     * from the following equation: Truncate([numChars*7+5]/7*256)/256 = 8;
+     * which gives 7.29.
+     *
+     * @param columnNum the number of column
+     * @param width     the width in units of 1/256th of a character width
+     */
+    public void setColumnWidth(int columnNum, int width) {
+        sheet.setColumnWidth(columnNum, width);
+    }
+
+    /**
+     * Adjusts the row height to fit the contents.
+     *
+     * @param rowNum the number of row
+     */
+    public void autoSizeRow(int rowNum) {
+        float maxCellHeight = -1;
+        for (int columnNum = 0; columnNum <= highestModifiedCol; columnNum++) {
+            SpreadsheetCell cell = getOrCreateCell(rowNum, columnNum);
+            int fontSize = cell.getFontSizeInPoints();
+            XSSFCell poiCell = cell.getPoiCell();
+            if (poiCell.getCellType() == CellType.STRING) {
+                String value = poiCell.getStringCellValue();
+                int numLines = 1;
+                for (int i = 0; i < value.length(); i++) {
+                    if (value.charAt(i) == '\n') numLines++;
+                }
+                float cellHeight = computeRowHeightInPoints(fontSize, numLines);
+                if (cellHeight > maxCellHeight) {
+                    maxCellHeight = cellHeight;
+                }
+            }
+        }
+
+        float defaultRowHeightInPoints = sheet.getDefaultRowHeightInPoints();
+        float rowHeight = maxCellHeight;
+        if (rowHeight < defaultRowHeightInPoints + 1) {
+            rowHeight = -1; // resets to the default.
+        }
+
+        sheet.getRow(rowNum).setHeightInPoints(rowHeight);
+    }
+
+    /**
+     * Compute row height in points.
+     *
+     * @param fontSizeInPoints the font size in points
+     * @param numLines         the number of lines
+     * @return row height in points
+     */
+    public float computeRowHeightInPoints(int fontSizeInPoints, int numLines) {
+        // A crude approximation of what excel does.
+        float lineHeightInPoints = 1.4f * fontSizeInPoints;
+        float rowHeightInPoints = lineHeightInPoints * numLines;
+        // Round to the nearest 0.25.
+        rowHeightInPoints = Math.round(rowHeightInPoints * 4) / 4f;
+
+        // Don't shrink rows to fit the font, only grow them.
+        float defaultRowHeightInPoints = sheet.getDefaultRowHeightInPoints();
+        if (rowHeightInPoints < defaultRowHeightInPoints + 1) {
+            rowHeightInPoints = defaultRowHeightInPoints;
+        }
+        return rowHeightInPoints;
+    }
+
+    /**
+     * Adjusts the column width to fit the contents.
+     *
+     * @param columnNum the number of column
+     */
+    public void autoSizeColumn(int columnNum) {
+        sheet.autoSizeColumn(columnNum, true);
+    }
+
+    /**
+     * Adjusts the all rows' heights to fit the contents.
+     */
+    public void autosizeRows() {
+        for (int rowNum = 0; rowNum <= highestModifiedRow; rowNum++) {
+            autoSizeRow(rowNum);
+        }
+    }
+
+    /**
+     * Adjusts the all columns' widths to fit the contents.
+     */
+    public void autosizeCols() {
+        for (int colNum = 0; colNum <= highestModifiedCol; colNum++) {
+            autoSizeColumn(colNum);
+        }
+    }
+
+    /**
+     * Adjusts the  all rows' heights and all columns' widths to fit
+     * the contents.
+     */
+    public void autosizeRowsAndCols() {
+        autosizeCols();
+        autosizeRows();
     }
 
     /**
