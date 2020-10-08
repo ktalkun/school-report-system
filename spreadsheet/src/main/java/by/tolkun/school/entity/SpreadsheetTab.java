@@ -528,6 +528,49 @@ public class SpreadsheetTab {
     }
 
     /**
+     * Remove diapason of rows by first row and last row number.
+     *
+     * @param firstRowNum the number of first row
+     * @param lastRowNum  the number of last row
+     */
+    public void removeRows(int firstRowNum, int lastRowNum) {
+        int delta = lastRowNum - firstRowNum + 1;
+        sheet.shiftRows(lastRowNum + 1, highestModifiedRow, delta);
+        highestModifiedRow -= delta;
+    }
+
+    /**
+     * Remove row by row number.
+     *
+     * @param rowNum the number of row
+     */
+    public void removeRow(int rowNum) {
+        removeRows(rowNum, rowNum);
+    }
+
+    /**
+     * Remove diapason of columns by first column and last column number.
+     *
+     * @param firstColumnNum the number of first column
+     * @param lastColumnNum  the number of last column
+     */
+    public void removeColumns(int firstColumnNum, int lastColumnNum) {
+        int delta = lastColumnNum - firstColumnNum + 1;
+        sheet.shiftColumns(lastColumnNum + 1, highestModifiedCol,
+                delta);
+        highestModifiedCol -= delta;
+    }
+
+    /**
+     * Remove column by column number.
+     *
+     * @param columnNum the number of column
+     */
+    public void removeColumn(int columnNum) {
+        removeColumns(columnNum, columnNum);
+    }
+
+    /**
      * Get the row's height measured in twips (1/20th of a point). If the
      * height is not set, the default worksheet value is returned,
      * See {@link XSSFSheet#getDefaultRowHeightInPoints()}.
