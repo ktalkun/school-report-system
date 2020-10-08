@@ -562,6 +562,15 @@ public class SpreadsheetTab {
     }
 
     /**
+     * Remove column by column number.
+     *
+     * @param columnNum the number of column
+     */
+    public void removeColumn(int columnNum) {
+        removeColumns(columnNum, columnNum);
+    }
+
+    /**
      * Get the row's height measured in twips (1/20th of a point). If the
      * height is not set, the default worksheet value is returned,
      * See {@link XSSFSheet#getDefaultRowHeightInPoints()}.
