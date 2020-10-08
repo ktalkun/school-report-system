@@ -820,6 +820,14 @@ public class SpreadsheetTab {
     }
 
     /**
+     * Clear all rows.
+     */
+    public void clearAll() {
+        sheet.shiftRows(highestModifiedRow, highestModifiedRow * 2,
+                -highestModifiedRow);
+    }
+
+    /**
      * Compares this tab to the specified object. The result is {@code true}
      * if and only if the argument is not null and is a {@code SpreadsheetTab}.
      *
