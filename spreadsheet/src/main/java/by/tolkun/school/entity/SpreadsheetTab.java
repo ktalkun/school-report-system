@@ -839,4 +839,15 @@ public class SpreadsheetTab {
                 Objects.equals(sheet, that.sheet) &&
                 Objects.equals(cells, that.cells);
     }
+
+    /**
+     * Compute hash code of {@code SpreadsheetTab}.
+     *
+     * @return a hash code for this tab
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(workbook, sheet, cells, highestModifiedRow,
+                highestModifiedCol);
+    }
 }
