@@ -3,6 +3,7 @@ package by.tolkun.school.entity;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.ss.util.CellReference;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -239,6 +240,70 @@ public class SpreadsheetTab {
      */
     public void setValue(int rowNum, int columnNum, Object content) {
         setValue(rowNum, columnNum, content, null);
+    }
+
+    /**
+     * Print values column down cell by cell using number of first cell
+     * row and column.
+     *
+     * @param rowNum    the number of first cell row
+     * @param columnNum the number of first cell column
+     * @param style     the style of cell
+     * @param values    the values of cells
+     * @return index of the next row after the last one written
+     */
+    public int printDown(int rowNum, int columnNum,
+                         SpreadsheetCellStyle style, Object... values) {
+        for (int i = 0; i < values.length; i++) {
+            setValue(rowNum + i, columnNum, values[i], style);
+        }
+        return rowNum + values.length;
+    }
+
+    /**
+     * Print values column down cell by cell using first cell address.
+     *
+     * @param cellAddress the first cell address
+     * @param style       the style of cell
+     * @param values      the values of cells
+     */
+    public void printDown(String cellAddress, SpreadsheetCellStyle style,
+                          Object... values) {
+        CellReference cellReference = new CellReference(cellAddress);
+        printDown(cellReference.getRow(), cellReference.getCol(),
+                style, values);
+    }
+
+    /**
+     * Print values row across cell by cell using number of first cell
+     * row and column.
+     *
+     * @param rowNum    the number of first cell row
+     * @param columnNum the number of first cell column
+     * @param style     the style of cell
+     * @param values    the values of cells
+     * @return index of the next row after the last one written
+     */
+    public int printAcross(int rowNum, int columnNum,
+                           SpreadsheetCellStyle style, Object... values) {
+        for (int i = 0; i < values.length; i++) {
+            setValue(rowNum, columnNum + i, values[i], style);
+        }
+        return columnNum + values.length;
+    }
+
+    /**
+     * Print values row across cell by cell using first cell address.
+     *
+     * @param cellAddress the first cell address
+     * @param style       the style of cell
+     * @param values      the values of cells
+     */
+    public void printAcross(String cellAddress, SpreadsheetCellStyle style,
+                            Object... values) {
+        CellReference cellReference = new CellReference(cellAddress);
+        printAcross(cellReference.getRow(), cellReference.getCol(),
+                style, values);
     }
 
     /**
@@ -629,6 +694,46 @@ public class SpreadsheetTab {
     public void autosizeRowsAndCols() {
         autosizeCols();
         autosizeRows();
+    }
+
+    /**
+     * Merge cells by numbers of rows and columns.
+     *
+     * @param firstRowNum    the number of first row
+     * @param firstColumnNum the number of first column
+     * @param lastRowNum     the number of last row
+     * @param lastColumnNum  the number of last column
+     * @param content        the content of merged cell
+     * @param style          the style of cell
+     */
+    public void mergeCells(int firstRowNum, int firstColumnNum,
+                           int lastRowNum, int lastColumnNum,
+                           Object content, SpreadsheetCellStyle style) {
+        setValue(firstRowNum, firstColumnNum, content);
+        for (int col = firstColumnNum; col <= lastColumnNum; col++) {
+            for (int row = firstRowNum; row <= lastRowNum; row++) {
+                setStyle(row, col, style);
+            }
+        }
+        sheet.addMergedRegion(new CellRangeAddress(firstRowNum, lastRowNum,
+                firstColumnNum, lastColumnNum));
+    }
+
+    /**
+     * Merge cells by cells' addresses.
+     *
+     * @param firstCellAddress the address of first cell
+     * @param lastCellAddress  the address of last cell
+     * @param content          the content of merged cell
+     * @param style            the style of cell
+     */
+    public void mergeCells(String firstCellAddress, String lastCellAddress,
+                           Object content, SpreadsheetCellStyle style) {
+        CellReference firstReference = new CellReference(firstCellAddress);
+        CellReference lastReference = new CellReference(lastCellAddress);
+        mergeCells(firstReference.getRow(), lastReference.getRow(),
+                firstReference.getCol(), lastReference.getCol(),
+                content, style);
     }
 
     /**
