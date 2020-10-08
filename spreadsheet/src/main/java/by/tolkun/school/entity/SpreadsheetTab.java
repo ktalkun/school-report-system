@@ -11,6 +11,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Class to represent tab (sheet) of workbook.
@@ -816,5 +817,53 @@ public class SpreadsheetTab {
      */
     public static String getCellAddress(int rowNum, int columnNum) {
         return CellReference.convertNumToColString(columnNum) + (rowNum + 1);
+    }
+
+    /**
+     * Compares this tab to the specified object. The result is {@code true}
+     * if and only if the argument is not null and is a {@code SpreadsheetTab}.
+     *
+     * @param o the object to compare this {@code SpreadsheetTab} against
+     * @return {@code true} if the given object represents
+     * a {@code SpreadsheetTab} equivalent to this tab, {@code false}
+     * otherwise
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof SpreadsheetTab)) return false;
+        SpreadsheetTab that = (SpreadsheetTab) o;
+        return highestModifiedRow == that.highestModifiedRow &&
+                highestModifiedCol == that.highestModifiedCol &&
+                Objects.equals(workbook, that.workbook) &&
+                Objects.equals(sheet, that.sheet) &&
+                Objects.equals(cells, that.cells);
+    }
+
+    /**
+     * Compute hash code of {@code SpreadsheetTab}.
+     *
+     * @return a hash code for this tab
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(workbook, sheet, cells, highestModifiedRow,
+                highestModifiedCol);
+    }
+
+    /**
+     * Returns the string representation of the {@code SpreadsheetTab}.
+     *
+     * @return the string representation of the {@code SpreadsheetTab}
+     */
+    @Override
+    public String toString() {
+        return "SpreadsheetTab{" +
+                "workbook=" + workbook +
+                ", sheet=" + sheet +
+                ", cells=" + cells +
+                ", highestModifiedRow=" + highestModifiedRow +
+                ", highestModifiedCol=" + highestModifiedCol +
+                '}';
     }
 }
