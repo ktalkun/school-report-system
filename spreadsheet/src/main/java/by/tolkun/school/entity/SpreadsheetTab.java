@@ -594,6 +594,19 @@ public class SpreadsheetTab {
     }
 
     /**
+     * Set the height for diapason of rows in "twips" or 1/20th of a point.
+     *
+     * @param firstRowNum the number of first row
+     * @param lastRowNum  the number of last row
+     * @param height      the height of rows
+     */
+    public void setRowsHeight(int firstRowNum, int lastRowNum, short height) {
+        for (int rowNum = firstRowNum; rowNum < lastRowNum; rowNum++) {
+            setRowHeight(rowNum, height);
+        }
+    }
+
+    /**
      * Get the actual column width (in units of 1/256th of a character width )
      * Note, the returned value is always greater that getDefaultColumnWidth()
      * because the latter does not include margins. Actual column width
@@ -646,6 +659,21 @@ public class SpreadsheetTab {
      */
     public void setColumnWidth(int columnNum, int width) {
         sheet.setColumnWidth(columnNum, width);
+    }
+
+    /**
+     * Set the width for diapason of column (in units of 1/256th of a character
+     * width).
+     *
+     * @param firstColumnNum the number of first column
+     * @param lastColumnNum  the number of last column
+     * @param width          the width of columns
+     */
+    public void setColumnsWidth(int firstColumnNum, int lastColumnNum,
+                                int width) {
+        for (int colNum = firstColumnNum; colNum < lastColumnNum; colNum++) {
+            setColumnWidth(colNum, width);
+        }
     }
 
     /**
