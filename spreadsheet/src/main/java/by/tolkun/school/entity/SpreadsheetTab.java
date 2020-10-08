@@ -850,4 +850,20 @@ public class SpreadsheetTab {
         return Objects.hash(workbook, sheet, cells, highestModifiedRow,
                 highestModifiedCol);
     }
+
+    /**
+     * Returns the string representation of the {@code SpreadsheetTab}.
+     *
+     * @return the string representation of the {@code SpreadsheetTab}
+     */
+    @Override
+    public String toString() {
+        return "SpreadsheetTab{" +
+                "workbook=" + workbook +
+                ", sheet=" + sheet +
+                ", cells=" + cells +
+                ", highestModifiedRow=" + highestModifiedRow +
+                ", highestModifiedCol=" + highestModifiedCol +
+                '}';
+    }
 }
