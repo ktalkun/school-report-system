@@ -662,6 +662,21 @@ public class SpreadsheetTab {
     }
 
     /**
+     * Set the width for diapason of column (in units of 1/256th of a character
+     * width).
+     *
+     * @param firstColumnNum the number of first column
+     * @param lastColumnNum  the number of last column
+     * @param width          the width of columns
+     */
+    public void setColumnsWidth(int firstColumnNum, int lastColumnNum,
+                                int width) {
+        for (int colNum = firstColumnNum; colNum < lastColumnNum; colNum++) {
+            setColumnWidth(colNum, width);
+        }
+    }
+
+    /**
      * Adjusts the row height to fit the contents.
      *
      * @param rowNum the number of row
