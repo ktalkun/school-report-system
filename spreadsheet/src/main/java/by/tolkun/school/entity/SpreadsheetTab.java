@@ -11,6 +11,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Class to represent tab (sheet) of workbook.
@@ -528,6 +529,49 @@ public class SpreadsheetTab {
     }
 
     /**
+     * Remove diapason of rows by first row and last row number.
+     *
+     * @param firstRowNum the number of first row
+     * @param lastRowNum  the number of last row
+     */
+    public void removeRows(int firstRowNum, int lastRowNum) {
+        int delta = lastRowNum - firstRowNum + 1;
+        sheet.shiftRows(lastRowNum + 1, highestModifiedRow, delta);
+        highestModifiedRow -= delta;
+    }
+
+    /**
+     * Remove row by row number.
+     *
+     * @param rowNum the number of row
+     */
+    public void removeRow(int rowNum) {
+        removeRows(rowNum, rowNum);
+    }
+
+    /**
+     * Remove diapason of columns by first column and last column number.
+     *
+     * @param firstColumnNum the number of first column
+     * @param lastColumnNum  the number of last column
+     */
+    public void removeColumns(int firstColumnNum, int lastColumnNum) {
+        int delta = lastColumnNum - firstColumnNum + 1;
+        sheet.shiftColumns(lastColumnNum + 1, highestModifiedCol,
+                delta);
+        highestModifiedCol -= delta;
+    }
+
+    /**
+     * Remove column by column number.
+     *
+     * @param columnNum the number of column
+     */
+    public void removeColumn(int columnNum) {
+        removeColumns(columnNum, columnNum);
+    }
+
+    /**
      * Get the row's height measured in twips (1/20th of a point). If the
      * height is not set, the default worksheet value is returned,
      * See {@link XSSFSheet#getDefaultRowHeightInPoints()}.
@@ -548,6 +592,19 @@ public class SpreadsheetTab {
      */
     public void setRowHeight(int rowNum, short height) {
         sheet.getRow(rowNum).setHeight(height);
+    }
+
+    /**
+     * Set the height for diapason of rows in "twips" or 1/20th of a point.
+     *
+     * @param firstRowNum the number of first row
+     * @param lastRowNum  the number of last row
+     * @param height      the height of rows
+     */
+    public void setRowsHeight(int firstRowNum, int lastRowNum, short height) {
+        for (int rowNum = firstRowNum; rowNum < lastRowNum; rowNum++) {
+            setRowHeight(rowNum, height);
+        }
     }
 
     /**
@@ -603,6 +660,21 @@ public class SpreadsheetTab {
      */
     public void setColumnWidth(int columnNum, int width) {
         sheet.setColumnWidth(columnNum, width);
+    }
+
+    /**
+     * Set the width for diapason of column (in units of 1/256th of a character
+     * width).
+     *
+     * @param firstColumnNum the number of first column
+     * @param lastColumnNum  the number of last column
+     * @param width          the width of columns
+     */
+    public void setColumnsWidth(int firstColumnNum, int lastColumnNum,
+                                int width) {
+        for (int colNum = firstColumnNum; colNum < lastColumnNum; colNum++) {
+            setColumnWidth(colNum, width);
+        }
     }
 
     /**
@@ -745,5 +817,61 @@ public class SpreadsheetTab {
      */
     public static String getCellAddress(int rowNum, int columnNum) {
         return CellReference.convertNumToColString(columnNum) + (rowNum + 1);
+    }
+
+    /**
+     * Clear all rows.
+     */
+    public void clearAll() {
+        sheet.shiftRows(highestModifiedRow, highestModifiedRow * 2,
+                -highestModifiedRow);
+    }
+
+    /**
+     * Compares this tab to the specified object. The result is {@code true}
+     * if and only if the argument is not null and is a {@code SpreadsheetTab}.
+     *
+     * @param o the object to compare this {@code SpreadsheetTab} against
+     * @return {@code true} if the given object represents
+     * a {@code SpreadsheetTab} equivalent to this tab, {@code false}
+     * otherwise
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof SpreadsheetTab)) return false;
+        SpreadsheetTab that = (SpreadsheetTab) o;
+        return highestModifiedRow == that.highestModifiedRow &&
+                highestModifiedCol == that.highestModifiedCol &&
+                Objects.equals(workbook, that.workbook) &&
+                Objects.equals(sheet, that.sheet) &&
+                Objects.equals(cells, that.cells);
+    }
+
+    /**
+     * Compute hash code of {@code SpreadsheetTab}.
+     *
+     * @return a hash code for this tab
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(workbook, sheet, cells, highestModifiedRow,
+                highestModifiedCol);
+    }
+
+    /**
+     * Returns the string representation of the {@code SpreadsheetTab}.
+     *
+     * @return the string representation of the {@code SpreadsheetTab}
+     */
+    @Override
+    public String toString() {
+        return "SpreadsheetTab{" +
+                "workbook=" + workbook +
+                ", sheet=" + sheet +
+                ", cells=" + cells +
+                ", highestModifiedRow=" + highestModifiedRow +
+                ", highestModifiedCol=" + highestModifiedCol +
+                '}';
     }
 }
