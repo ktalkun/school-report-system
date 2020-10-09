@@ -3,6 +3,9 @@ package by.tolkun.school.parser;
 import by.tolkun.school.config.StudentTimetableConfig;
 import by.tolkun.school.entity.SpreadsheetTab;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Class to parse tab {@link by.tolkun.school.entity.SpreadsheetTab} into
  * student timetable {@link by.tolkun.school.entity.StudentTimetable}.
@@ -77,5 +80,33 @@ public class StudentTimetableParser {
         }
 
         return lessonPerShiftCount;
+    }
+
+    /**
+     * Parse list of the lessons by shift, day and class.
+     *
+     * @param schoolDay   the school day
+     * @param schoolClass the school class
+     * @return list of the lessons according to day and class
+     */
+    private static List<String> parseLessons(SpreadsheetTab tab, int shift,
+                                             int schoolDay, int schoolClass) {
+        int lessonCount
+                = StudentTimetableConfig.MAX_QTY_LESSONS_PER_FIRST_SHIFT;
+        if (shift == 2) {
+            lessonCount
+                    = StudentTimetableConfig.MAX_QTY_LESSONS_PER_SECOND_SHIFT;
+        }
+        int numFirstLesson
+                = StudentTimetableConfig.NUM_OF_FIRST_ROW_WITH_LESSON
+                + schoolDay * StudentTimetableConfig.QTY_LESSONS_PER_DAY
+                + (shift - 1) * StudentTimetableConfig.QTY_LESSONS_PER_FIRST_SHIFT;
+
+        List<String> lessons = new ArrayList<>();
+        // Read all lessons with tilings the window.
+        for (int i = numFirstLesson; i < numFirstLesson + lessonCount; i++) {
+            lessons.add(tab.getCell(i, schoolClass).getValue().trim());
+        }
+        return lessons;
     }
 }
