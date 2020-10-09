@@ -36,12 +36,12 @@ public class SpreadsheetTab {
     /**
      * Max number of existing row.
      */
-    private int highestModifiedRow = -1;
+    private int rowCount = -1;
 
     /**
      * Max number of existing column.
      */
-    private int highestModifiedCol = -1;
+    private int columnCount = -1;
 
     /**
      * Constructor with parameters.
@@ -72,6 +72,24 @@ public class SpreadsheetTab {
      */
     public XSSFSheet getPoiSheet() {
         return sheet;
+    }
+
+    /**
+     * Get count of rows.
+     *
+     * @return count of rows
+     */
+    public int getRowCount() {
+        return rowCount;
+    }
+
+    /**
+     * Get count of columns.
+     *
+     * @return count of columns
+     */
+    public int getColumnCount() {
+        return columnCount;
     }
 
     /**
@@ -183,11 +201,11 @@ public class SpreadsheetTab {
      * @param columnNum the number of column
      */
     private void recordCellModified(int rowNum, int columnNum) {
-        if (columnNum > highestModifiedCol) {
-            highestModifiedCol = columnNum;
+        if (columnNum > columnCount) {
+            columnCount = columnNum;
         }
-        if (rowNum > highestModifiedRow) {
-            highestModifiedRow = rowNum;
+        if (rowNum > rowCount) {
+            rowCount = rowNum;
         }
     }
 
@@ -395,7 +413,7 @@ public class SpreadsheetTab {
      * @param borderStyle the border style of cell
      */
     public void setTopBorder(int rowNum, BorderStyle borderStyle) {
-        setTopBorder(rowNum, 0, highestModifiedCol, borderStyle);
+        setTopBorder(rowNum, 0, columnCount, borderStyle);
     }
 
     /**
@@ -426,7 +444,7 @@ public class SpreadsheetTab {
      * @param borderStyle the border style of cell
      */
     public void setBottomBorder(int rowNum, BorderStyle borderStyle) {
-        setBottomBorder(rowNum, 0, highestModifiedCol,
+        setBottomBorder(rowNum, 0, columnCount,
                 borderStyle);
     }
 
@@ -457,7 +475,7 @@ public class SpreadsheetTab {
      * @param borderStyle the border style of cell
      */
     public void setRightBorder(int columnNum, BorderStyle borderStyle) {
-        setRightBorder(columnNum, 0, highestModifiedRow,
+        setRightBorder(columnNum, 0, rowCount,
                 borderStyle);
     }
 
@@ -488,7 +506,7 @@ public class SpreadsheetTab {
      * @param borderStyle the border style of cell
      */
     public void setLeftBorder(int columnNum, BorderStyle borderStyle) {
-        setLeftBorder(columnNum, 0, highestModifiedRow, borderStyle);
+        setLeftBorder(columnNum, 0, rowCount, borderStyle);
     }
 
     /**
@@ -536,8 +554,8 @@ public class SpreadsheetTab {
      */
     public void removeRows(int firstRowNum, int lastRowNum) {
         int delta = lastRowNum - firstRowNum + 1;
-        sheet.shiftRows(lastRowNum + 1, highestModifiedRow, delta);
-        highestModifiedRow -= delta;
+        sheet.shiftRows(lastRowNum + 1, rowCount, delta);
+        rowCount -= delta;
     }
 
     /**
@@ -557,9 +575,9 @@ public class SpreadsheetTab {
      */
     public void removeColumns(int firstColumnNum, int lastColumnNum) {
         int delta = lastColumnNum - firstColumnNum + 1;
-        sheet.shiftColumns(lastColumnNum + 1, highestModifiedCol,
+        sheet.shiftColumns(lastColumnNum + 1, columnCount,
                 delta);
-        highestModifiedCol -= delta;
+        columnCount -= delta;
     }
 
     /**
@@ -684,7 +702,7 @@ public class SpreadsheetTab {
      */
     public void autoSizeRow(int rowNum) {
         float maxCellHeight = -1;
-        for (int columnNum = 0; columnNum <= highestModifiedCol; columnNum++) {
+        for (int columnNum = 0; columnNum <= columnCount; columnNum++) {
             SpreadsheetCell cell = getOrCreateCell(rowNum, columnNum);
             int fontSize = cell.getFontSizeInPoints();
             XSSFCell poiCell = cell.getPoiCell();
@@ -745,7 +763,7 @@ public class SpreadsheetTab {
      * Adjusts the all rows' heights to fit the contents.
      */
     public void autosizeRows() {
-        for (int rowNum = 0; rowNum <= highestModifiedRow; rowNum++) {
+        for (int rowNum = 0; rowNum <= rowCount; rowNum++) {
             autoSizeRow(rowNum);
         }
     }
@@ -754,7 +772,7 @@ public class SpreadsheetTab {
      * Adjusts the all columns' widths to fit the contents.
      */
     public void autosizeCols() {
-        for (int colNum = 0; colNum <= highestModifiedCol; colNum++) {
+        for (int colNum = 0; colNum <= columnCount; colNum++) {
             autoSizeColumn(colNum);
         }
     }
@@ -823,8 +841,8 @@ public class SpreadsheetTab {
      * Clear all rows.
      */
     public void clearAll() {
-        sheet.shiftRows(highestModifiedRow, highestModifiedRow * 2,
-                -highestModifiedRow);
+        sheet.shiftRows(rowCount, rowCount * 2,
+                -rowCount);
     }
 
     /**
@@ -841,8 +859,8 @@ public class SpreadsheetTab {
         if (this == o) return true;
         if (!(o instanceof SpreadsheetTab)) return false;
         SpreadsheetTab that = (SpreadsheetTab) o;
-        return highestModifiedRow == that.highestModifiedRow &&
-                highestModifiedCol == that.highestModifiedCol &&
+        return rowCount == that.rowCount &&
+                columnCount == that.columnCount &&
                 Objects.equals(workbook, that.workbook) &&
                 Objects.equals(sheet, that.sheet) &&
                 Objects.equals(cells, that.cells);
@@ -855,8 +873,8 @@ public class SpreadsheetTab {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(workbook, sheet, cells, highestModifiedRow,
-                highestModifiedCol);
+        return Objects.hash(workbook, sheet, cells, rowCount,
+                columnCount);
     }
 
     /**
@@ -870,8 +888,8 @@ public class SpreadsheetTab {
                 "workbook=" + workbook +
                 ", sheet=" + sheet +
                 ", cells=" + cells +
-                ", highestModifiedRow=" + highestModifiedRow +
-                ", highestModifiedCol=" + highestModifiedCol +
+                ", highestModifiedRow=" + rowCount +
+                ", highestModifiedCol=" + columnCount +
                 '}';
     }
 }
