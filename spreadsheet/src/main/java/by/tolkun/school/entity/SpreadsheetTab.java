@@ -578,6 +578,15 @@ public class SpreadsheetTab {
     }
 
     /**
+     * Insert column.
+     *
+     * @param columnNum the number of column to insert new column from
+     */
+    public void insertColumn(int columnNum) {
+        insertColumns(columnNum, 1);
+    }
+
+    /**
      * Remove diapason of rows by first row and last row number.
      *
      * @param firstRowNum the number of first row
