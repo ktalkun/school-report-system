@@ -547,6 +547,46 @@ public class SpreadsheetTab {
     }
 
     /**
+     * Insert rows.
+     *
+     * @param rowNum           the number of row to insert new rows from
+     * @param insertedRowCount the count of rows to insert
+     */
+    public void insertRows(int rowNum, int insertedRowCount) {
+        sheet.shiftRows(rowNum, insertedRowCount - 1, insertedRowCount);
+    }
+
+    /**
+     * Insert row.
+     *
+     * @param rowNum the number of row to insert new row from
+     */
+    public void insertRow(int rowNum) {
+        insertRows(rowNum, 1);
+    }
+
+    /**
+     * Insert columns.
+     *
+     * @param columnNum           the number of column to insert new columns
+     *                            from
+     * @param insertedColumnCount the count of columns to insert
+     */
+    public void insertColumns(int columnNum, int insertedColumnCount) {
+        sheet.shiftColumns(columnNum, columnCount - 1,
+                insertedColumnCount);
+    }
+
+    /**
+     * Insert column.
+     *
+     * @param columnNum the number of column to insert new column from
+     */
+    public void insertColumn(int columnNum) {
+        insertColumns(columnNum, 1);
+    }
+
+    /**
      * Remove diapason of rows by first row and last row number.
      *
      * @param firstRowNum the number of first row
