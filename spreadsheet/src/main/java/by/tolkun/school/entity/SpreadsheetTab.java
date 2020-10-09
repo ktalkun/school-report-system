@@ -84,6 +84,15 @@ public class SpreadsheetTab {
     }
 
     /**
+     * Get count of columns.
+     *
+     * @return count of columns
+     */
+    public int getColumnCount() {
+        return columnCount;
+    }
+
+    /**
      * Register style: return registered style if it exists,
      * create Poi style {@link CellStyle} from {@link SpreadsheetCellStyle}
      * and add it to style map otherwise.
