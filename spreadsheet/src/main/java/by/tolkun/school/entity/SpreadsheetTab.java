@@ -557,6 +557,15 @@ public class SpreadsheetTab {
     }
 
     /**
+     * Insert row.
+     *
+     * @param rowNum the number of row to insert new row from
+     */
+    public void insertRow(int rowNum) {
+        insertRows(rowNum, 1);
+    }
+
+    /**
      * Remove diapason of rows by first row and last row number.
      *
      * @param firstRowNum the number of first row
