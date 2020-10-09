@@ -10,6 +10,38 @@ import by.tolkun.school.entity.SpreadsheetTab;
 public class StudentTimetableParser {
 
     /**
+     * Parse shift by day and class if can determine by count of lessons
+     * at shifts, otherwise return {@code 1} shift.
+     *
+     * @param tab         the tab (sheet)
+     * @param schoolDay   the school day
+     * @param schoolClass the school class
+     * @return shift according to day and class
+     */
+    private static int parseShift(SpreadsheetTab tab, int schoolDay,
+                                  int schoolClass) {
+        if (schoolDay < 0) {
+            return 1;
+        }
+
+        int lessonFirstShiftCount = countLessonsAtShift(tab,
+                1, schoolDay, schoolClass);
+        int lessonSecondShiftCount = countLessonsAtShift(tab,
+                2, schoolDay, schoolClass);
+
+        // If cannot determine shift by count of lessons by the shifts.
+        if (lessonFirstShiftCount == lessonSecondShiftCount) {
+            return parseShift(tab, schoolDay - 1, schoolClass);
+        }
+
+        if (lessonFirstShiftCount > lessonSecondShiftCount) {
+            return 1;
+        }
+
+        return 2;
+    }
+
+    /**
      * Count lessons per day according to shift, day and class.
      *
      * @param tab         the tab (sheet)
