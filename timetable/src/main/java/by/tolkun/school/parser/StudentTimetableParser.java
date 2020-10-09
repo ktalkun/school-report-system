@@ -1,7 +1,10 @@
 package by.tolkun.school.parser;
 
 import by.tolkun.school.config.StudentTimetableConfig;
+import by.tolkun.school.entity.SchoolClass;
+import by.tolkun.school.entity.SchoolDay;
 import by.tolkun.school.entity.SpreadsheetTab;
+import by.tolkun.school.entity.StudentTimetable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +14,42 @@ import java.util.List;
  * student timetable {@link by.tolkun.school.entity.StudentTimetable}.
  */
 public class StudentTimetableParser {
+
+    /**
+     * Parse tab of excel workbook to student timetable
+     * {@link StudentTimetable}.
+     *
+     * @param tab the tab (sheet)
+     * @return student timetable
+     */
+    public static StudentTimetable parse(SpreadsheetTab tab) {
+        List<SchoolClass> schoolClasses = new ArrayList<>();
+        // Loop by classes to get list of SchoolClasses.
+        for (int classNum = StudentTimetableConfig
+                .NUM_OF_FIRST_COLUMN_WITH_LESSON;
+             classNum < tab.getColumnCount();
+             classNum++) {
+
+            List<SchoolDay> schoolDays = new ArrayList<>();
+            // Loop by days to get list of SchoolDays.
+            for (int dayNum = 0;
+                 dayNum < StudentTimetableConfig.QTY_SCHOOL_DAYS_PER_WEEK;
+                 dayNum++) {
+                int shift = parseShift(tab, dayNum, classNum);
+                schoolDays.add(new SchoolDay(
+                        parseLessons(tab, shift, dayNum, classNum), shift
+                ));
+            }
+
+            String schoolClassName = tab
+                    .getCell(StudentTimetableConfig
+                            .NUM_OF_FIRST_ROW_WITH_LESSON - 1, classNum)
+                    .getValue();
+            schoolClasses.add(new SchoolClass(schoolClassName, schoolDays));
+        }
+
+        return new StudentTimetable(schoolClasses);
+    }
 
     /**
      * Parse shift by day and class if can determine by count of lessons
