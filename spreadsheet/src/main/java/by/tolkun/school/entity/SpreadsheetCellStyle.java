@@ -106,7 +106,7 @@ public class SpreadsheetCellStyle implements Cloneable {
      * Class to build object of class {@link SpreadsheetCellStyle}.
      */
     public static class Builder {
-        private SpreadsheetCellStyle style;
+        private final SpreadsheetCellStyle style = new SpreadsheetCellStyle();
 
         /**
          * Set font.
