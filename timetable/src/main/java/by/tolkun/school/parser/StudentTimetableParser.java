@@ -42,7 +42,7 @@ public class StudentTimetableParser {
             }
 
             String schoolClassName = tab
-                    .getCell(StudentTimetableConfig
+                    .getOrCreateCell(StudentTimetableConfig
                             .NUM_OF_FIRST_ROW_WITH_LESSON - 1, classNum)
                     .getValue();
             schoolClasses.add(new SchoolClass(schoolClassName, schoolDays));
@@ -113,7 +113,7 @@ public class StudentTimetableParser {
 
         int lessonPerShiftCount = 0;
         for (int i = shiftBeginRow; i < shiftEndRow; i++) {
-            if (!tab.getCell(i, schoolClass).getValue().isEmpty()) {
+            if (!tab.getOrCreateCell(i, schoolClass).getValue().isEmpty()) {
                 lessonPerShiftCount++;
             }
         }
@@ -144,7 +144,7 @@ public class StudentTimetableParser {
         List<String> lessons = new ArrayList<>();
         // Read all lessons with tilings the window.
         for (int i = numFirstLesson; i < numFirstLesson + lessonCount; i++) {
-            lessons.add(tab.getCell(i, schoolClass).getValue().trim());
+            lessons.add(tab.getOrCreateCell(i, schoolClass).getValue().trim());
         }
         return lessons;
     }
