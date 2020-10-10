@@ -51,6 +51,10 @@ public class SpreadsheetFont implements Cloneable {
      * Class to build object of class {@link SpreadsheetFont}.
      */
     public static class Builder {
+
+        /**
+         * The instance of outer class for building.
+         */
         private final SpreadsheetFont font = new SpreadsheetFont();
 
         /**
