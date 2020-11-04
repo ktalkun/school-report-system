@@ -6,3 +6,7 @@ Project has following structure:
 + `timetable` - subproject to reformat default excel document with school
 timetable gotten from timetable module of special school information system
 "Paragraph" ("Параграф").
+
+## Goals
+1. Add subproject for cropping pupils avatar photos;
+2. Add subproject to generate family report for a social teacher;
